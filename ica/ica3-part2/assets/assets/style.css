@@ -136,3 +136,15 @@ aside img {
 footer {
   margin-top: 10px;
 }
+
+.column {
+  float: left;
+}
+
+.left {
+  width: 50%;
+}
+
+.right {
+  width: 50%;
+}
