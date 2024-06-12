@@ -1,0 +1,102 @@
+<html>
+<head>
+    
+    <html lang="en">
+    <meta charset="utf-8"/>
+    <!-- add charset? --><!-- okay I did it-->
+    <style>
+        #centerText {
+            background-color: rgb(255, 255, 255);
+            color: rgb(0, 0, 0);
+            padding: 0px;
+            text-align: center;
+        }
+        #bgColor {
+            background-color: rgb(159, 159, 159);
+            color: rgb(0, 0, 0);
+            padding: 0px;
+            text-align: left;
+        }
+        </style>
+    <title>Error-Filled Page</title>
+</head>    
+<body>
+    <h1>Welcome to My Error-Filled Page</h1>
+    
+    <p>This is a paragraph with mismatched tags and missing closing tags.</p>
+    
+    <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+        <li>Item 4</li>
+        <li>Item 5</li>
+        <li>Item 6</li>
+        <li>Item 7</li>
+        <li>Item 8</li>
+        <li>Item 9</li>
+        <li>Item 10</li>
+    </ul>
+
+    <p>This is another paragraph without proper indentation.</p>
+    
+    <img src="image.jpg" alt="an image" width:300 height:300/>
+
+    <a href="https://www.example.com" target="_blank">Click me!</a><!--target?-->
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+        </tr>
+        <tr>
+            <td>John</td>
+            <td>25</td>
+        </tr>
+        <tr>
+            <td>Jane</td>
+            <td>30</td>
+        </tr>
+    
+    <img source="error.jpeg" alt="Error Image"/>
+
+    <p id="centerText">This is centered text.</p>
+
+    <p id="bgColor">Text</p>
+
+    <input type="button" value="Click me"/>
+
+
+
+    <!-- This is an unclosed comment
+
+    <a href="#">Link without closing tag
+
+    <p><em>Underlined text</em></p>
+    -->
+
+    <dl>
+        <dt>Descriptive Item Title</dt>
+        <dd>Descriptive Item Text</dd>
+    </dl>
+</body>
+</html>
+
+<!-- Problems I Fixed
+ 1. Closed Comment on line 56, added - - > Honestly not really sure where the comment is supposed to end
+ 2. Closed 1st heading on line 9, added </h1>
+ 3. Added <p> to line 11 to open the paragraph
+ 4. Added </p> to line 26 to close the paragraph
+ 5. Change <ol> to <ul> in line 13 because the text is already numbered
+ 6. Added "alt= an image" to line 28 so the image will show text if it doesn't load
+ 7. Added </head> to line 7 close the head/metadata
+ 8. Line 4, changed language to lang
+ 9. Line 5, added charset
+10. Line 31, changed </img> to </a> to close <a> tag
+11. Line 61, switched </p> and </em> so that </em> is inside of </p>
+12. Line 65, changed <li> and </li> to <dt>/<dd> and </dt>/</dd>
+13. Line 40, changed <td> to </td> to close that line
+14. Line 29, added a width and height to img
+15. Line 57, changed center text tags to a style in the head/metadata. Or use CSS instead?
+16. Line 65, changed back ground color tag to a style in the head/metadata.
+17. Line 61 and 67, changed > to />
