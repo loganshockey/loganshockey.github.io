@@ -31,6 +31,7 @@ address {
 
 h1 {
   background: url("logo.png");
+  border-radius: 64px;
   box-shadow: 4px 4px 4px 4px black;
   position: absolute;
   top: 12mm;
