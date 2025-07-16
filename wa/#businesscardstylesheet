@@ -1,4 +1,4 @@
-/* General styles - put these straight into your stylesheet */
+/* General Styles */
 
 body {
   margin: 0;
@@ -6,7 +6,16 @@ body {
 
 html {
   font-family: 'Helvetica neue', Arial, 'sans serif';
-  font-size: 10px;
+  font-size: 30px;
   background-color: #cc2424;
 }
 
+/* Card Container */
+
+
+
+/* Header and Footer */
+
+
+
+/* Business Card Contents */
