@@ -10,6 +10,20 @@ html {
   background-color: #cc2424;
 }
 
+h2 {
+  margin: 0em;
+  background-color: rgba(255,255,255,0.5);
+  font-size: 1.25em;
+  line-height: 1.875em;
+}
+
+p {
+  margin: 0em;
+  background-color: rgba(255,255,255,0.5);
+  font-size: 0.9375em;
+  line-height: 1.875em;
+}
+
 /* Card Container */
 
 .card {
@@ -26,18 +40,25 @@ html {
 .card header {
   background-image: linear-gradient(to bottom,rgba(0,0,0,0), rgba(0,0,0,0.1));
   border-radius: 0 0 1.5em 1.5em;
+  padding: 0.625em;
+  height: 1.875em;
 }
 
 .card footer {
   background-image: linear-gradient(to bottom,rgba(0,0,0,0.1), rgba(0,0,0,0));
   border-radius: 1.5em 1.5em 0 0;
+  padding: 0.625em;
+  height: 1.875em;
 }
 
 /* Business Card Contents */
 
 .card article img {
+  height: 7.5em;
   max-height: 100%;
   float: right;
+  padding-left: 0.625em;
+  color: #e0d6d6;
 }
 
 
