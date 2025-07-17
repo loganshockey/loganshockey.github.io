@@ -27,9 +27,9 @@ body {
 }
 
 .overlay-top-left {
+  background-image: url(Fashunn_BalloonDress.jpg);
   top: 10px;
   left: 10px;
-  background-image: url(Fashunn_BalloonDress.jpg);
   color: hotpink;
 }
 
