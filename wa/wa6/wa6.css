@@ -54,3 +54,9 @@ body {
   .feature {
       width: 200px;
   }
+
+  article img {
+    float: left;
+    margin: 0 15px 15px 0;
+    height: auto;
+  }
