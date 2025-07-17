@@ -5,9 +5,13 @@ body{
 
 #flex-parent{
     background-color: orangered;
+    width: auto;
+    display: flex;
+    flex-direction: row;
 }
 #flex-parent p{
     padding:5vw;
+    width: auto;
     display: flex;
     flex-direction: row;
 }
