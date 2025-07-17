@@ -30,6 +30,7 @@ body {
   top: 10px;
   left: 10px;
   color: hotpink;
+  background-image: url(Fashunn_BalloonDress.jpg);
 }
 
 .overlay-top-right {
@@ -37,5 +38,19 @@ body {
   right: 10px;
   background-color: red;
   font-weight: bold;
-  background-image: url(Fashunn_BalloonDress.jpg);
+  background-image: url(Fashunn_CurvyDress.jpg);
+}
+.overlay-content {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  color: white;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.5); /* Transparent black background */
+  border-radius: 5px;
+}
+
+.overlay-content h2, .overlay-content p {
+  margin: 0;
+  font-weight: bold;
 }
