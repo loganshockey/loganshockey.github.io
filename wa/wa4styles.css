@@ -7,7 +7,7 @@ body {
 
 .image-container {
   position: relative;
-  width: 600px;
+  width: 1000px;
   margin: auto;
 }
 
@@ -22,7 +22,7 @@ body {
   position: absolute;
   color: white;
   padding: 15px;
-  background-color: rgba(0, 0, 0, 0.6); /* translucent background */
+  background-color: rgba(0, 0, 0, 0.6);
   border-radius: 8px;
 }
 
