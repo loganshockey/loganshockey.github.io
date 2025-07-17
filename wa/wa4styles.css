@@ -9,6 +9,7 @@ html {
 body {
   margin: 0;
   background: url(Fashunn_Background1.jpg);
+  object-fit: contain;
 }
 
 article {
