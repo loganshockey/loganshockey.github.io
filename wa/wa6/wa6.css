@@ -49,7 +49,19 @@ body {
     list-style: none;
     margin: 0;
     padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2 flexible columns */
+    gap: 1px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
   }
+
+  .photos img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
 
   .feature {
       width: 200px;
