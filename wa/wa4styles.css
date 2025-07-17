@@ -29,6 +29,7 @@ body {
 .overlay-top-left {
   top: 10px;
   left: 10px;
+  color: hotpink;
 }
 
 .overlay-top-right {
