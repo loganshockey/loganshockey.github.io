@@ -5,13 +5,13 @@ body {
   padding: 50px;
 }
 
-.image-container {
+.container {
   position: relative;
   width: 1000px;
   margin: auto;
 }
 
-.image-container img {
+.container img {
   width: 100%;
   height: auto;
   display: block;
