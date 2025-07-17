@@ -11,15 +11,19 @@ body{
 }
 
 #flex-child1{
+    order: 3
      
 }
 #flex-child2{
+    order: 4
  
 }
 #flex-child3{
+    order: 2
  
 }
 #flex-child4{
+    order: 1
  
 }
 
