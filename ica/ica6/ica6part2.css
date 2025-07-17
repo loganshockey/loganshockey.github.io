@@ -31,6 +31,14 @@ body{
 
 
 #grid-parent{
+    background-color: lightcoral;
+    height: 500px;
+    width: 500px;
+    margin-top: 10px;
+    border: 5px solid red;
+    display: grid;
+    grid-template-columns: 5;
+    grid-template-rows: 5;
 
 }
 
