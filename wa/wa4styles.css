@@ -49,3 +49,7 @@ body {
   border-radius: 5px;
 }
 
+.overlay-content h2 {
+  margin: 0;
+  font-weight: bold;
+}
