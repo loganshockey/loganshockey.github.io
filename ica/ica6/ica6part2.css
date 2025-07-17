@@ -47,6 +47,8 @@ body{
     background-color: grey;
     padding:3vw 5vh;
     margin:5vw;
+    grid-template-columns: 3;
+    grid-template-rows: 4;
     
 }
 #no0{
