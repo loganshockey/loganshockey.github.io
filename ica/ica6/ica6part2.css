@@ -8,6 +8,7 @@ body{
 }
 #flex-parent p{
     padding:5vw;
+    flex-direction: row;
 }
 
 #flex-child1{
