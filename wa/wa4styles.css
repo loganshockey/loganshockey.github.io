@@ -29,8 +29,8 @@ body {
 .overlay-top-left {
   top: 10px;
   left: 10px;
-  color: hotpink;
   background-image: url(Fashunn_BalloonDress.jpg);
+  color: hotpink;
 }
 
 .overlay-top-right {
