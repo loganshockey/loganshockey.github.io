@@ -2,18 +2,6 @@ body{
     background-color: olive;
 }
 
-#grid-parent{
-    background-color: lightcoral;
-    height: 500px;
-    width: 500px;
-    margin-top: 10px;
-    border: 5px solid red;
-    display: grid;
-    grid-template-columns: 3;
-    grid-template-rows: 4;
-
-}
-
 #flex-parent{
     background-color: orangered;
     width: auto;
@@ -43,6 +31,17 @@ body{
     order: 1;
 }
 
+#grid-parent{
+    background-color: lightcoral;
+    height: 500px;
+    width: 500px;
+    margin-top: 10px;
+    border: 5px solid red;
+    display: grid;
+    grid-template-columns: 3;
+    grid-template-rows: 4;
+
+}
 
 #grid-parent h1{
     background-color: grey;
