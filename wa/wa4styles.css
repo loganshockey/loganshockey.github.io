@@ -28,15 +28,15 @@ address {
 }
 
 h1 {
-  position: absolute;
+  position: center;
   top: 12mm;
   left: 20mm;
   width: 128px;
   height: 128px;
-  font-size: 20px;
+  font-size: 50px;
   letter-spacing: 1px;
   text-align: center;
   padding: 44px 0;
-  color: black;
+  color: hotpink;
   text-shadow: 1px 1px 1px black;
 }
