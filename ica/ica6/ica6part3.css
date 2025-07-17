@@ -12,25 +12,25 @@
 }
 
 @media screen and (max-width: 600px) {
-    #narrowscreen {
+    #narrowScreen {
         background-color: purple;
     }    
 }
 
 @media screen and (min-width: 800px) {
-    #widescreen {
+    #wideScreen {
         background-color: lightblue;
     }    
 }
 
 @media screen and (max-height: 500px) {
-    #shortscreen {
+    #shortScreen {
         background-color: yellow;
     }    
 }
 
 @media screen and (min-height: 800px) {
-    #tallscreen {
+    #tallScreen {
         background-color: orange;
     }    
 }
