@@ -18,14 +18,6 @@ body {
   border-radius: 10px;
 }
 
-.overlay {
-  position: absolute;
-  color: white;
-  padding: 15px;
-  background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 8px;
-}
-
 .overlay-top-left {
   top: 10px;
   left: 10px;
