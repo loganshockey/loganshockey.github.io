@@ -39,16 +39,9 @@ body {
   font-weight: bold;
 }
 
-.overlay-top-center-left {
+.overlay-top-center {
   top: 10px;
-  right: 7px;
-  background-color: red;
-  font-weight: bold;
-}
-
-.overlay-top-center-right {
-  top: 10px;
-  right: 3px;
+  right: 5px;
   background-color: red;
   font-weight: bold;
 }
