@@ -3,7 +3,7 @@ body{
     flex-direction: column;
     align-items: center;
     background-color: lightblue;
-    font: Helvetica;
+    font: Helvetica, sans-serif;
 }
 nav{
     height: 50vh;
@@ -11,7 +11,7 @@ nav{
     flex-direction: row;
     justify-content: space-between;
     background-color: hotpink;
-    font: Helvetica, 50px;
+    font: Helvetica, sans-serif, 20px;
     transition-property: background-color;
     transition-duration: 2s;
     transition-delay: 0.5s;
