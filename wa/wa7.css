@@ -36,6 +36,7 @@ nav a:hover{
 img{
     width:30vw;
     height: 30vh;
+    margin: 100px;
     animation: turtlespin 5s;
     animation-iteration-count: 3;
 }
@@ -44,10 +45,10 @@ img{
 
     from {
     transform: rotate(0deg);
-  }
-  to {
+    }
+    to {
     transform: rotate(360deg);
-  }
+    }
     
 }
 
