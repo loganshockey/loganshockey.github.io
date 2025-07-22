@@ -20,7 +20,7 @@ body{
     height:20vh;
     position: relative;
     background-color: orangered;
-    animation: box2move; 5s;
+    animation: box2move 5s;
     animation-iteration-count: infinite;
 }
 
