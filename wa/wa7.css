@@ -1,3 +1,7 @@
+h1{
+    font: Helvetica, sans-serif;
+}
+
 body{
     display: flex;
     flex-direction: column;
@@ -11,7 +15,6 @@ nav{
     flex-direction: row;
     justify-content: space-between;
     background-color: hotpink;
-    font: Helvetica, sans-serif, 20px;
     transition-property: background-color;
     transition-duration: 2s;
     transition-delay: 0.5s;
@@ -22,6 +25,7 @@ nav a{
     text-align: center;
     text-decoration: none;
     color:pink;
+    font: Helvetica, sans-serif, 20px;
 }
 
 nav:hover{
