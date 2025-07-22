@@ -36,6 +36,19 @@ nav a:hover{
 img{
     width:30vw;
     height: 30vh;
+    animation: turtlespin 5s;
+    animation-iteration-count: 3;
+}
+
+@keyframes turtlespin{
+
+    from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+    
 }
 
 #chartreuse-ball{
