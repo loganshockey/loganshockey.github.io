@@ -20,9 +20,30 @@ body{
     height:20vh;
     position: relative;
     background-color: orangered;
-
+    animation: box2move; 5s;
+    animation-iteration-count: infinite;
 }
 
 @keyframes box2move{
+
+    0%{
+    right: 0px;
+    }
+
+    25%{
+    right: 100px;    
+    }
+
+    50%{
+    right: 200px;    
+    }
+
+    75%{
+    right: 300px;    
+    }
+
+    100%{
+    right: 400px;    
+    }
     
 }
