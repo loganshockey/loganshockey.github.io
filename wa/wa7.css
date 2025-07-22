@@ -3,6 +3,7 @@ body{
     flex-direction: column;
     align-items: center;
     background-color: lightblue;
+    font: Helvetica;
 }
 nav{
     height: 50vh;
@@ -11,21 +12,22 @@ nav{
     justify-content: space-between;
     height:20px;
     background-color: hotpink;
+    font: Helvetica;
 }
 nav a{
     width:10vw;
     text-align: center;
     text-decoration: none;
     color:pink;
+    font: Helvetica;
 }
-
 
 img{
     width:30vw;
     height: 30vh;
 }
 
-#red-ball{
+#chartreuse-ball{
     background-color: chartreuse;
     width: 20px;
     height:20px;
