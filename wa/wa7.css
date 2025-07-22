@@ -10,13 +10,13 @@ nav{
     display:flex;
     flex-direction: row;
     justify-content: space-between;
-    height:20px;
     background-color: hotpink;
-    font: Helvetica;
+    font: Helvetica, 50px;
     transition-property: background-color;
     transition-duration: 2s;
     transition-delay: 0.5s;
 }
+
 nav a{
     width:10vw;
     text-align: center;
@@ -26,6 +26,10 @@ nav a{
 
 nav:hover{
     background-color: purple;
+}
+
+nav a:hover{
+    background-color: white;
 }
 
 
