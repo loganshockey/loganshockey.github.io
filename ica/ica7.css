@@ -27,23 +27,23 @@ body{
 @keyframes box2move{
 
     0%{
-    right: 0px;
+    left: 0px;
     }
 
     25%{
-    right: 100px;    
+    left: 100px;    
     }
 
     50%{
-    right: 200px;    
+    left: 200px;    
     }
 
     75%{
-    right: 300px;    
+    left: 300px;    
     }
 
     100%{
-    right: 400px;    
+    left: 400px;    
     }
     
 }
