@@ -5,6 +5,9 @@ body{
     width: 25vw;
     height: 20vh;
     background-color: indianred;
+    transition-property: background-color;
+    transition-duration: 2s;
+    transition-delay: 0.5s;
 }
 
 .box1:hover{
@@ -17,8 +20,9 @@ body{
     height:20vh;
     position: relative;
     background-color: orangered;
+
 }
 
 @keyframes box2move{
-
+    
 }
