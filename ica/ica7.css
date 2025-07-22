@@ -10,7 +10,7 @@ body{
     transition-delay: 0.5s;
 }
 
-.box1:hover{
+#box1:hover{
     background-color: purple;
 }
 
