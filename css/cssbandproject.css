@@ -13,7 +13,7 @@
   z-index: 1000;
   color: rgb(121, 104, 147);
   padding: 20px;
-  font-size: 150px;
+  font-size: 120px;
   font-family: fantasy, copperplate;
 }
 
@@ -21,7 +21,7 @@ body {
   background-color: black;
   color: beige;
   margin: 0; 
-  padding: 0; 
+  padding: 10px; 
 }
 
 .container {
@@ -48,6 +48,7 @@ h3 {
   text-align: right;
   font-family: monospace, 'Lucida Sans';
   color: beige;
+  font-size: 32px;
 }
 
 p {
@@ -55,4 +56,5 @@ p {
   width: 100%;
   font-family: monospace, 'Lucida Sans';
   color: beige;
+  padding-right: 10px;
 }
