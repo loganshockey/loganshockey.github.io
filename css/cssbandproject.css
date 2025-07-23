@@ -28,12 +28,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  max-width: 100%;
+  max-width: 50%;
   padding: 20px;
 }
 
-.container p {
-  width: 50%;     
+.container p {  
   text-align: right; 
   margin: 0;     
 }
