@@ -1,8 +1,14 @@
+#title span {
+  display: block;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
 #sticky-title {
   position: sticky;
   top: 0;
   z-index: 1000;
-  background-color: #111;
   color: white;
   padding: 20px;
   font-size: 300%;
@@ -10,13 +16,6 @@
 }
 
 #title {
-  margin: 0;
-  padding: 0;
-}
-
-#title span {
-  display: block;
-  text-align: left;
   margin: 0;
   padding: 0;
 }
