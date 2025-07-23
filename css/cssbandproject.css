@@ -11,10 +11,17 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  color: rgb(113, 6, 6);
+  color: rgb(121, 104, 147);
   padding: 20px;
   font-size: 150px;
   font-family: fantasy, copperplate;
+}
+
+body {
+  background-color: black;
+  color: beige;
+  margin: 0; 
+  padding: 0; 
 }
 
 .container {
@@ -34,15 +41,18 @@
 h2 {
   text-align: right;
   font-family: monospace, 'Lucida Sans';
+  color: beige;
 }
 
 h3 {
   text-align: right;
   font-family: monospace, 'Lucida Sans';
+  color: beige;
 }
 
 p {
   text-align: right;
   width: 100%;
   font-family: monospace, 'Lucida Sans';
+  color: beige;
 }
