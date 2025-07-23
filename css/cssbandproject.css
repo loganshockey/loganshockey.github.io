@@ -28,13 +28,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  max-width: 50%;
+  width: 50%;
+  margin-left: auto;
   padding: 20px;
-}
-
-.container p {  
-  text-align: right; 
-  margin: 0;     
 }
 
 h2 {
@@ -52,8 +48,14 @@ h3 {
 
 p {
   text-align: right;
-  width: 100%;
+  width: 50%;
   font-family: monospace, 'Lucida Sans';
   color: beige;
   padding-right: 10px;
+}
+
+.container p {  
+  width: 100%;
+  text-align: right; 
+  margin: 0;     
 }
