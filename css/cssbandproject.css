@@ -34,9 +34,9 @@ body {
 }
 
 h2 {
-  text-align: right;
   font-family: fantasy, copperplate;
   color: rgb(83, 34, 43);
+  position: sticky;
 }
 
 h3 {
