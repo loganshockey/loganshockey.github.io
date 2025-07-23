@@ -13,7 +13,7 @@
   z-index: 1000;
   color: rgb(113, 6, 6);
   padding: 20px;
-  font-size: 200px;
+  font-size: 150px;
   font-family: fantasy, copperplate;
 }
 
@@ -21,8 +21,12 @@
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  max-width: 100%;
+  max-width: 50%;
   padding: 20px;
+}
+
+h2 {
+  text-align: right;
 }
 
 h3 {
@@ -32,4 +36,5 @@ h3 {
 p {
   text-align: right;
   width: 100%;
+  font: lucida;
 }
