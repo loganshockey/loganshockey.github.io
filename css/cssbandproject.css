@@ -5,7 +5,9 @@
   padding: 0;
 }
 
-#sticky-title {
+#title {
+  margin: 0;
+  padding: 0;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -13,11 +15,6 @@
   padding: 20px;
   font-size: 300%;
   font-family: fantasy, copperplate;
-}
-
-#title {
-  margin: 0;
-  padding: 0;
 }
 
 .container {
@@ -29,9 +26,7 @@
 }
 
 h3 {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  text-align: right;
 }
 
 p {
