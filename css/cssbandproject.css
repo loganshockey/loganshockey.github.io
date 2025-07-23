@@ -11,7 +11,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  color: rgb(145, 37, 57);
+  color: rgb(83, 34, 43);
   padding: 20px;
   font-size: 120px;
   font-family: fantasy, copperplate;
@@ -40,7 +40,7 @@ body {
 h2 {
   text-align: right;
   font-family: fantasy, copperplate;
-  color: rgb(145, 37, 57);
+  color: rgb(83, 34, 43);
 }
 
 h3 {
