@@ -12,25 +12,29 @@
 }
 
 @media screen and (max-width: 600px) {
-    #narrowScreen {
-        background-color: purple;
-    }    
-}
+  #title,
+  h2 {
+    text-align: center;
+    padding: 1em;
+    font-size: 4em;
+  }
 
-@media screen and (min-width: 800px) {
-    #wideScreen {
-        background-color: lightblue;
-    }    
-}
+  .container {
+    align-items: flex-start;
+    padding: 1em;
+  }
 
-@media screen and (max-height: 500px) {
-    #shortScreen {
-        background-color: yellow;
-    }    
-}
+  p,
+  .container p {
+    width: 100%;
+    text-align: left;
+    padding: 0.75em;
+    margin: 0 auto;
+    font-size: 1.125em;
+  }
 
-@media screen and (min-height: 800px) {
-    #tallScreen {
-        background-color: orange;
-    }    
+  h3 {
+    text-align: left;
+    font-size: 1.5em;
+  }
 }
