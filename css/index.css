@@ -39,7 +39,7 @@ h2 {
   font-size: 60px;
   margin-left: 20px;
   position: sticky;
-  top: 230px;
+  top: 250px;
   z-index: 1000;
 }
 
@@ -63,12 +63,4 @@ p {
   width: 100%;
   text-align: right; 
   margin: 0;     
-}
-
-pattern { 
-background-color: #000000;
-opacity: 1;
-background-image:  radial-gradient(rgba(198, 216, 42, 1) 1.6px, transparent 1.6px), radial-gradient(rgba(198, 216, 42, 1) 1.6px, #000000 1.6px);
-background-size: 64px 64px;
-background-position: 0 0,32px 32px;
 }
