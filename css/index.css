@@ -1,3 +1,7 @@
+html {
+  font-size: 16px;
+}
+
 #title span {
   display: block;
   text-align: left;
@@ -12,8 +16,8 @@
   top: 0;
   z-index: 1000;
   color: rgb(200, 133, 206);
-  padding: 20px;
-  font-size: 120px;
+  padding: 1.25em;
+  font-size: 7.5em;
   font-family: fantasy, copperplate;
 }
 
@@ -21,7 +25,8 @@ body {
   background-color: black;
   color: beige;
   margin: 0; 
-  padding: 10px; 
+  padding: .625em; 
+  font-size: 1em;
 }
 
 .container {
@@ -30,16 +35,16 @@ body {
   align-items: flex-end;
   width: 100%;
   margin-left: auto;
-  padding: 20px;
+  padding: 1.25em;
 }
 
 h2 {
   font-family: fantasy, copperplate;
   color: rgb(200, 133, 206);
-  font-size: 60px;
-  margin-left: 20px;
+  font-size: 3.75em;
+  margin-left: 1.25em;
   position: sticky;
-  top: 250px;
+  top: 18.75em;
   z-index: 1000;
 }
 
@@ -47,7 +52,7 @@ h3 {
   text-align: right;
   font-family: monospace, 'Lucida Sans';
   color: beige;
-  font-size: 32px;
+  font-size: 2em;
 }
 
 p {
@@ -56,11 +61,40 @@ p {
   width: 50vw;
   font-family: monospace, 'Lucida Sans';
   color: beige;
-  padding-right: 10px;
+  padding-right: .625em;
+  font-size: 1.25em;
 }
 
 .container p {  
   width: 100%;
   text-align: right; 
   margin: 0;     
+}
+
+@media (max-width: 600px) {
+  #title,
+  h2 {
+    text-align: center;
+    padding: 1em;
+    font-size: 4em;
+  }
+
+  .container {
+    align-items: flex-start;
+    padding: 1em;
+  }
+
+  p,
+  .container p {
+    width: 100%;
+    text-align: left;
+    padding: 0.75em;
+    margin: 0 auto;
+    font-size: 1.125em;
+  }
+
+  h3 {
+    text-align: left;
+    font-size: 1.5em;
+  }
 }
