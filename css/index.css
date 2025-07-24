@@ -17,6 +17,26 @@
   font-family: fantasy, copperplate;
 }
 
+.image-container {
+  position: relative;
+  width: 1000px;
+  margin: auto;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
+
+.overlay {
+  position: absolute;
+  color: beige;
+  padding: 20px;
+  border-radius: 8px;
+}
+
 body {
   background-color: black;
   color: beige;
