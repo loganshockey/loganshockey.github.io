@@ -37,7 +37,7 @@ h2 {
   font-family: fantasy, copperplate;
   color: rgb(200, 133, 206);
   font-size: 60px;
-  padding: 20px;
+  margin-left: 20px;
   position: sticky;
   top: 230px;
   z-index: 1000;
