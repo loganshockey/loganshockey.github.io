@@ -31,8 +31,7 @@
 }
 
 .overlay {
-  position: absolute;
-  color: beige;
+  position: sticky;
   padding: 20px;
   border-radius: 8px;
 }
