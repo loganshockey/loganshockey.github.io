@@ -42,9 +42,9 @@ h2 {
   font-family: fantasy, copperplate;
   color: rgb(200, 133, 206);
   font-size: 1.5em;
-  margin-left: .25em;
+  margin-left: auto;
   position: sticky;
-  top: 5em;
+  top: 6.5em;
   z-index: 1000;
 }
 
