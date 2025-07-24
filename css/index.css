@@ -39,7 +39,7 @@ h2 {
   font-size: 60px;
   padding: 20px;
   position: sticky;
-  top: 200px;
+  top: 230px;
   z-index: 1000;
 }
 
@@ -53,7 +53,7 @@ h3 {
 p {
   margin-left: auto;
   text-align: right;
-  width: 50vw;
+  width: 75vw;
   font-family: monospace, 'Lucida Sans';
   color: beige;
   padding-right: 10px;
