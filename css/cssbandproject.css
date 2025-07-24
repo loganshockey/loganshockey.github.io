@@ -36,9 +36,8 @@ body {
 h2 {
   font-family: fantasy, copperplate;
   color: rgb(200, 133, 206);
-  padding: 20px;
   font-size: 60px;
-  top: 200px;
+  top: 150px;
   position: sticky;
   z-index: 1000;
 }
