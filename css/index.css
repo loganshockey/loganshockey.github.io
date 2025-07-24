@@ -39,6 +39,7 @@ h2 {
   font-size: 60px;
   padding: 20px;
   position: sticky;
+  top: 150px;
   z-index: 1000;
 }
 
