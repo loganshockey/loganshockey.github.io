@@ -37,9 +37,8 @@ h2 {
   font-family: fantasy, copperplate;
   color: rgb(200, 133, 206);
   font-size: 60px;
-  top: 150px;
-  position: sticky;
-  z-index: 1000;
+  top: 175px;
+  padding: 20px;
 }
 
 h3 {
@@ -51,7 +50,7 @@ h3 {
 
 p {
   text-align: right;
-  width: 50%;
+  width: 100%;
   font-family: monospace, 'Lucida Sans';
   color: beige;
   padding-right: 10px;
