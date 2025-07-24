@@ -41,10 +41,10 @@ body {
 h2 {
   font-family: fantasy, copperplate;
   color: rgb(200, 133, 206);
-  font-size: 3.75em;
-  margin-left: .5em;
+  font-size: 1.5em;
+  margin-left: .25em;
   position: sticky;
-  top: 7em;
+  top: 5em;
   z-index: 1000;
 }
 
