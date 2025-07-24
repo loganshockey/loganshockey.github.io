@@ -16,7 +16,7 @@ html {
   top: 0;
   z-index: 1000;
   color: rgb(200, 133, 206);
-  padding: 1.25em;
+  padding: .5em;
   font-size: 7.5em;
   font-family: fantasy, copperplate;
 }
@@ -42,9 +42,9 @@ h2 {
   font-family: fantasy, copperplate;
   color: rgb(200, 133, 206);
   font-size: 3.75em;
-  margin-left: 1.25em;
+  margin-left: .5em;
   position: sticky;
-  top: 18.75em;
+  top: 7em;
   z-index: 1000;
 }
 
@@ -87,7 +87,7 @@ p {
   p,
   .container p {
     width: 100%;
-    text-align: left;
+    text-align: right;
     padding: 0.75em;
     margin: 0 auto;
     font-size: 1.125em;
