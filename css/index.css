@@ -57,8 +57,9 @@ h2 {
   font-family: fantasy, copperplate;
   color: rgb(200, 133, 206);
   font-size: 60px;
-  top: 175px;
   padding: 20px;
+  position: sticky;
+  z-index: 1000;
 }
 
 h3 {
