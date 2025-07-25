@@ -104,6 +104,8 @@ p {
 
 .repeat-text {
   white-space: nowrap;
+  margin-top: 20em;
+  display: block;
 }
 
 .back-to-top {
