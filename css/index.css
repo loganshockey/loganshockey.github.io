@@ -102,10 +102,14 @@ p {
   width: 100%;
 }
 
-.repeat-text {
+.repeat-text1 {
   white-space: nowrap;
-  margin-top: 30em;
+  margin-top: 32em;
   display: block;
+}
+
+.repeat-text1 {
+  white-space: nowrap;
 }
 
 .back-to-top {
