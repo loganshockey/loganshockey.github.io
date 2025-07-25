@@ -1,5 +1,6 @@
 html {
   font-size: 16px;
+  scroll-behavior: smooth;
 }
 
 .archivo-black-regular {
@@ -76,6 +77,23 @@ p {
   width: 100%;
   text-align: right; 
   margin: 0;     
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+  background-color: rgb(200, 133, 206);
+  color: black;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+.back-to-top:hover {
+  opacity: 0.8;
 }
 
 @media screen and (max-width: 600px) {
