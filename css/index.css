@@ -89,6 +89,26 @@ p {
   padding-right: .25em;   
 }
 
+.punkglow {
+  font-family: monospace;
+  font-size: 0.9em;
+  color: #e7d6f3;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: right;
+
+  text-shadow:
+    0 0 2px #d799e3,
+    0 0 5px #c885ce,
+    0 0 10px #c885ce,
+    0 0 15px #c885ce;
+
+  animation: glowShift 6s ease-in-out infinite alternate,
+             flicker 2.5s infinite;
+  opacity: 0.9;
+  margin-top: 1em;
+}
+
 .footer {
   font-family: "Archivo Black", sans-serif;
   background-color: rgb(200, 133, 206);
@@ -129,6 +149,40 @@ p {
 
 .back-to-top:hover {
   opacity: 0.8;
+}
+
+@keyframes glowShift {
+  0% {
+    text-shadow:
+      0 0 2px #d799e3,
+      0 0 5px #c885ce,
+      0 0 10px #c885ce,
+      0 0 15px #c885ce;
+  }
+  50% {
+    text-shadow:
+      0 0 2px #ff88e3,
+      0 0 5px #d677c7,
+      0 0 10px #a744aa,
+      0 0 20px #6e2f89;
+  }
+  100% {
+    text-shadow:
+      0 0 2px #c0a3ff,
+      0 0 5px #a688ff,
+      0 0 10px #7e68d9,
+      0 0 15px #5a4ba3;
+  }
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+  }
+
+  20%, 24%, 55% {
+    opacity: 0.4;
+  }
 }
 
 @media screen and (max-width: 600px) {
