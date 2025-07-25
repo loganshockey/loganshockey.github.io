@@ -289,4 +289,12 @@ p {
    body, .container {
     padding-right: 0.5em;
   }
+
+  .footer .repeat-text2 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: center;
+    font-size: 1em;
+  }
+
 }
