@@ -238,6 +238,7 @@ p {
     padding: 0.5em 0.25em;
     margin: 0.25em 0;
     font-size: 1em;
+    overflow-wrap: break-word;
   }
 
   .block-text {
@@ -251,7 +252,7 @@ p {
 
   .back-to-top {
     padding: 0.4em 0.8em;
-    font-size: .25em;
+    font-size: .30em;
     left: 1em;
     bottom: 0.75em;
   }
@@ -261,5 +262,9 @@ p {
     white-space: normal;
     margin-top: 1em;
     word-wrap: break-word;
+  }
+
+   body, .container {
+    padding-right: 0.5em;
   }
 }
