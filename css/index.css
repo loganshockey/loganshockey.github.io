@@ -120,6 +120,7 @@ p {
   bottom: 0;
   overflow: hidden;
   width: 100%;
+  margin-bottom: 3.5em;
 }
 
 .repeat-text1 {
@@ -130,7 +131,6 @@ p {
 
 .repeat-text2 {
   white-space: nowrap;
-  padding-bottom: 4em;
 }
 
 .back-to-top {
