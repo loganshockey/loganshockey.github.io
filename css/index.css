@@ -244,8 +244,6 @@ p {
 
   .block-text {
     text-align: justify;
-    margin-bottom: 0;
-    padding-bottom: 0;
   }
 
 
@@ -263,7 +261,7 @@ p {
 
   .repeat-text1,
   .repeat-text2 {
-    white-space: normal;
+    white-space: nowrap;
     margin-top: 1em;
     word-wrap: break-word;
   }
