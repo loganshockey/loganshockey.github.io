@@ -21,6 +21,7 @@ html {
   position: sticky;
   top: 0;
   z-index: 1000;
+  font-family: "Archivo Black", sans-serif;
   color: rgb(200, 133, 206);
   padding: .5em;
   font-size: 7.5em;
@@ -43,13 +44,14 @@ body {
 }
 
 h2 {
+  font-family: "Archivo Black", sans-serif;
   color: rgb(200, 133, 206);
-  font-size: 2em;
+  font-size: 4em;
   margin-left: auto;
   position: sticky;
   top: 6.5em;
   z-index: 1000;
-  margin-left: 1.25em;
+  margin-left: 2.5em;
 }
 
 h3 {
