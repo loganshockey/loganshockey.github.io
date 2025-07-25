@@ -46,12 +46,13 @@ body {
 h2 {
   font-family: "Archivo Black", sans-serif;
   color: rgb(200, 133, 206);
-  font-size: 4em;
-  margin-left: auto;
+  font-size: 2em;
+  margin: 0;
   position: sticky;
-  top: 6.5em;
+  top: 7em;
   z-index: 1000;
-  margin-left: 2.5em;
+  text-align: left;
+  padding-left: .5em;
 }
 
 h3 {
