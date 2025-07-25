@@ -137,28 +137,10 @@ p {
   margin-top: 1em;
 }
 
-.footer {
-  font-family: "Archivo Black", sans-serif;
-  background-color: rgb(200, 133, 206);
-  color: black;
-  text-align: center;
-  font-weight: bold;
-  font-size: 2em;
-  position: relative;
-  bottom: 0;
-  overflow: hidden;
-  width: 100%;
-  margin-bottom: 3.5em;
-}
-
 .repeat-text1 {
   white-space: nowrap;
   margin-top: 32em;
   display: block;
-}
-
-.repeat-text2 {
-  white-space: nowrap;
 }
 
 .back-to-top {
@@ -266,20 +248,8 @@ p {
     padding-bottom: 0;
   }
 
-  .footer {
-    font-size: 1.25em;
-    padding: 0.75em 0.5em;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    display: block;
-    width: 100%;
-    margin-bottom: 0;
-    box-sizing: border-box;
-  }
 
-  h2,
-  .footer {
+  h2 {
     white-space: nowrap;
     overflow: hidden;
   }
@@ -300,13 +270,6 @@ p {
 
    body, .container {
     padding-right: 0.5em;
-  }
-
-  .footer .repeat-text2 {
-    white-space: nowrap;
-    overflow: hidden;
-    text-align: center;
-    font-size: 1em;
   }
 
 }
