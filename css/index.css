@@ -1,3 +1,7 @@
+* {
+  outline: 1px solid red;
+}
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
