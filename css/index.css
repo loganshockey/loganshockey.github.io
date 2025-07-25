@@ -1,6 +1,9 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 .archivo-black-regular {
@@ -18,7 +21,6 @@ html {
 
 #title {
   margin: 0;
-  padding: 0;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -32,8 +34,9 @@ body {
   background-color: black;
   color: beige;
   margin: 0; 
-  padding: .625em; 
   font-size: 1em;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 .container {
@@ -83,14 +86,14 @@ p {
   position: fixed;
   bottom: 1em;
   right: 1em;
-  background-color: rgb(200, 133, 206);
-  color: black;
+  color: rgb(200, 133, 206);
   padding: 0.5em 1em;
   text-decoration: none;
   border-radius: 5px;
   font-weight: bold;
   z-index: 1000;
   transition: opacity 0.3s ease;
+  padding: .5em;
 }
 .back-to-top:hover {
   opacity: 0.8;
