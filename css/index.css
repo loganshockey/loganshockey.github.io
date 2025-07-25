@@ -52,7 +52,6 @@ h2 {
   font-weight: bold;
   font-size: 2em;
   margin: 0;
-  padding: 0.5em;
   position: relative; 
   z-index: 1000;
 }
@@ -71,7 +70,6 @@ p {
   width: 50vw;
   font-family: monospace, 'Lucida Sans';
   color: beige;
-  padding-right: .625em;
   font-size: 1.25em;
 }
 
@@ -92,6 +90,7 @@ p {
   bottom: 0;
   overflow: hidden;
   width: 100%;
+  margin-bottom: 2em;
 }
 
 .repeat-text {
@@ -101,7 +100,7 @@ p {
 .back-to-top {
   position: fixed;
   bottom: 1em;
-  right: 1em;
+  left: 1em;
   background-color: rgb(200, 133, 206);
   color: black;
   padding: 0.5em 1em;
