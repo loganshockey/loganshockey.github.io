@@ -84,11 +84,11 @@ p {
   background-color: rgb(200, 133, 206);
   color: black;
   text-align: center;
-  padding: 1em;
   font-weight: bold;
-  font-size: 3em;
+  font-size: 2em;
   position: relative;
   bottom: 0;
+  overflow: hidden;
   width: 100%;
 }
 
@@ -97,7 +97,7 @@ p {
 }
 
 .back-to-top {
-  position: left;
+  position: fixed, left;
   bottom: 1em;
   right: 1em;
   background-color: rgb(200, 133, 206);
