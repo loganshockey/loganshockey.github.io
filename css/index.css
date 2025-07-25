@@ -1,9 +1,6 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
 }
 
 .archivo-black-regular {
@@ -83,12 +80,13 @@ p {
 }
 
 .footer {
+  font-family: "Archivo Black", sans-serif;
   background-color: rgb(200, 133, 206);
   color: black;
   text-align: center;
   padding: 1em;
   font-weight: bold;
-  font-size: 1.25em;
+  font-size: 3em;
   position: relative;
   bottom: 0;
   width: 100%;
@@ -96,8 +94,6 @@ p {
 
 .repeat-text {
   white-space: nowrap;
-  overflow: hidden;
-  animation: scroll-left 20s linear infinite;
 }
 
 .back-to-top {
