@@ -29,6 +29,8 @@ html {
 
 body {
   background-color: black;
+  background-image: url('https://www.transparenttextures.com/patterns/subtle-grunge.png');
+  background-repeat: repeat;
   color: beige;
   margin: 0; 
   font-size: 1em;
