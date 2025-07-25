@@ -99,7 +99,7 @@ p {
 }
 
 .back-to-top {
-  position: fixed, left;
+  position: fixed;
   bottom: 1em;
   right: 1em;
   background-color: rgb(200, 133, 206);
