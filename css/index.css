@@ -82,6 +82,11 @@ p {
   padding-right: .25em;
 }
 
+.block-text {
+  text-align: justify;         
+  float: right;                
+}
+
 .container p {  
   width: 100%;
   text-align: right; 
