@@ -101,19 +101,19 @@ p {
 }
 
 .back-to-top {
-  position: fixed;
+  position: left;
   bottom: 1em;
   right: 1em;
-  color: rgb(200, 133, 206);
+  background-color: rgb(200, 133, 206);
+  color: black;
   padding: 0.5em 1em;
   text-decoration: none;
   border-radius: 5px;
   font-weight: bold;
   z-index: 1000;
   transition: opacity 0.3s ease;
-  padding: .5em;
-  text-align: left;
 }
+
 .back-to-top:hover {
   opacity: 0.8;
 }
