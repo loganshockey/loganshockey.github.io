@@ -266,8 +266,8 @@ p {
     width: auto;
   }
 
-    h2,
-    footer {
+  h2,
+  .footer {
     white-space: nowrap;
     overflow: hidden;
   }
