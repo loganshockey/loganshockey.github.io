@@ -224,7 +224,7 @@ p {
   }
   
   h2 {
-    font-size: 1em;
+    font-size: 1.25em;
     margin-top: 11em;
     padding: 0.4em 0.5em;
     text-align: left;
@@ -261,7 +261,7 @@ p {
   }
 
   .footer {
-    font-size: 1em;
+    font-size: 1.25em;
     padding: 0.75em 0.5em;
     text-align: center;
     white-space: nowrap;
