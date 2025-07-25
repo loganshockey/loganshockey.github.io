@@ -33,7 +33,6 @@ body {
   margin: 0; 
   font-size: 1em;
   padding: 0;
-  overflow-x: hidden;
 }
 
 .container {
@@ -90,7 +89,7 @@ p {
   bottom: 0;
   overflow: hidden;
   width: 100%;
-  margin-bottom: 5em;
+  margin-bottom: 4em;
 }
 
 .repeat-text {
@@ -100,7 +99,7 @@ p {
 .back-to-top {
   position: fixed;
   bottom: 1em;
-  left: 2em;
+  left: 1.5em;
   background-color: rgb(200, 133, 206);
   color: black;
   padding: 0.5em 1em;
