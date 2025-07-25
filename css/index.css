@@ -219,6 +219,10 @@ p {
 
   }
 
+  body {
+    padding-bottom: 0;  
+  }
+  
   h2 {
     font-size: 1em;
     margin-top: 11em;
