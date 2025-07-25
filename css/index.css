@@ -258,6 +258,8 @@ p {
 
   .block-text {
     text-align: justify;
+    margin-bottom: 0;
+    padding-bottom: 0;
   }
 
   .footer {
