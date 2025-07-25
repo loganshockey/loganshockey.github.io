@@ -175,6 +175,7 @@ p {
   opacity: 0.8;
 }
 
+
 @keyframes glowShift {
   0% {
     text-shadow:
@@ -209,30 +210,56 @@ p {
   }
 }
 
-@media screen and (max-width: 600px) {
+
+@media screen and (max-width: 400px) {
   #title,
   h2 {
+    font-size: 3em; /* smaller to fit narrow screens */
+    padding: 0.4em 0.5em;
     text-align: left;
-    padding: .5em;
-    font-size: 4em;
   }
 
   .container {
     align-items: flex-start;
-    padding: 1em;
+    padding: 0.75em 1em;
+  }
+
+  h3 {
+    font-size: 1.25em;
+    text-align: right;
+    padding-right: 0.2em;
+    margin-top: 0.4em;
   }
 
   p,
   .container p {
     width: 100%;
     text-align: right;
-    padding: 0.75em;
-    margin: 0 auto;
-    font-size: 1.125em;
+    padding: 0.5em 0.25em;
+    margin: 0.25em 0;
+    font-size: 1em;
   }
 
-  h3 {
-    text-align: right;
+  .block-text {
+    text-align: justify;
+  }
+
+  .footer {
     font-size: 1.5em;
+    padding: 0.75em 0.5em;
+  }
+
+  .back-to-top {
+    padding: 0.4em 0.8em;
+    font-size: 1em;
+    left: 1em;
+    bottom: 0.75em;
+  }
+
+  .repeat-text1,
+  .repeat-text2 {
+    white-space: normal;
+    margin-top: 1em;
+    word-wrap: break-word;
   }
 }
