@@ -82,6 +82,24 @@ p {
   margin: 0;     
 }
 
+.footer {
+  background-color: rgb(200, 133, 206);
+  color: black;
+  text-align: center;
+  padding: 1em;
+  font-weight: bold;
+  font-size: 1.25em;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.repeat-text {
+  white-space: nowrap;
+  overflow: hidden;
+  animation: scroll-left 20s linear infinite;
+}
+
 .back-to-top {
   position: fixed;
   bottom: 1em;
@@ -94,6 +112,7 @@ p {
   z-index: 1000;
   transition: opacity 0.3s ease;
   padding: .5em;
+  text-align: left;
 }
 .back-to-top:hover {
   opacity: 0.8;
