@@ -266,9 +266,10 @@ p {
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
-    display: inline-block;
-    width: auto;
+    display: block;
+    width: 100%;
     margin-bottom: 0;
+    box-sizing: border-box;
   }
 
   h2,
