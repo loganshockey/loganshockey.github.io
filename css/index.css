@@ -1,6 +1,7 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 .archivo-black-regular {
@@ -25,6 +26,8 @@ html {
   color: rgb(200, 133, 206);
   padding: .5em;
   font-size: 5em;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 body {
@@ -35,6 +38,7 @@ body {
   margin: 0; 
   font-size: 1em;
   padding: 0;
+  overflow-x: hidden;
 }
 
 .container {
@@ -46,6 +50,7 @@ body {
 }
 
 h2 {
+  margin-top: 6em;
   font-family: "Archivo Black", sans-serif;
   background-color: rgb(200, 133, 206);
   color: black;
@@ -92,7 +97,7 @@ p {
   bottom: 0;
   overflow: hidden;
   width: 100%;
-  margin-bottom: 4em;
+  margin-bottom: 3.5em;
 }
 
 .repeat-text {
