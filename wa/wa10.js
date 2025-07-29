@@ -39,7 +39,7 @@ newStory = newStory.replace(":insertz:", zItem);
 
 
 if (customName !== "") {
-  newStory = newStory.replace("Bob", customName);
+  newStory = newStory.replace("Bob", customName.value);
 }
 
 if (document.getElementById("uk").checked) {
