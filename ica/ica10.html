@@ -22,22 +22,22 @@
 
     <script>
   
-    const box1 = document.getElementById('box1');
-    const box2 = document.getElementById('box2');
+      const box1 = document.getElementById('box1');
+      const box2 = document.getElementById('box2');
 
-    box1.addEventListener('click', () => {
-      box1.style.backgroundColor = 'purple';
-    });
+      box1.addEventListener('click', () => {
+        box1.style.backgroundColor = 'purple';
+      });
 
-    box2.addEventListener('click', () => {
-      box2.classList.add('spin');
+      box2.addEventListener('click', () => {
+        box2.classList.add('spin');
 
 
-      box2.addEventListener('animationend', () => {
-        box2.classList.remove('spin');
-      }, { once: true });
-    });
-</script>
+        box2.addEventListener('animationend', () => {
+          box2.classList.remove('spin');
+        }, { once: true });
+      });
+    </script>
 
 </body>
 </html>
