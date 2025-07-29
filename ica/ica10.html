@@ -5,8 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="ica7.css" rel="stylesheet">
-    <title>Just a little Touchy</title>
-    <link rel="stylesheet" href="ica7.css">
+    <title>Click Me</title>
+    <link rel="stylesheet" href="ica10.css">
 </head>
 <body>
     <div id="box1">
@@ -23,21 +23,21 @@
 
     <script>
   
-  const box1 = document.getElementById('box1');
-  const box2 = document.getElementById('box2');
+    const box1 = document.getElementById('box1');
+    const box2 = document.getElementById('box2');
 
-  box1.addEventListener('click', () => {
-    box1.style.backgroundColor = 'purple';
-  });
+    box1.addEventListener('click', () => {
+      box1.style.backgroundColor = 'purple';
+    });
 
-  box2.addEventListener('click', () => {
-    box2.classList.add('spin');
+    box2.addEventListener('click', () => {
+      box2.classList.add('spin');
 
 
-    box2.addEventListener('animationend', () => {
-      box2.classList.remove('spin');
-    }, { once: true });
-  });
+      box2.addEventListener('animationend', () => {
+        box2.classList.remove('spin');
+      }, { once: true });
+    });
 </script>
 
 </body>
