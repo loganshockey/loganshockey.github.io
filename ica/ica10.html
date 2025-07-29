@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICA10</title>
+</head>
+<body>
+    <img id="image" src="./assets/Fashunn_Avocado.jpg" alt="toggle image" style="cursor: pointer;" />
+
+    <script>
+        const image1 = "./assets/Fashunn_Avocado.jpg";
+        const image2 = "./assets/Fashunn_CurvyDress.jpg";
+
+        const imageElement = document.getElementById("myImage");
+
+        imageElement.addEventListener("click", () => {
+            imageElement.src = imageElement.src.includes(image1) ? image2 : image1;
+    });
+    </script>
+
+</body>
+</html>
