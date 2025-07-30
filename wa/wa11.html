@@ -42,6 +42,23 @@
       });
 
         thumbBar.appendChild(newImage);
+
+    const btn = document.querySelector("button.dark");
+    const overlay = document.querySelector(".overlay");
+
+    btn.addEventListener("click", function () {
+    const currentClass = btn.getAttribute("class");
+
+    if (currentClass === "dark") {
+    btn.setAttribute("class", "light");
+    btn.textContent = "Lighten";
+    overlay.style.backgroundColor = "rgba(0,0,0,0.5)";
+    } else {
+    btn.setAttribute("class", "dark");
+    btn.textContent = "Darken";
+    overlay.style.backgroundColor = "rgba(0,0,0,0)";
+    }
+    
     });
     </script>
   </body>
