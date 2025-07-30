@@ -2,14 +2,14 @@ const customName = document.getElementById('customname');
 const randomize = document.querySelector('.randomize');
 const story = document.querySelector('.story');
 
-const storyText = "It was finally time, time for me to be crowned the world olympic champion in :insertx:. I took my starting position, :insertPosition:, and my father's words echoed in my mind... :inserty:. the audience was watching intently as I took a deap breath. The starter (the person in the olympics that shoots a gun to start the race) shot his gun to start the race. I moved from my :insertPosition: into a full sprint, and immediately :insertz: before getting to the first stage. I was mortified. My coach, Bob, was in the audience and saw the whole thing, but I shouldn't have been surprised. — :insertx: is known for being the most challenging olympic sport. It was also very hot that day, so that probably had something to do with it too.";
+const storyText = "It was finally time, time for me to be crowned the world olympic champion in :insertx:. I took my starting position, :insertW:, and my father's words echoed in my mind... :inserty:. the audience was watching intently as I took a deap breath. The starter (the person in the olympics that shoots a gun to start the race) shot his gun to start the race. I moved from my :insertPosition: into a full sprint, and immediately :insertz: before getting to the first stage. I was mortified. My coach, Bob, was in the audience and saw the whole thing, but I shouldn't have been surprised. — :insertx: is known for being the most challenging olympic sport. It was also very hot that day, so that probably had something to do with it too.";
 
 const insertX = [ "guessing how many peanut m&m's are in jars of various",
 "residential mail delivery on a steep hill without vehicle assistance",
 "trimming the nails of an angry cat"
 ];
 
-const insertPosition = [ "a one leg-squat with the other leg straight out in front of me",
+const insertW = [ "a one leg-squat with the other leg straight out in front of me",
 "laying face-down with my arms by my side like that planking trend from around 2010",
 "a full backbend"
 ];
@@ -35,6 +35,7 @@ function generateStory() {
 let newStory = storyText;
 
 const xItem = randomValueFromArray(insertX);
+const xItem = randomValueFromArray(insertW);
 const yItem = randomValueFromArray(insertY);
 const zItem = randomValueFromArray(insertZ);
 
