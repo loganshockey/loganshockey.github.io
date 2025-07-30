@@ -2,14 +2,14 @@ const customName = document.getElementById('customname');
 const randomize = document.querySelector('.randomize');
 const story = document.querySelector('.story');
 
-const storyText = "It was 94 fahrenheit outside, so :insertx: went for a walk. When they got to :inserty:, they stared in horror for a few moments, then :insertz:. Bob saw the whole thing, but was not surprised — :insertx: weighs 300 pounds, and it was a hot day.";
+const storyText = "It was finally time, time for me to be crowned the world olympic champion in :insertx:. My father's words echoed in my mind... :inserty:, the audience was watching intently as I took a deap breath, then :insertz:. Bob saw the whole thing, but was not surprised — :insertx: weighs 300 pounds, and it was a hot day.";
 
-const insertX = [ "Willy the Goblin",
-"Big Daddy",
-"Father Christmas"
+const insertX = [ "guessing how many peanut m&m's are in a jar",
+"residential mail delivery without vehicle assistance",
+""
 ];
 
-const insertY = [ "the soup kitchen",
+const insertY = [ "'No matter what happens, we love you. But also we didn't drive all this way for you to perform like this'",
 "Disneyland",
 "the White House",
 ];
