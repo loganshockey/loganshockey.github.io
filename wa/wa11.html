@@ -1,12 +1,50 @@
-<h1>Image gallery example</h1>
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Image Carousel</title>
+  </head>
+  <body>
+    <h1>Image gallery example</h1>
 
-<div class="full-img">
-  <img
-    class="displayed-img"
-    src="images/pic1.jpg"
-    alt="Closeup of a blue human eye" />
-  <div class="overlay"></div>
-  <button class="dark">Darken</button>
-</div>
+    <div class="full-img">
+      <img
+        class="displayed-img"
+        src="images/pic1.jpg"
+        alt="Closeup of a blue human eye" />
+      <div class="overlay"></div>
+      <button class="dark">Darken</button>
+    </div>
 
-<div class="thumb-bar"></div>
+    <div class="thumb-bar"></div>
+
+  <script>
+    const galleryImages = [
+      "wa11pics/fashion1.png",
+      "wa11pics/fashion2.png",
+      "wa11pics/fashion3.png",
+      "wa11pics/fashion4.png",
+      "wa11pics/fashion5.png"
+    ];
+
+    const thumbBar = document.querySelector(".thumb-bar");
+    const displayedImg = document.querySelector(".displayed-img");
+
+    galleryImages.forEach(function(imagePath) {
+      const newImage = document.createElement("img");
+      newImage.src = imagePath;
+      newImage.alt = "Thumbnail for " + imagePath;
+
+      newImage.addEventListener("click", function () {
+        displayedImg.src = imagePath;
+        displayedImg.alt = newImage.alt;
+      });
+
+        thumbBar.appendChild(newImage);
+    });
+    </script>
+  </body>
+</html>
+
+
