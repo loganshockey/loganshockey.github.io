@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Color-Mix Phone Input</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+    }
+
+    #palette {
+      margin-bottom: 1em;
+    }
+
+    .color-btn {
+      width: 40px;
+      height: 40px;
+      border: none;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+
+    canvas {
+      border: 2px solid #000;
+      cursor: crosshair;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Paint to Reveal Numbers</h1>
+
+  <div id="palette">
+    <button class="color-btn" style="background: red;" data-color="red"></button>
+    <button class="color-btn" style="background: green;" data-color="green"></button>
+    <button class="color-btn" style="background: blue;" data-color="blue"></button>
+  </div>
+
+  <canvas id="paintCanvas" width="300" height="300"></canvas>
+
+  <script>
+    const canvas = document.getElementById("paintCanvas");
+    const ctx = canvas.getContext("2d");
+    let painting = false;
+    let currentColor = "red";
+
+    // Color selection
+    document.querySelectorAll(".color-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        currentColor = btn.dataset.color;
+      });
+    });
+
+    // Painting logic
+    canvas.addEventListener("mousedown", () => painting = true);
+    canvas.addEventListener("mouseup", () => painting = false);
+    canvas.addEventListener("mouseleave", () => painting = false);
+    canvas.addEventListener("mousemove", draw);
+
+    function draw(e) {
+      if (!painting) return;
+
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      ctx.fillStyle = currentColor;
+      ctx.beginPath();
+      ctx.arc(x, y, 10, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  </script>
+
+</body>
+</html>
