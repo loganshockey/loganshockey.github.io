@@ -35,11 +35,12 @@ function generateStory() {
 let newStory = storyText;
 
 const xItem = randomValueFromArray(insertX);
-const xItem = randomValueFromArray(insertW);
+const wItem = randomValueFromArray(insertW);
 const yItem = randomValueFromArray(insertY);
 const zItem = randomValueFromArray(insertZ);
 
 newStory = newStory.replace(/:insertx:/g, xItem);
+newStory = newStory.replace(":insertw:", wItem);
 newStory = newStory.replace(":inserty:", yItem);
 newStory = newStory.replace(":insertz:", zItem);
 
