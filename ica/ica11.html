@@ -43,10 +43,11 @@
 
         const btn = document.querySelector("button");
         
-        btn.addEventListener("click", () =>
+        btn.addEventListener("click", () => {
         displayMessage("Your inbox is almost full — delete some mails", "warning");
         displayMessage("Brian: Hi there, how are you today?", "chat");
-        );
+        
+        });
 
         function displayMessage(msgText, msgType) {
             const body = document.body;
@@ -64,11 +65,11 @@
             panel.appendChild(closeBtn);
 
             closeBtn.addEventListener("click", () =>
-            panel.parentNode.removeChild(panel),
+            panel.parentNode.removeChild(panel)
             ); 
 
             if (msgType === "warning") {
-            msg.style.backgroundImage = "url(icons/warning.png)";
+            msg.style.backgroundImage = "url(ica11icons/warning.png)";
             panel.style.backgroundColor = "red";
             } else if (msgType === "chat") {
             msg.style.backgroundImage = "url(icons/chat.png)";
