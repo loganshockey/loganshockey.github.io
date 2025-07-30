@@ -40,7 +40,9 @@
 
         const btn = document.querySelector("button");
         
-        btn.addEventListener("click", displayMessage);
+        btn.addEventListener("click", () =>
+        displayMessage("Woo, this is a different message!"),
+        );
 
         function displayMessage(msgText, msgType) {
             const body = document.body;
@@ -50,7 +52,7 @@
             body.appendChild(panel);
 
             const msg = document.createElement("p");
-            msg.textContent = "This is a message box";
+            msg.textContent = msgText;
             panel.appendChild(msg);
 
             const closeBtn = document.createElement("button");
