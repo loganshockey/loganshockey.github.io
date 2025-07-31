@@ -42,6 +42,7 @@ newQuote.addEventListener("click", () => {
   getQuote();
   changeBackgroundColor();
   showRandomCat();
+  changeButtonColor();
 });
 
 getQuote();
@@ -75,4 +76,14 @@ function showRandomCat() {
   img.alt = "Random Cat";
   
   container.appendChild(img);
+}
+
+const buttonColors = ['#FF6347', '#4682B4', '#32CD32', '#FFD700', '#FF69B4'];
+let currentButtonColorIndex = 0;
+
+function changeButtonColor() {
+  const btn = document.querySelector('#js-new-quote');
+  btn.style.backgroundColor = buttonColors[currentButtonColorIndex];
+  
+  currentButtonColorIndex = (currentButtonColorIndex + 1) % buttonColors.length;
 }
