@@ -8,6 +8,8 @@ const endpoint = "https://trivia.cyberwisp.com/getrandomchristmasquestion";
 let json = ''; 
 
 async function getQuote() {
+    const answerArea=document.querySelector("#js-answer-text");
+    answerArea.textContent = '';
     try {
         const response = await fetch(endpoint);
         if (!response.ok) {
