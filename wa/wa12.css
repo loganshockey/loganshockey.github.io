@@ -113,8 +113,8 @@ header {
 }
 
 #cat-image-container {
-  position: fixed;
-  bottom: 50px;
+  position: absolute;
+  bottom: 60px;
   left: 50%;
   transform: translateX(-50%);
   max-width: 300px;
