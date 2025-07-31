@@ -30,6 +30,23 @@ html {
   box-sizing: border-box;
 }
 
+.nav-list {
+  display: flex;         
+  list-style: none;         
+  padding: 0;
+  margin: 0;
+  justify-content: center;   
+}
+
+.nav-list li {
+  margin: 0 15px;      
+}
+
+.nav-list a {
+  text-decoration: none;
+  color: white;
+}
+
 body {
   background-color: black;
   background-image: url('https://www.transparenttextures.com/patterns/subtle-grunge.png');
