@@ -31,11 +31,11 @@ html {
 }
 
 .nav-list {
-  display: flex;         
+  display: flex;       
   list-style: none;         
   padding: 0;
   margin: 0;
-  justify-content: center;   
+  justify-content: flex-end;   
 }
 
 .nav-list li {
@@ -44,7 +44,7 @@ html {
 
 .nav-list a {
   text-decoration: none;
-  color: white;
+  color: rgb(200, 133, 206);
 }
 
 body {
@@ -151,7 +151,7 @@ p {
 
 .repeat-text1 {
   white-space: nowrap;
-  margin-top: 5em;
+  margin-top: 10em;
   display: block;
 }
 
