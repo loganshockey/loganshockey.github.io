@@ -156,7 +156,7 @@ p {
 }
 
 .back-to-top {
-  position: bottom left;
+  position: bottom;
   bottom: 1em;
   left: 1.5em;
   background-color: rgb(200, 133, 206);
