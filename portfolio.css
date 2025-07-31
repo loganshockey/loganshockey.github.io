@@ -1,0 +1,268 @@
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+.archivo-black-regular {
+  font-family: "Archivo Black", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+#title span {
+  display: block;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+#title {
+  margin: 0;
+  position: fixed;
+  top: 0;
+  z-index: 1000;
+  font-family: "Archivo Black", sans-serif;
+  color: rgb(200, 133, 206);
+  padding: .5em;
+  font-size: 5em;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  background-image: url('https://www.transparenttextures.com/patterns/subtle-grunge.png');
+  background-repeat: repeat;
+  color: beige;
+  margin: 0; 
+  font-size: 1em;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  padding: 1.25em;
+}
+
+h2 {
+  font-family: "Archivo Black", sans-serif;
+  background-color: rgb(200, 133, 206);
+  color: black;
+  text-align: center;
+  font-weight: bold;
+  font-size: 2em;
+  margin: 0;
+  position: relative; 
+  z-index: 999;
+  overflow: hidden;
+}
+
+
+h3 {
+  text-align: right;
+  font-family: monospace, 'Lucida Sans';
+  color: beige;
+  font-size: 2em;
+  padding-right: .25em;
+}
+
+p {
+  margin-left: auto;
+  text-align: right;
+  width: 50vw;
+  font-family: monospace, 'Lucida Sans';
+  color: beige;
+  font-size: 1.25em;
+  padding-right: .25em;
+}
+
+.block-text {
+  text-align: justify;               
+}
+
+.container p {  
+  width: 100%;
+  text-align: right; 
+  margin: 0;  
+  padding-right: .25em;   
+}
+
+.punkglowtitle {
+  font-family: monospace;
+  font-size: 2em;
+  color: #e7d6f3;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: right;
+
+  text-shadow:
+    0 0 2px #d799e3,
+    0 0 5px #c885ce,
+    0 0 10px #c885ce,
+    0 0 15px #c885ce;
+
+  animation: glowShift 6s ease-in-out infinite alternate,
+             flicker 2.5s infinite;
+  opacity: 0.9;
+  margin-top: 1em;
+}
+
+.punkglow {
+  font-family: monospace;
+  font-size: 1.25em;
+  color: #e7d6f3;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: right;
+
+  text-shadow:
+    0 0 2px #d799e3,
+    0 0 5px #c885ce,
+    0 0 10px #c885ce,
+    0 0 15px #c885ce;
+
+  animation: glowShift 6s ease-in-out infinite alternate,
+             flicker 2.5s infinite;
+  opacity: 0.9;
+  margin-top: 1em;
+}
+
+.repeat-text1 {
+  white-space: nowrap;
+  margin-top: 32em;
+  display: block;
+}
+
+.back-to-top {
+  position: fixed;
+  bottom: 1em;
+  left: 1.5em;
+  background-color: rgb(200, 133, 206);
+  color: black;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  z-index: 1000;
+  transition: opacity 0.3s ease;
+}
+
+.back-to-top:hover {
+  opacity: 0.8;
+}
+
+
+@keyframes glowShift {
+  0% {
+    text-shadow:
+      0 0 2px #d799e3,
+      0 0 5px #c885ce,
+      0 0 10px #c885ce,
+      0 0 15px #c885ce;
+  }
+  50% {
+    text-shadow:
+      0 0 2px #ff88e3,
+      0 0 5px #d677c7,
+      0 0 10px #a744aa,
+      0 0 20px #6e2f89;
+  }
+  100% {
+    text-shadow:
+      0 0 2px #c0a3ff,
+      0 0 5px #a688ff,
+      0 0 10px #7e68d9,
+      0 0 15px #5a4ba3;
+  }
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    opacity: 1;
+  }
+
+  20%, 24%, 55% {
+    opacity: 0.4;
+  }
+}
+
+
+@media screen and (max-width: 400px) {
+  #title {
+    font-size: 1.5em;
+    padding: 0.4em 0.5em;
+    text-align: left;
+
+  }
+
+  body {
+    padding-bottom: 0;  
+  }
+  
+  h2 {
+    font-size: 1.25em;
+    margin-top: 11em;
+    padding: 0.4em 0.5em;
+    text-align: left;
+  }
+
+  .container {
+    align-items: flex-start;
+    padding: 0.75em 1em;
+  }
+
+  h3 {
+    font-size: 1.25em;
+    text-align: right;
+    padding-right: 0.5em;
+    margin-top: 0.4em;
+    width: 100%;
+    padding: 0.5em 0.25em;
+    margin: 0.25em 0;
+    overflow-wrap: break-word;
+  }
+
+  p,
+  .container p {
+    width: 100%;
+    text-align: right;
+    padding: 0.5em 0.25em;
+    margin: 0.25em 0;
+    font-size: 1em;
+    overflow-wrap: break-word;
+  }
+
+  .block-text {
+    text-align: justify;
+  }
+
+
+  h2 {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .back-to-top {
+    padding: 0.4em 0.8em;
+    font-size: 1em;
+    left: 1em;
+    bottom: 0.75em;
+  }
+
+  .repeat-text1,
+  .repeat-text2 {
+    white-space: nowrap;
+    margin-top: 1em;
+    word-wrap: break-word;
+  }
+
+   body, .container {
+    padding-right: 0.5em;
+  }
+
+}
