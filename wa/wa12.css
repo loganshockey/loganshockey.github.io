@@ -135,15 +135,16 @@ header {
   animation: flash 0.3s ease;
 }
 
-@keyframes flash {
-  0%   { background-color: #ffb3ba; }  /* light red */
-  20%  { background-color: #ffdfba; }  /* light orange */
-  40%  { background-color: #ffffba; }  /* light yellow */
-  60%  { background-color: #baffc9; }  /* light green */
-  80%  { background-color: #bae1ff; }  /* light blue */
-  100% { background-color: white; }   /* back to normal */
+@keyframes flashColors {
+  0% { background-color: #ff6b6b; }
+  20% { background-color: #feca57; }
+  40% { background-color: #1dd1a1; }
+  60% { background-color: #54a0ff; }
+  80% { background-color: #5f27cd; }
+  100% { background-color: #ff6b6b; }
 }
 
 .flash {
-  animation: flash 0.6s ease;
+  animation: flashColors 3s linear 3; /* 3s per cycle, repeat 3 times */
 }
+
