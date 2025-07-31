@@ -5,8 +5,6 @@ newQuote.addEventListener("click", getQuote);
 async function getQuote() {
 }
 
-const endpoint = "https://trivia.cyberwisp.com/getrandomchristmasquestion";
-
 function getQuote() {
     try {
         const response = await fetch(endpoint);
@@ -15,7 +13,9 @@ function getQuote() {
         }
         
         const json = await response.json();
-        console.log(json);
+        // console.log(json.question);
+        // console.log(json.answer);
+        displayQuote(json.question);
 
     } catch (err) {
         console.log(err);
@@ -23,9 +23,11 @@ function getQuote() {
     }
 }
 
-// function displayQuote(quote) {
-  // const quoteText = document.querySelector("#js-quote-text");
-  // quoteText.textContent = quote;
-// }
+function displayQuote(quote) {
+    const quoteText = document.querySelector("#js-quote-text");
+    quoteText.textContent = quote;
+}
 
-// getQuote();
+getQuote();
+
+const endpoint = "https://trivia.cyberwisp.com/getrandomchristmasquestion";
