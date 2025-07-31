@@ -106,8 +106,10 @@ header {
 }
 
 .explanation {
-
-  position: center;
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 1.1rem;
+  color: #333;
 }
 
 @keyframes scroll-left {
@@ -145,6 +147,6 @@ header {
 }
 
 .flash {
-  animation: flashColors 3s linear 3; /* 3s per cycle, repeat 3 times */
+  animation: flashColors 3s linear 3;
 }
 
