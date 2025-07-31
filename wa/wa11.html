@@ -62,10 +62,7 @@
     <h1>Image Carousel</h1>
 
     <div class="full-img">
-      <img
-        class="displayed-img"
-        src="images/pic1.jpg"
-        alt="Closeup of a blue human eye" />
+    <img class="displayed-img" src="wa11pics/fashion1.png" alt="image for fashion1.png" />
       <div class="overlay"></div>
       <button class="dark">Darken</button>
     </div>
@@ -83,8 +80,9 @@
 
   const thumbBar = document.querySelector(".thumb-bar");
   const displayedImg = document.querySelector(".displayed-img");
+  displayedImg.src = galleryImages[0];
+  displayedImg.alt = "Thumbnail for " + galleryImages[0];
 
-  // Generate thumbnails and click behavior
   galleryImages.forEach(function(imagePath) {
     const newImage = document.createElement("img");
     newImage.src = imagePath;
