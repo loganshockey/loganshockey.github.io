@@ -3,9 +3,6 @@ const newQuote = document.querySelector("#js-new-quote");
 newQuote.addEventListener("click", getQuote);
 const endpoint = "https://trivia.cyberwisp.com/getrandomchristmasquestion";
 
-function getQuote() {
-}
-
 async function getQuote() {
     try {
         const response = await fetch(endpoint);
