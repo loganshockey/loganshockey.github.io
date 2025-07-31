@@ -112,6 +112,23 @@ header {
   color: #333;
 }
 
+#cat-image-container {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 300px;
+  max-height: 200px;
+  z-index: 1000;
+}
+
+#cat-image-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
 @keyframes scroll-left {
   0% {
     transform: translateX(0%);

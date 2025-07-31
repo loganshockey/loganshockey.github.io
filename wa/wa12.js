@@ -41,6 +41,38 @@ function changeBackgroundColor() {
 newQuote.addEventListener("click", () => {
   getQuote();
   changeBackgroundColor();
+  showRandomCat();
 });
 
 getQuote();
+
+const catImages = [
+  'wa12cats/cat1.png',
+  'wa12cats/cat2.jpg',
+  'wa12cats/cat3.png',
+  'wa12cats/cat4.png',
+  'wa12cats/cat5.jpg',
+  'wa12cats/cat6.jpg',
+  'wa12cats/cat7.png',
+  'wa12cats/cat8.jpg',
+  'wa12cats/cat9.jpg',
+  'wa12cats/cat10.jpg'
+];
+
+function showRandomCat() {
+  const container = document.getElementById('cat-image-container');
+  
+  // Pick a random image from the array
+  const randomIndex = Math.floor(Math.random() * catImages.length);
+  const randomCatSrc = catImages[randomIndex];
+  
+  // Clear any existing image
+  container.innerHTML = '';
+  
+  // Create a new image element
+  const img = document.createElement('img');
+  img.src = randomCatSrc;
+  img.alt = "Random Cat";
+  
+  container.appendChild(img);
+}
