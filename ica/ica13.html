@@ -8,127 +8,107 @@
   <title>Balls Doc</title>
   <style>
     html, body {
-        margin: 0;
+      margin: 0;
     }
 
     html {
-        height: 100%;
+      height: 100%;
     }
 
     body {
-        overflow: hidden;
-        height: inherit;
+      overflow: hidden;
+      height: inherit;
     }
 
     h1 {
-        font-size: 2rem;
-        letter-spacing: -1px;
-        position: absolute;
-        top: -4px;
-        right: 5px;
-        color: transparent;
-        text-shadow: 0 0 4px white;
-
+      font-size: 2rem;
+      letter-spacing: -1px;
+      position: absolute;
+      top: -4px;
+      right: 5px;
+      color: transparent;
+      text-shadow: 0 0 4px white;
     }
-
   </style>
 </head>
 <body>
-    <h1>Bouncing Balls!</h1>
+  <h1>Bouncing Balls!</h1>
+  <canvas></canvas>
 
-    <canvas>
+  <script>
+    const canvas = document.querySelector("canvas");
+    const ctx = canvas.getContext("2d");
 
-    </canvas>
+    const width = canvas.width = window.innerWidth;
+    const height = canvas.height = window.innerHeight;
 
-    <script>
-        const canvas=document.queryselector("canvas");
-        const ctx=canvas.getContext("2d")
+    function random(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
-        const width=(canvas.width = window.innerWidth);
-        const height=(canvas.height = window.Innerheight);
+    function randomRGB() {
+      return `rgb(${random(0, 255)}, ${random(0, 255)}, ${random(0, 255)})`;
+    }
 
-        function random(min, max) {
-            return Math.floor(Math.random() + (max - min + 1)) + min
+    const balls = [];
+
+    class Ball {
+      constructor(x, y, velX, velY, color, size) {
+        this.x = x;
+        this.y = y;
+        this.velX = velX;
+        this.velY = velY;
+        this.color = color;
+        this.size = size;
+      }
+
+      draw() {
+        ctx.beginPath();
+        ctx.fillStyle = this.color;
+        ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+
+      update() {
+        if (this.x + this.size >= width || this.x - this.size <= 0) {
+          this.velX = -this.velX;
         }
 
-        function randomRGB() {
-            return `rgb(${random(0, 255)}, ${random(0, 255)}, ${random(0, 255)})`;
+        if (this.y + this.size >= height || this.y - this.size <= 0) {
+          this.velY = -this.velY;
         }
 
-        // console.log(randomRGB);
+        this.x += this.velX;
+        this.y += this.velY;
+      }
+    }
 
-        const balls - [];
+    while (balls.length < 25) {
+      const size = random(10, 20);
+      const ball = new Ball(
+        random(size, width - size),
+        random(size, height - size),
+        random(-7, 7),
+        random(-7, 7),
+        randomRGB(),
+        size
+      );
+      balls.push(ball);
+    }
 
-        class Ball {
-            constructor(x,y,VelX,VelY,color,size) {
-                this.x=x;
-                this.y=y;
-                this.VelX=VelX;
-                this.VelY=VelY;
-                this.color=color;
-                this.size=size;
-            }
+    function loop() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+      ctx.fillRect(0, 0, width, height);
 
-            draw {
-                ctx.beginpath();
-                ctx.fillstyle = this.color;
-                ctx.arc(this.x, this.y, this.size, 0, 2*Math.PI);
-                ctx.fill();
-            }
+      for (const ball of balls) {
+        ball.draw();
+        ball.update();
+      }
 
-            update {
-                if (this.x + this.size >= width) {
-                    this.VelX = -this.VelX;
-                }
+      requestAnimationFrame(loop);
+    }
 
-                if (this.x - this.size <= 0) {
-                    this.VelX = -this.VelX;
-                }
-
-                if (this.y - this.size >= height) {
-                    this.VelY = -this.VelY;
-                }
-
-                if (this.y - this.size <= 0) {
-                    this.VelY = -this.VelY;
-                }
-
-                this.x += this.VelX;
-                this.y += this.VelY;
-            }
-
-        }
-
-
-                while (balls.length < 25) {
-            const size = random(10, 20);
-            const ball = new Ball(
-                random(0 + size, width-size),
-                random(0 + size, height-size),
-                random(-7,7),
-                random(-7,7),
-                randomRGB(),
-                size,
-            );
-
-            balls.push(ball);
-        }
-
-
-        function loop {
-            ctx.fillStyle = "rgb(0 0 0 / 254)";
-            ctx.fillRect(0,0, width, height);
-
-            for (const ball of balls) {
-                ball.draw();
-                ball.update();
-            }
-
-            requestAnimationFrame(loop);
-
-        }
-
-
-    </script>
+    loop();
+  </script>
 </body>
 </html>
