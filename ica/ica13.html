@@ -41,8 +41,77 @@
     </canvas>
 
     <script>
+        const canvas=document.queryselector("canvas");
+        const ctx=canvas.getContext("2d")
 
+        const width=(canvas.width = window.innerWidth);
+        const height=(canvas.height = window.Innerheight);
+
+        function random(min, max) {
+            return Math.floor(Math.random() + (max - min + 1)) + min
+        }
+
+        function randomRGB() {
+            return `rgb(${random(0, 255)}, ${random(0, 255)}, ${random(0, 255)})`;
+        }
+
+        // console.log(randomRGB);
+
+        const balls - [];
+
+        while (balls.length < 25) {
+            const size = random(10, 20);
+            const ball = new Ball(
+                random(0 + size, width-size),
+                random(0 + size, height-size),
+                random(-7,7),
+                random(-7,7),
+                randomRGB(),
+                size,
+            );
+
+            balls.push(ball);
+        }
+
+        class Ball {
+            constructor(x,y,VelX,VelY,color,size) {
+                this.x=x;
+                this.y=y;
+                this.VelX=VelX;
+                this.VelY=VelY;
+                this.color=color;
+                this.size=size;
+            }
+
+            draw {
+                ctx.beginpath();
+                ctx.fillstyle = this.color;
+                ctx.arc(this.x, this.y, this.size, 0, 2*Math.PI);
+                ctx.fill();
+            }
+
+            update {
+                if (this.x + this.size >= width) {
+                    this.VelX = -this.VelX;
+                }
+
+                if (this.x - this.size <= 0) {
+                    this.VelX = -this.VelX;
+                }
+
+                if (this.y - this.size >= height) {
+                    this.VelY = -this.VelY;
+                }
+
+                if (this.y - this.size <= 0) {
+                    this.VelY = -this.VelY;
+                }
+
+                this.x += this.VelX;
+                this.y += this.VelY;
+            }
+
+        }
     </script>
-
 </body>
 </html>
