@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Color-Mix Phone Input</title>
+  <title>RGB Color Mixer</title>
   <style>
     body {
       font-family: sans-serif;
@@ -29,7 +29,7 @@
 </head>
 <body>
 
-  <h1>Paint to Reveal Numbers</h1>
+  <h1>RGB Color Mixer: Paint to Reveal Numbers</h1>
 
   <div id="palette">
     <button class="color-btn" style="background: red;" data-color="red"></button>
@@ -45,14 +45,14 @@
     let painting = false;
     let currentColor = "red";
 
-    // Color selection
+
     document.querySelectorAll(".color-btn").forEach(btn => {
       btn.addEventListener("click", () => {
         currentColor = btn.dataset.color;
       });
     });
 
-    // Painting logic
+
     canvas.addEventListener("mousedown", () => painting = true);
     canvas.addEventListener("mouseup", () => painting = false);
     canvas.addEventListener("mouseleave", () => painting = false);
