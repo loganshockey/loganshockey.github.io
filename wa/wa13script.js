@@ -32,3 +32,13 @@ company.employees.forEach(emp => {
 
 console.log("Raises:");
 console.log(company);
+
+
+let wfhEmployees = ["Anna", "Sam"];
+
+company.employees.forEach(emp => {
+  emp.wfh = wfhEmployees.includes(emp.firstName);
+});
+
+console.log("WFH Employees");
+console.log(company);
