@@ -16,3 +16,19 @@ let company = {
 
 console.log("Company Info");
 console.log(company);
+
+let totalSalary = company.employees.reduce((sum, emp) => sum + emp.salary, 0);
+
+console.log("Total Salary:");
+console.log(`$${totalSalary}`);
+
+
+company.employees.forEach(emp => {
+  if (emp.raiseEligible) {
+    emp.salary *= 1.1;
+    emp.raiseEligible = false;
+  }
+});
+
+console.log("Raises:");
+console.log(company);
