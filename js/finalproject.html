@@ -1,76 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>RGB Color Mixer</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      text-align: center;
-    }
-
-    #palette {
-      margin-bottom: 1em;
-    }
-
-    .color-btn {
-      width: 40px;
-      height: 40px;
-      border: none;
-      margin: 0 5px;
-      cursor: pointer;
-    }
-
-    canvas {
-      border: 2px solid #000;
-      cursor: crosshair;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RGB Color Sliders</title>
+  <link rel="stylesheet" href="finalproject.css" />
 </head>
 <body>
-
-  <h1>RGB Color Mixer: Paint to Reveal Numbers</h1>
-
-  <div id="palette">
-    <button class="color-btn" style="background: red;" data-color="red"></button>
-    <button class="color-btn" style="background: green;" data-color="green"></button>
-    <button class="color-btn" style="background: blue;" data-color="blue"></button>
+  <h1>RGB Color Mixer</h1>
+  <div class="sliders">
+    <div class="slider">
+      <label for="red">Red: <span id="redValue">128</span></label>
+      <input type="range" id="red" min="0" max="255" value="128">
+    </div>
+    <div class="slider">
+      <label for="green">Green: <span id="greenValue">128</span></label>
+      <input type="range" id="green" min="0" max="255" value="128">
+    </div>
+    <div class="slider">
+      <label for="blue">Blue: <span id="blueValue">128</span></label>
+      <input type="range" id="blue" min="0" max="255" value="128">
+    </div>
   </div>
 
-  <canvas id="paintCanvas" width="300" height="300"></canvas>
+  <div id="colorPreview"></div>
 
-  <script>
-    const canvas = document.getElementById("paintCanvas");
-    const ctx = canvas.getContext("2d");
-    let painting = false;
-    let currentColor = "red";
-
-
-    document.querySelectorAll(".color-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        currentColor = btn.dataset.color;
-      });
-    });
-
-
-    canvas.addEventListener("mousedown", () => painting = true);
-    canvas.addEventListener("mouseup", () => painting = false);
-    canvas.addEventListener("mouseleave", () => painting = false);
-    canvas.addEventListener("mousemove", draw);
-
-    function draw(e) {
-      if (!painting) return;
-
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      ctx.fillStyle = currentColor;
-      ctx.beginPath();
-      ctx.arc(x, y, 10, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
