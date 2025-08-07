@@ -54,7 +54,7 @@ function paint(e) {
   const color = `rgb(${r}, ${g}, ${b})`;
 
   ctx.strokeStyle = color;
-  ctx.lineWidth = 5;
+  ctx.lineWidth = 20;
   ctx.lineJoin = "round";
   ctx.lineCap = "round";
 
