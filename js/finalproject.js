@@ -21,7 +21,10 @@ function updateBrushColor() {
   const g = greenSlider.value;
   const b = blueSlider.value;
   brushColor = `rgb(${r},${g},${b})`;
+  colorPreview.style.backgroundColor = brushColor;
 }
+
+
 
 redSlider.addEventListener("input", updateBrushColor);
 greenSlider.addEventListener("input", updateBrushColor);
