@@ -8,14 +8,13 @@ const feedback = document.getElementById("feedback");
 const targetColorBox = document.getElementById("targetColorBox");
 
 let painting = false;
-
+let hasPainted = false; 
 
 const targetColor = {
   r: Math.floor(Math.random() * 256),
   g: Math.floor(Math.random() * 256),
   b: Math.floor(Math.random() * 256)
 };
-
 
 targetColorBox.style.backgroundColor = `rgb(${targetColor.r},${targetColor.g},${targetColor.b})`;
 
@@ -42,23 +41,28 @@ const colorMatch = (current, target, tolerance = 10) => {
 };
 
 const updateFeedback = () => {
+
   const current = getColor();
   const { match, totalDiff } = colorMatch(current, targetColor, 10);
 
   if (match) {
-    feedback.textContent = `Match found! ${current.r}, ${current.g}, ${current.b}`;
+    feedback.textContent = `Match Found!`;
     feedback.style.color = "green";
   } else if (totalDiff < 60) {
-    feedback.textContent = `Color Difference: ${totalDiff}`;
+    feedback.textContent = `Getting Closer`;
     feedback.style.color = "orange";
   } else {
-    feedback.textContent = `Color Difference: ${totalDiff}`;
+    feedback.textContent = `Try Again`;
     feedback.style.color = "red";
   }
 };
 
 const paint = (e) => {
   if (!painting) return;
+
+  if (!hasPainted) {
+    hasPainted = true;
+  }
 
   const rect = canvas.getBoundingClientRect();
   const x = e.clientX - rect.left;
@@ -78,8 +82,16 @@ canvas.addEventListener("mouseup", () => painting = false);
 canvas.addEventListener("mouseleave", () => painting = false);
 canvas.addEventListener("mousemove", paint);
 
-rSlider.addEventListener("input", updateFeedback);
-gSlider.addEventListener("input", updateFeedback);
-bSlider.addEventListener("input", updateFeedback);
+rSlider.addEventListener("input", () => {
+  if (hasPainted) updateFeedback();
+});
+
+gSlider.addEventListener("input", () => {
+  if (hasPainted) updateFeedback();
+});
+
+bSlider.addEventListener("input", () => {
+  if (hasPainted) updateFeedback();
+});
 
 updateFeedback();
