@@ -1,91 +1,82 @@
 const canvas = document.getElementById('paintCanvas');
 const ctx = canvas.getContext('2d');
-let painting = false;
 
-const rSlider = document.getElementById('rRange');
-const gSlider = document.getElementById('gRange');
-const bSlider = document.getElementById('bRange');
+const rSlider = document.getElementById('rSlider');
+const gSlider = document.getElementById('gSlider');
+const bSlider = document.getElementById('bSlider');
+const feedback = document.getElementById('feedback');
 
 const rBox = document.getElementById('rBox');
 const gBox = document.getElementById('gBox');
 const bBox = document.getElementById('bBox');
 
-const feedback = document.getElementById('feedback');
+const targetColorBox = document.getElementById('targetColor');
+let hasPainted = false;
 
 
 const targetColor = {
   r: Math.floor(Math.random() * 256),
   g: Math.floor(Math.random() * 256),
-  b: Math.floor(Math.random() * 256),
+  b: Math.floor(Math.random() * 256)
 };
+targetColorBox.style.backgroundColor = `rgb(${targetColor.r}, ${targetColor.g}, ${targetColor.b})`;
 
+let painting = false;
 
-const targetBox = document.getElementById('targetColor');
-targetBox.style.backgroundColor = `rgb(${targetColor.r}, ${targetColor.g}, ${targetColor.b})`;
-
-function updateColorBoxes() {
-  rBox.style.backgroundColor = `rgb(${rSlider.value}, 0, 0)`;
-  gBox.style.backgroundColor = `rgb(0, ${gSlider.value}, 0)`;
-  bBox.style.backgroundColor = `rgb(0, 0, ${bSlider.value})`;
+function updateSliderBoxes() {
+  rBox.style.backgroundColor = `rgb(${rSlider.value},0,0)`;
+  gBox.style.backgroundColor = `rgb(0,${gSlider.value},0)`;
+  bBox.style.backgroundColor = `rgb(0,0,${bSlider.value})`;
 }
-
-updateColorBoxes();
-
-function getBrushColor() {
-  return `rgb(${rSlider.value}, ${gSlider.value}, ${bSlider.value})`;
-}
-
-function getCurrentRGBObject() {
-  return {
-    r: parseInt(rSlider.value),
-    g: parseInt(gSlider.value),
-    b: parseInt(bSlider.value),
-  };
-}
+updateSliderBoxes();
 
 canvas.addEventListener('mousedown', () => {
   painting = true;
 });
-
 canvas.addEventListener('mouseup', () => {
   painting = false;
-  ctx.beginPath();
-  showColorFeedback(); 
 });
+canvas.addEventListener('mousemove', paint);
 
-canvas.addEventListener('mousemove', draw);
-
-function draw(e) {
+function paint(e) {
   if (!painting) return;
+
   const rect = canvas.getBoundingClientRect();
-  ctx.lineWidth = 10;
-  ctx.lineCap = 'round';
-  ctx.strokeStyle = getBrushColor();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
 
-  ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
-}
+  const r = parseInt(rSlider.value);
+  const g = parseInt(gSlider.value);
+  const b = parseInt(bSlider.value);
 
-[rSlider, gSlider, bSlider].forEach(slider => {
-  slider.addEventListener('input', updateColorBoxes);
-});
+  ctx.fillStyle = `rgb(${r},${g},${b})`;
+  ctx.fillRect(x, y, 10, 10);
 
-function showColorFeedback() {
-  const current = getCurrentRGBObject();
-  const diff = Math.sqrt(
-    Math.pow(current.r - targetColor.r, 2) +
-    Math.pow(current.g - targetColor.g, 2) +
-    Math.pow(current.b - targetColor.b, 2)
-  );
+  if (!hasPainted) {
+    hasPainted = true;
+  }
 
-  const tolerance = 100;
+  
+  const diff =
+    Math.abs(r - targetColor.r) +
+    Math.abs(g - targetColor.g) +
+    Math.abs(b - targetColor.b);
 
-  const message =
-    diff < tolerance
-      ? `Color Matched! rgb(${current.r}, ${current.g}, ${current.b})`
-      : `Try Again: rgb(${current.r}, ${current.g}, ${current.b})`;
+  const threshold = 90; 
+
+  let message = `Your color: rgb(${r}, ${g}, ${b}) — `;
+  message += `Difference from target: ${diff}`;
+
+  if (diff <= threshold) {
+    message += ` Color Matched!`;
+  } else {
+    message += ` - Try again!`;
+  }
 
   feedback.textContent = message;
 }
+
+
+rSlider.addEventListener('input', updateSliderBoxes);
+gSlider.addEventListener('input', updateSliderBoxes);
+bSlider.addEventListener('input', updateSliderBoxes);
