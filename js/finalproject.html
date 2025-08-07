@@ -9,6 +9,11 @@
 <body>
   <h1>Use the RGB Sliders to Color Match!</h1>
 
+  <div id="targetColorContainer">
+    Target Color:
+    <div id="targetColorBox"></div>
+  </div>
+
   <div class="sliders">
     <label>R: <input type="range" min="0" max="255" value="0" id="rSlider"></label><br>
     <label>G: <input type="range" min="0" max="255" value="0" id="gSlider"></label><br>
@@ -16,6 +21,8 @@
   </div>
 
   <canvas id="paintCanvas" width="300" height="300"></canvas>
+
+  <div class="feedback" id="feedback">Start painting to see how close you are.</div>
 
   <script src="testJS.js"></script>
 </body>

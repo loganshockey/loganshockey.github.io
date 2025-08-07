@@ -5,17 +5,19 @@ const rSlider = document.getElementById("rSlider");
 const gSlider = document.getElementById("gSlider");
 const bSlider = document.getElementById("bSlider");
 const feedback = document.getElementById("feedback");
+const targetColorBox = document.getElementById("targetColorBox");
 
 let painting = false;
 
-// Generate a random target color
+
 const targetColor = {
   r: Math.floor(Math.random() * 256),
   g: Math.floor(Math.random() * 256),
   b: Math.floor(Math.random() * 256)
 };
 
-console.log("Target color (shhh!):", targetColor); // Remove this line to hide target color
+
+targetColorBox.style.backgroundColor = `rgb(${targetColor.r},${targetColor.g},${targetColor.b})`;
 
 const getColor = () => {
   return {
