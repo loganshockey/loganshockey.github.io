@@ -1,60 +1,67 @@
-const canvas = document.getElementById('paintCanvas');
-const ctx = canvas.getContext('2d');
+const canvas = document.getElementById("paintCanvas");
+const ctx = canvas.getContext("2d");
 
-const redSlider = document.getElementById('red');
-const greenSlider = document.getElementById('green');
-const blueSlider = document.getElementById('blue');
-
-const redValue = document.getElementById('redValue');
-const greenValue = document.getElementById('greenValue');
-const blueValue = document.getElementById('blueValue');
-
-const colorPreview = document.getElementById('colorPreview');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 let drawing = false;
-let brushColor = 'rgb(128, 128, 128)';
-const brushSize = 10;
+let brushSize = 10;
+let brushColor = "rgb(0,0,0)";
 
-function updateColor() {
-  const r = parseInt(redSlider.value);
-  const g = parseInt(greenSlider.value);
-  const b = parseInt(blueSlider.value);
+let lastX = null;
+let lastY = null;
 
-  redValue.textContent = r;
-  greenValue.textContent = g;
-  blueValue.textContent = b;
 
-  brushColor = `rgb(${r}, ${g}, ${b})`;
-  colorPreview.style.backgroundColor = brushColor;
+const redSlider = document.getElementById("red");
+const greenSlider = document.getElementById("green");
+const blueSlider = document.getElementById("blue");
+
+function updateBrushColor() {
+  const r = redSlider.value;
+  const g = greenSlider.value;
+  const b = blueSlider.value;
+  brushColor = `rgb(${r},${g},${b})`;
 }
 
+redSlider.addEventListener("input", updateBrushColor);
+greenSlider.addEventListener("input", updateBrushColor);
+blueSlider.addEventListener("input", updateBrushColor);
 
-canvas.addEventListener('mousedown', e => {
+
+canvas.addEventListener("mousedown", (e) => {
   drawing = true;
-  draw(e);
+  const rect = canvas.getBoundingClientRect();
+  lastX = e.clientX - rect.left;
+  lastY = e.clientY - rect.top;
 });
 
-canvas.addEventListener('mousemove', draw);
-canvas.addEventListener('mouseup', () => (drawing = false));
-canvas.addEventListener('mouseleave', () => (drawing = false));
 
-function draw(e) {
+canvas.addEventListener("mouseup", () => {
+  drawing = false;
+  lastX = null;
+  lastY = null;
+});
+
+
+
+
+canvas.addEventListener("mousemove", (e) => {
   if (!drawing) return;
 
   const rect = canvas.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
 
-  ctx.fillStyle = brushColor;
+  ctx.strokeStyle = brushColor;
+  ctx.lineWidth = brushSize;
+  ctx.lineCap = "round";
+  ctx.lineJoin = "round";
+
   ctx.beginPath();
-  ctx.arc(x, y, brushSize / 2, 0, Math.PI * 2);
-  ctx.fill();
-}
+  ctx.moveTo(lastX, lastY);
+  ctx.lineTo(x, y);
+  ctx.stroke();
 
-
-redSlider.addEventListener('input', updateColor);
-greenSlider.addEventListener('input', updateColor);
-blueSlider.addEventListener('input', updateColor);
-
-
-updateColor();
+  lastX = x;
+  lastY = y;
+});
