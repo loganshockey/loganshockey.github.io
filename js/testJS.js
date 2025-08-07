@@ -75,7 +75,7 @@ function paint(e) {
     const diffB = Math.abs(b - targetColor.b);
     const totalDiff = diffR + diffG + diffB;
 
-    const threshold = 50;
+    const threshold = 25;
     const paintedColor = `rgb(${r}, ${g}, ${b})`;
 
     if (totalDiff <= threshold) {
