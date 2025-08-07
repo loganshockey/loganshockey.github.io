@@ -79,7 +79,7 @@ function paint(e) {
     const paintedColor = `rgb(${r}, ${g}, ${b})`;
 
     if (totalDiff <= threshold) {
-      feedbackText.textContent = `Color Matech! Value Difference: ${totalDiff}`;
+      feedbackText.textContent = `Color Match! Value Difference: ${totalDiff}`;
     } else {
       feedbackText.textContent = `Try Again! Value Difference: ${totalDiff}`;
     }
