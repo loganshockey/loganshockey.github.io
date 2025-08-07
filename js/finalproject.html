@@ -3,27 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RGB Color Sliders</title>
-  <link rel="stylesheet" href="finalproject.css" />
+  <title>RGB Color Mixer Canvas</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <h1>RGB Color Mixer</h1>
-  <div class="sliders">
-    <div class="slider">
-      <label for="red">Red: <span id="redValue">128</span></label>
-      <input type="range" id="red" min="0" max="255" value="128">
-    </div>
-    <div class="slider">
-      <label for="green">Green: <span id="greenValue">128</span></label>
-      <input type="range" id="green" min="0" max="255" value="128">
-    </div>
-    <div class="slider">
-      <label for="blue">Blue: <span id="blueValue">128</span></label>
-      <input type="range" id="blue" min="0" max="255" value="128">
+  <div class="container">
+    <canvas id="paintCanvas" width="800" height="600"></canvas>
+
+    <div class="sidebar">
+      <h1>RGB Mixer</h1>
+
+      <div class="sliders">
+        <div class="slider">
+          <label for="red">Red: <span id="redValue">128</span></label>
+          <input type="range" id="red" min="0" max="255" value="128">
+        </div>
+        <div class="slider">
+          <label for="green">Green: <span id="greenValue">128</span></label>
+          <input type="range" id="green" min="0" max="255" value="128">
+        </div>
+        <div class="slider">
+          <label for="blue">Blue: <span id="blueValue">128</span></label>
+          <input type="range" id="blue" min="0" max="255" value="128">
+        </div>
+      </div>
+
+      <div id="colorPreview"></div>
     </div>
   </div>
-
-  <div id="colorPreview"></div>
 
   <script src="script.js"></script>
 </body>
