@@ -4,11 +4,17 @@ const ctx = canvas.getContext("2d");
 const rSlider = document.getElementById("rSlider");
 const gSlider = document.getElementById("gSlider");
 const bSlider = document.getElementById("bSlider");
+
+const rPreview = document.getElementById("rPreview");
+const gPreview = document.getElementById("gPreview");
+const bPreview = document.getElementById("bPreview");
+
 const feedback = document.getElementById("feedback");
 const targetColorBox = document.getElementById("targetColorBox");
 
 let painting = false;
-let hasPainted = false; 
+let hasPainted = false;
+
 
 const targetColor = {
   r: Math.floor(Math.random() * 256),
@@ -16,7 +22,14 @@ const targetColor = {
   b: Math.floor(Math.random() * 256)
 };
 
+
 targetColorBox.style.backgroundColor = `rgb(${targetColor.r},${targetColor.g},${targetColor.b})`;
+
+const updatePreviewColors = () => {
+  rPreview.style.backgroundColor = `rgb(${rSlider.value},0,0)`;
+  gPreview.style.backgroundColor = `rgb(0,${gSlider.value},0)`;
+  bPreview.style.backgroundColor = `rgb(0,0,${bSlider.value})`;
+};
 
 const getColor = () => {
   return {
@@ -41,12 +54,16 @@ const colorMatch = (current, target, tolerance = 10) => {
 };
 
 const updateFeedback = () => {
+  if (!hasPainted) {
+    feedback.textContent = ""; 
+    return;
+  }
 
   const current = getColor();
   const { match, totalDiff } = colorMatch(current, targetColor, 10);
 
   if (match) {
-    feedback.textContent = `Match Found!`;
+    feedback.textContent = `Match found!`;
     feedback.style.color = "green";
   } else if (totalDiff < 60) {
     feedback.textContent = `Getting Closer`;
@@ -83,15 +100,20 @@ canvas.addEventListener("mouseleave", () => painting = false);
 canvas.addEventListener("mousemove", paint);
 
 rSlider.addEventListener("input", () => {
+  updatePreviewColors();
   if (hasPainted) updateFeedback();
 });
 
 gSlider.addEventListener("input", () => {
+  updatePreviewColors();
   if (hasPainted) updateFeedback();
 });
 
 bSlider.addEventListener("input", () => {
+  updatePreviewColors();
   if (hasPainted) updateFeedback();
 });
 
+
+updatePreviewColors();
 updateFeedback();

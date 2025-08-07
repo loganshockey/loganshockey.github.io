@@ -20,6 +20,15 @@ body {
   display: inline-block;
 }
 
+.color-preview {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 1px solid #333;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
 canvas {
   border: 1px solid #ccc;
   margin-top: 10px;

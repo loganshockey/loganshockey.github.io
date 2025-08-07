@@ -14,12 +14,23 @@
     <div id="targetColorBox"></div>
   </div>
 
-  <div class="sliders">
-    <label>R: <input type="range" min="0" max="255" value="128" id="rSlider"></label><br>
-    <label>G: <input type="range" min="0" max="255" value="128" id="gSlider"></label><br>
-    <label>B: <input type="range" min="0" max="255" value="128" id="bSlider"></label>
-  </div>
-
+<div class="sliders">
+  <label>
+    R: 
+    <input type="range" min="0" max="255" value="128" id="rSlider">
+    <span id="rPreview" class="color-preview"></span>
+  </label><br>
+  <label>
+    G: 
+    <input type="range" min="0" max="255" value="128" id="gSlider">
+    <span id="gPreview" class="color-preview"></span>
+  </label><br>
+  <label>
+    B: 
+    <input type="range" min="0" max="255" value="128" id="bSlider">
+    <span id="bPreview" class="color-preview"></span>
+  </label>
+</div>
   <canvas id="paintCanvas" width="300" height="300"></canvas>
 
   <div class="feedback" id="feedback">Start painting to see how close you are.</div>
