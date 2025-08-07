@@ -1,46 +1,60 @@
 body {
   font-family: sans-serif;
-  text-align: center;
-  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  padding: 20px;
 }
 
-#targetColorContainer {
-  margin-bottom: 10px;
-  font-weight: bold;
+h1 {
+  margin-bottom: 20px;
+}
+
+.controls {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.slider-group {
+  display: flex;
   align-items: center;
   gap: 10px;
 }
 
-#targetColorBox {
-  width: 50px;
-  height: 50px;
-  border: 2px solid black;
-  display: inline-block;
+input[type="range"] {
+  width: 300px;
 }
 
-.color-preview {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 1px solid #333;
-  vertical-align: middle;
-  margin-left: 8px;
+.color-box {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
 }
 
 canvas {
-  border: 1px solid #ccc;
-  margin-top: 10px;
+  border: 2px solid #000;
   cursor: crosshair;
+  margin-bottom: 20px;
 }
 
-.sliders {
+#targetBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#targetColor {
+  width: 100px;
+  height: 100px;
   margin-top: 10px;
+  border: 1px solid #000;
 }
 
-.feedback {
+#feedback {
   font-size: 1.2em;
-  margin-top: 10px;
-  font-weight: bold;
+  margin-top: 20px;
+  height: 1.5em;
 }

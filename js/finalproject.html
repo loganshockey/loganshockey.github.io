@@ -2,38 +2,36 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RGB Color Mixer</title>
   <link rel="stylesheet" href="testCSS.css" />
 </head>
 <body>
-  <h1>Use the RGB Sliders to Color Match!</h1>
+  <h1>Use the Sliders to Color Match!</h1>
 
-  <div id="targetColorContainer">
-    Target Color:
-    <div id="targetColorBox"></div>
+  <div class="controls">
+    <div class="slider-group">
+      <div class="color-box" id="rBox"></div>
+      <input type="range" id="rRange" min="0" max="255" value="128" />
+    </div>
+    <div class="slider-group">
+      <div class="color-box" id="gBox"></div>
+      <input type="range" id="gRange" min="0" max="255" value="128" />
+    </div>
+    <div class="slider-group">
+      <div class="color-box" id="bBox"></div>
+      <input type="range" id="bRange" min="0" max="255" value="128" />
+    </div>
   </div>
 
-<div class="sliders">
-  <label>
-    R: 
-    <input type="range" min="0" max="255" value="128" id="rSlider">
-    <span id="rPreview" class="color-preview"></span>
-  </label><br>
-  <label>
-    G: 
-    <input type="range" min="0" max="255" value="128" id="gSlider">
-    <span id="gPreview" class="color-preview"></span>
-  </label><br>
-  <label>
-    B: 
-    <input type="range" min="0" max="255" value="128" id="bSlider">
-    <span id="bPreview" class="color-preview"></span>
-  </label>
-</div>
-  <canvas id="paintCanvas" width="300" height="300"></canvas>
+  <canvas id="paintCanvas" width="500" height="300"></canvas>
 
-  <div class="feedback" id="feedback">Start painting to see how close you are.</div>
+  <div id="targetBox">
+    <p>Match this color:</p>
+    <div id="targetColor"></div>
+  </div>
+
+  <div id="feedback"></div>
 
   <script src="testJS.js"></script>
 </body>

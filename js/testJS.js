@@ -1,16 +1,16 @@
-const canvas = document.getElementById("paintCanvas");
-const ctx = canvas.getContext("2d");
+const canvas = document.getElementById('paintCanvas');
+const ctx = canvas.getContext('2d');
 
-const rSlider = document.getElementById("rSlider");
-const gSlider = document.getElementById("gSlider");
-const bSlider = document.getElementById("bSlider");
+const rRange = document.getElementById('rRange');
+const gRange = document.getElementById('gRange');
+const bRange = document.getElementById('bRange');
 
-const rPreview = document.getElementById("rPreview");
-const gPreview = document.getElementById("gPreview");
-const bPreview = document.getElementById("bPreview");
+const rBox = document.getElementById('rBox');
+const gBox = document.getElementById('gBox');
+const bBox = document.getElementById('bBox');
 
-const feedback = document.getElementById("feedback");
-const targetColorBox = document.getElementById("targetColorBox");
+const targetColorBox = document.getElementById('targetColor');
+const feedback = document.getElementById('feedback');
 
 let painting = false;
 let hasPainted = false;
@@ -22,98 +22,71 @@ const targetColor = {
   b: Math.floor(Math.random() * 256)
 };
 
+targetColorBox.style.backgroundColor = `rgb(${targetColor.r}, ${targetColor.g}, ${targetColor.b})`;
 
-targetColorBox.style.backgroundColor = `rgb(${targetColor.r},${targetColor.g},${targetColor.b})`;
 
-const updatePreviewColors = () => {
-  rPreview.style.backgroundColor = `rgb(${rSlider.value},0,0)`;
-  gPreview.style.backgroundColor = `rgb(0,${gSlider.value},0)`;
-  bPreview.style.backgroundColor = `rgb(0,0,${bSlider.value})`;
-};
+function updateColorBoxes() {
+  rBox.style.backgroundColor = `rgb(${rRange.value}, 0, 0)`;
+  gBox.style.backgroundColor = `rgb(0, ${gRange.value}, 0)`;
+  bBox.style.backgroundColor = `rgb(0, 0, ${bRange.value})`;
+}
 
-const getColor = () => {
-  return {
-    r: parseInt(rSlider.value),
-    g: parseInt(gSlider.value),
-    b: parseInt(bSlider.value)
-  };
-};
 
-const colorMatch = (current, target, tolerance = 10) => {
-  const diffR = Math.abs(current.r - target.r);
-  const diffG = Math.abs(current.g - target.g);
-  const diffB = Math.abs(current.b - target.b);
-
-  const totalDiff = diffR + diffG + diffB;
-
-  if (diffR <= tolerance && diffG <= tolerance && diffB <= tolerance) {
-    return { match: true, totalDiff };
-  }
-
-  return { match: false, totalDiff };
-};
-
-const updateFeedback = () => {
-  if (!hasPainted) {
-    feedback.textContent = ""; 
-    return;
-  }
-
-  const current = getColor();
-  const { match, totalDiff } = colorMatch(current, targetColor, 10);
-
-  if (match) {
-    feedback.textContent = `Match found! ${current.g}, ${current.b})`;
-    feedback.style.color = "green";
-  } else if (totalDiff < 60) {
-    feedback.textContent = `Getting Closer: ${totalDiff}`;
-    feedback.style.color = "orange";
-  } else {
-    feedback.textContent = `Try Again: ${totalDiff}`;
-    feedback.style.color = "red";
-  }
-};
-
-const paint = (e) => {
+function draw(e) {
   if (!painting) return;
-
-  if (!hasPainted) {
-    hasPainted = true;
-  }
 
   const rect = canvas.getBoundingClientRect();
   const x = e.clientX - rect.left;
   const y = e.clientY - rect.top;
 
-  const currentColor = getColor();
-  ctx.fillStyle = `rgb(${currentColor.r}, ${currentColor.g}, ${currentColor.b})`;
+  const r = parseInt(rRange.value);
+  const g = parseInt(gRange.value);
+  const b = parseInt(bRange.value);
+
+  ctx.fillStyle = `rgb(${r},${g},${b})`;
   ctx.beginPath();
   ctx.arc(x, y, 10, 0, Math.PI * 2);
   ctx.fill();
 
-  updateFeedback();
-};
+  if (!hasPainted) {
+    hasPainted = true;
+    checkColorMatch(r, g, b);
+  }
+}
 
-canvas.addEventListener("mousedown", () => painting = true);
-canvas.addEventListener("mouseup", () => painting = false);
-canvas.addEventListener("mouseleave", () => painting = false);
-canvas.addEventListener("mousemove", paint);
 
-rSlider.addEventListener("input", () => {
-  updatePreviewColors();
-  if (hasPainted) updateFeedback();
+function colorDifference(c1, c2) {
+  return Math.sqrt(
+    Math.pow(c1.r - c2.r, 2) +
+    Math.pow(c1.g - c2.g, 2) +
+    Math.pow(c1.b - c2.b, 2)
+  );
+}
+
+function checkColorMatch(r, g, b) {
+  const diff = colorDifference({ r, g, b }, targetColor);
+  if (diff < 30) {
+    feedback.textContent = 'Color Matched! (${current.r}, ${current.g}, ${current.b})';
+  } else {
+    feedback.textContent = 'Try again: ${totalDiff}';
+  }
+}
+
+
+canvas.addEventListener('mousedown', (e) => {
+  painting = true;
+  draw(e);
 });
 
-gSlider.addEventListener("input", () => {
-  updatePreviewColors();
-  if (hasPainted) updateFeedback();
+canvas.addEventListener('mouseup', () => {
+  painting = false;
 });
 
-bSlider.addEventListener("input", () => {
-  updatePreviewColors();
-  if (hasPainted) updateFeedback();
+canvas.addEventListener('mousemove', draw);
+
+
+[rRange, gRange, bRange].forEach(range => {
+  range.addEventListener('input', updateColorBoxes);
 });
 
-
-updatePreviewColors();
-updateFeedback();
+updateColorBoxes();
