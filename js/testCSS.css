@@ -22,7 +22,8 @@ h1 {
 }
 
 .sliders {
-  width: 60%;
+  position: center;
+  width: 70%;
   margin: 0 auto 20px auto;
 }
 
