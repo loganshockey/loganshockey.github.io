@@ -42,7 +42,11 @@ canvas.addEventListener("mouseup", () => {
   lastY = null;
 });
 
-
+canvas.addEventListener("mouseleave", () => {
+  drawing = false;
+  lastX = null;
+  lastY = null;
+});
 
 
 canvas.addEventListener("mousemove", (e) => {
