@@ -5,56 +5,45 @@ const rSlider = document.getElementById("rSlider");
 const gSlider = document.getElementById("gSlider");
 const bSlider = document.getElementById("bSlider");
 
-const rBox = document.getElementById("rBox");
-const gBox = document.getElementById("gBox");
-const bBox = document.getElementById("bBox");
-
 const feedbackText = document.getElementById("feedbackText");
-const targetColorBox = document.getElementById("targetColorBox");
+
+
+const svgRegions = document.querySelectorAll("svg [data-digit]");
+const unlockedDigitsContainer = document.getElementById("digitsList");
+
+
+const unlockedDigits = new Set();
+
+
+const brushSize = 20;
 
 let isPainting = false;
-let paintedOnce = false;
 let lastX = 0;
 let lastY = 0;
 
-
-const targetColor = {
-  r: Math.floor(Math.random() * 256),
-  g: Math.floor(Math.random() * 256),
-  b: Math.floor(Math.random() * 256),
-};
-targetColorBox.style.backgroundColor = `rgb(${targetColor.r}, ${targetColor.g}, ${targetColor.b})`;
-
-
-function updateColorBoxes() {
-  rBox.style.backgroundColor = `rgb(${rSlider.value}, 0, 0)`;
-  gBox.style.backgroundColor = `rgb(0, ${gSlider.value}, 0)`;
-  bBox.style.backgroundColor = `rgb(0, 0, ${bSlider.value})`;
+function rgbString(r, g, b) {
+  return `rgb(${r}, ${g}, ${b})`;
 }
 
-updateColorBoxes();
-[rSlider, gSlider, bSlider].forEach(slider =>
-  slider.addEventListener("input", updateColorBoxes)
-);
 
-function startPainting(e) {
+canvas.addEventListener("mousedown", (e) => {
   isPainting = true;
   [lastX, lastY] = [e.offsetX, e.offsetY];
-}
-
-function stopPainting() {
+});
+canvas.addEventListener("mouseup", () => {
   isPainting = false;
-}
-
-function paint(e) {
+});
+canvas.addEventListener("mouseout", () => {
+  isPainting = false;
+});
+canvas.addEventListener("mousemove", (e) => {
   if (!isPainting) return;
   const r = parseInt(rSlider.value);
   const g = parseInt(gSlider.value);
   const b = parseInt(bSlider.value);
-  const color = `rgb(${r}, ${g}, ${b})`;
 
-  ctx.strokeStyle = color;
-  ctx.lineWidth = 20;
+  ctx.strokeStyle = rgbString(r, g, b);
+  ctx.lineWidth = brushSize;
   ctx.lineJoin = "round";
   ctx.lineCap = "round";
 
@@ -62,32 +51,58 @@ function paint(e) {
   ctx.moveTo(lastX, lastY);
   ctx.lineTo(e.offsetX, e.offsetY);
   ctx.stroke();
+
   [lastX, lastY] = [e.offsetX, e.offsetY];
+});
 
-  if (!paintedOnce) {
-    paintedOnce = true;
-  }
 
-  
-  if (paintedOnce) {
-    const diffR = Math.abs(r - targetColor.r);
-    const diffG = Math.abs(g - targetColor.g);
-    const diffB = Math.abs(b - targetColor.b);
-    const totalDiff = diffR + diffG + diffB;
+function parseRGB(rgbStr) {
+  const vals = rgbStr.match(/\d+/g);
+  return vals ? { r: +vals[0], g: +vals[1], b: +vals[2] } : null;
+}
 
-    const threshold = 25;
-    const paintedColor = `rgb(${r}, ${g}, ${b})`;
+const COLOR_TOLERANCE = 25;
 
-    if (totalDiff <= threshold) {
-      feedbackText.textContent = `Color Match! Value Difference: ${totalDiff}`;
-    } else {
-      feedbackText.textContent = `Try Again! Value Difference: ${totalDiff}`;
-    }
+const digitTargetColors = {
+  7: { r: 255, g: 0, b: 0 },   
+  3: { r: 0, g: 255, b: 0 },   
+  1: { r: 0, g: 0, b: 255 },   
+};
+
+
+function colorDifference(c1, c2) {
+  return Math.abs(c1.r - c2.r) + Math.abs(c1.g - c2.g) + Math.abs(c1.b - c2.b);
+}
+
+function isColorMatch(paintedColor, digit) {
+  const target = digitTargetColors[digit];
+  if (!target) return false;
+  return colorDifference(paintedColor, target) <= COLOR_TOLERANCE;
+}
+
+function updateUnlockedDigitsDisplay() {
+  if (unlockedDigits.size === 0) {
+    unlockedDigitsContainer.textContent = "Digit Locked";
+  } else {
+    unlockedDigitsContainer.textContent = Array.from(unlockedDigits).sort().join(", ");
   }
 }
 
 
-canvas.addEventListener("mousedown", startPainting);
-canvas.addEventListener("mouseup", stopPainting);
-canvas.addEventListener("mouseout", stopPainting);
-canvas.addEventListener("mousemove", paint);
+svgRegions.forEach((region) => {
+  region.addEventListener("click", () => {
+    const r = parseInt(rSlider.value);
+    const g = parseInt(gSlider.value);
+    const b = parseInt(bSlider.value);
+    const paintColor = rgbString(r, g, b);
+
+
+    region.setAttribute("fill", paintColor);
+
+    
+
+
+  });
+});
+
+updateUnlockedDigitsDisplay();
