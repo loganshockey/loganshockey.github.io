@@ -2,26 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RGB Color Mixer Canvas</title>
-  <link rel="stylesheet" href="finalproject.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RGB Color Mixer</title>
+  <link rel="stylesheet" href="testCSS.css" />
 </head>
 <body>
-  <canvas id="paintCanvas"></canvas>
+  <h1>Use the RGB Sliders to Color Match!</h1>
 
-  <div id="controls">
-    <label for="red">Red</label>
-    <input type="range" id="red" min="0" max="255" value="0">
-
-    <label for="green">Green</label>
-    <input type="range" id="green" min="0" max="255" value="0">
-
-    <label for="blue">Blue</label>
-    <input type="range" id="blue" min="0" max="255" value="0">
-
-    <div id="colorPreview"></div>
+  <div class="sliders">
+    <label>R: <input type="range" min="0" max="255" value="0" id="rSlider"></label><br>
+    <label>G: <input type="range" min="0" max="255" value="0" id="gSlider"></label><br>
+    <label>B: <input type="range" min="0" max="255" value="0" id="bSlider"></label>
   </div>
 
-  <script src="finalproject.js"></script>
+  <canvas id="paintCanvas" width="300" height="300"></canvas>
+
+  <script src="testJS.js"></script>
 </body>
 </html>

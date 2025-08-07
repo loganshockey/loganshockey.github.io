@@ -1,0 +1,15 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+  margin: 20px;
+}
+
+canvas {
+  border: 1px solid #ccc;
+  margin-top: 10px;
+  cursor: crosshair;
+}
+
+.sliders {
+  margin-top: 10px;
+}
