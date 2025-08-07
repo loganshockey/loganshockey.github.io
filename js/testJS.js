@@ -63,11 +63,20 @@ function parseRGB(rgbStr) {
 
 const COLOR_TOLERANCE = 25;
 
-const digitTargetColors = {
-  7: { r: 255, g: 0, b: 0 },   
-  3: { r: 0, g: 255, b: 0 },   
-  1: { r: 0, g: 0, b: 255 },   
-};
+function generateRandomTargetColors() {
+  const colors = {};
+  for (let i = 0; i <= 9; i++) {
+    colors[i] = {
+      r: Math.floor(Math.random() * 256),
+      g: Math.floor(Math.random() * 256),
+      b: Math.floor(Math.random() * 256),
+    };
+  }
+  return colors;
+}
+
+const digitTargetColors = generateRandomTargetColors();
+
 
 
 function colorDifference(c1, c2) {
@@ -82,7 +91,7 @@ function isColorMatch(paintedColor, digit) {
 
 function updateUnlockedDigitsDisplay() {
   if (unlockedDigits.size === 0) {
-    unlockedDigitsContainer.textContent = "Digit Locked";
+    unlockedDigitsContainer.textContent = "...";
   } else {
     unlockedDigitsContainer.textContent = Array.from(unlockedDigits).sort().join(", ");
   }
@@ -98,10 +107,17 @@ svgRegions.forEach((region) => {
 
 
     region.setAttribute("fill", paintColor);
+      
+    const digit = region.getAttribute("data-digit");
+    const paintedRGB = { r, g, b };
+    if (isColorMatch(paintedRGB, digit)) {
+      unlockedDigits.add(digit);
+      feedbackText.textContent = `Digit ${digit} unlocked`;
+    } else {
+      feedbackText.textContent = `Digit ${digit} NOT unlocked`;
+    }
 
-    
-
-
+    updateUnlockedDigitsDisplay();
   });
 });
 
