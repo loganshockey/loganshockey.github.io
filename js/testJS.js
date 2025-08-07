@@ -63,13 +63,13 @@ const updateFeedback = () => {
   const { match, totalDiff } = colorMatch(current, targetColor, 10);
 
   if (match) {
-    feedback.textContent = `Match found!`;
+    feedback.textContent = `Match found! ${current.g}, ${current.b})`;
     feedback.style.color = "green";
   } else if (totalDiff < 60) {
-    feedback.textContent = `Getting Closer`;
+    feedback.textContent = `Getting Closer: ${totalDiff}`;
     feedback.style.color = "orange";
   } else {
-    feedback.textContent = `Try Again`;
+    feedback.textContent = `Try Again: ${totalDiff}`;
     feedback.style.color = "red";
   }
 };
