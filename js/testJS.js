@@ -37,14 +37,17 @@ const targetColors = {};
 
 
 function assignTargetColors() {
-  const numbers = document.querySelectorAll(".color-number");
-  numbers.forEach(number => {
+  const numberGroups = document.querySelectorAll("g[id^='num-']");
+
+  numberGroups.forEach(group => {
     const targetColor = getRandomColor();
-    number.style.fill = targetColor;
 
+    const children = group.querySelectorAll("*");
+    children.forEach(child => {
+      child.setAttribute("fill", targetColor);
+    });
 
-    const numId = number.id.replace("num-", "");
-    const regionId = `region-${numId}`;
+    const regionId = group.id.replace("num-", "region-");
     targetColors[regionId] = targetColor;
   });
 }
