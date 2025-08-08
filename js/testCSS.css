@@ -54,17 +54,19 @@ body {
 
 .svg-container {
   width: 75vw;
-  height: auto;
-  max-height: 75vh;
+  height: 75vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  overflow: visible; 
   box-sizing: border-box;
 }
 
 .svg-container svg {
-  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
   height: auto;
   display: block;
+  object-fit: contain;
 }
