@@ -57,9 +57,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+  box-sizing: border-box;
 }
 
 .svg-container svg {
   width: 100%;
   height: auto;
+  display: block;
 }
