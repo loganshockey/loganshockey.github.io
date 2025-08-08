@@ -49,14 +49,14 @@ body {
 }
 
 .svg-container {
-  flex-grow: 1;
+  width: 75vw;
+  max-height: 75vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .svg-container svg {
-  width: 75vw;  
+  width: 100%;
   height: auto;
-  max-height: 75vh; 
 }
