@@ -2,6 +2,7 @@ body {
   font-family: Arial, sans-serif;
   background-color: #f0f0f0;
   margin: 0;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -11,6 +12,7 @@ body {
 .container {
   display: flex;
   gap: 40px;
+  max-height: 100vh;
 }
 
 .controls {
@@ -22,7 +24,7 @@ body {
 .slider-group {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 15px;
 }
 
 .slider-row {
@@ -32,9 +34,14 @@ body {
 }
 
 .color-box {
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 25px;
   border: 1px solid #000;
+  text-align: center;
+  font-size: 12px;
+  line-height: 25px;
+  color: #000;
+  background-color: #ccc;
 }
 
 .feedback {
@@ -42,7 +49,14 @@ body {
 }
 
 .svg-container {
-  background: white;
-  border: 2px solid black;
-  padding: 10px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.svg-container svg {
+  width: 100%;
+  height: auto;
+  max-height: 100vh;
 }
