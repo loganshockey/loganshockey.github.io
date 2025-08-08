@@ -8,15 +8,19 @@ const bBox = document.getElementById("bBox");
 
 const feedbackText = document.getElementById("feedbackText");
 
-
 const digitTargetColors = {};
 const unlockedDigits = new Set();
-const tolerance = 60; 
+const tolerance = 60;
 
 function updateColorBoxes() {
   rBox.style.backgroundColor = `rgb(${rSlider.value},0,0)`;
+  rBox.textContent = rSlider.value;
+
   gBox.style.backgroundColor = `rgb(0,${gSlider.value},0)`;
+  gBox.textContent = gSlider.value;
+
   bBox.style.backgroundColor = `rgb(0,0,${bSlider.value})`;
+  bBox.textContent = bSlider.value;
 }
 
 function rgbStringToObj(rgbStr) {
@@ -33,7 +37,6 @@ function colorDifference(c1, c2) {
 function initTargetColors() {
   document.querySelectorAll("[id^='num-']").forEach(numEl => {
     const idSuffix = numEl.id.replace("num-", "");
-    
     const target = {
       r: Math.floor(Math.random() * 256),
       g: Math.floor(Math.random() * 256),
@@ -65,7 +68,6 @@ function handleRegionClick(e) {
   }
 }
 
-
 [rSlider, gSlider, bSlider].forEach(slider =>
   slider.addEventListener("input", updateColorBoxes)
 );
@@ -75,7 +77,6 @@ function attachRegionListeners() {
     regionEl.addEventListener("click", handleRegionClick);
   });
 }
-
 
 updateColorBoxes();
 initTargetColors();
