@@ -12,9 +12,10 @@ body {
 
 .container {
   display: flex;
+  flex-direction: row;
   gap: 40px;
-  height: 100vh;
   width: 100vw;
+  height: 100vh;
   box-sizing: border-box;
 }
 
@@ -53,6 +54,7 @@ body {
 
 .svg-container {
   width: 75vw;
+  height: auto;
   max-height: 75vh;
   display: flex;
   justify-content: center;
