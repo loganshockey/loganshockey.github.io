@@ -1,71 +1,67 @@
 body {
-  font-family: sans-serif;
-  text-align: center;
-  background: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  font-family: Arial, sans-serif;
   margin: 20px;
+  background: #f9f9f9;
+  user-select: none;
 }
 
-h1 {
+.tools {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sliders {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
   margin-bottom: 20px;
 }
 
-.main-container {
+.slider-group {
   display: flex;
-  justify-content: center;
-  gap: 40px;
-  align-items: flex-start;
-}
-
-.canvas-container {
-  display: flex;
-  flex-direction: column;
   align-items: center;
+  gap: 12px;
 }
 
-#paintCanvas {
-  border: 2px solid #555;
+.color-box {
+  width: 30px;
+  height: 30px;
+  border: 1.5px solid #000;
   border-radius: 4px;
-  cursor: crosshair;
-  margin-bottom: 10px;
-}
-
-#feedbackText {
-  font-size: 1.2em;
-  font-weight: bold;
-}
-
-.svg-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
-
-#unlockedDigits {
-  font-size: 1.2em;
-  background: #fff;
-  padding: 10px 20px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  min-width: 200px;
-  min-height: 50px;
-}
-
-.color-controls {
-  margin-top: 30px;
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.color-controls label {
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
 }
 
 input[type="range"] {
   width: 150px;
-  height: 8px;
+  cursor: pointer;
+}
+
+#paintCanvas {
+  border: 2px solid black;
+  cursor: crosshair;
+  border-radius: 6px;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+#svg-container {
+  max-width: 500px;
+  user-select: none;
+}
+
+svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+}
+
+
+text {
+  user-select: none;
 }
