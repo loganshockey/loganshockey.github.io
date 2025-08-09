@@ -22,6 +22,13 @@ body {
   padding: 0;
 }
 
+.dialer-header {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
 .dialer {
   grid-area: keypad;
   width: 100%;
