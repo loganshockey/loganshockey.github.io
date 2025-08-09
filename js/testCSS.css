@@ -83,3 +83,29 @@
   background: #9ac99c;
   cursor: not-allowed;
 }
+
+/* Keep the left controls/dialer from pushing the SVG around */
+.controls { flex: 0 0 auto; }
+.dialer { flex: 0 0 260px; width: 260px; min-width: 260px; }
+
+/* Let the SVG area take the remaining space */
+.svg-container {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+
+.svg-container svg {
+  max-height: 90vh;
+  max-width: 90vw;      
+  width: 100%;            
+  height: auto;
+  object-fit: contain;
+}
+
+.container {
+  gap: 28px;
+}
