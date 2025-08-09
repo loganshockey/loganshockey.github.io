@@ -124,7 +124,7 @@ function initPaintByNumbers() {
       if (closeNow) {
         setFeedback(`This region for ${digit} is within ${TOLERANCE}.`);
       } else {
-        setFeedback(`Painted region for ${digit}. Not within ${TOLERANCE} yet.`);
+        setFeedback(`Painted region for ${digit}. Current difference: ${diff}`);
       }
       const allGood = regionsByDigit[digit].every(rEl => {
         const fill = rEl.getAttribute("fill");
