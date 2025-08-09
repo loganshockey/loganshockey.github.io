@@ -116,10 +116,15 @@ function initPaintByNumbers() {
     region.addEventListener("click", () => {
       const digit = region.dataset.digit;
       if (!digit) return;
-      const [r, g, b] = currentRGB();
-      region.setAttribute("fill", `rgb(${r},${g},${b})`);
-      setFeedback(`Painted region for number ${digit}.`);
+      const brush = currentRGB();
+      region.setAttribute("fill", `rgb(${brush[0]},${brush[1]},${brush[2]})`);
       const target = digitTargetColor[digit];
+      const closeNow = withinTolerance(brush, target, TOLERANCE);
+      if (closeNow) {
+        setFeedback(`This region for ${digit} is within ${TOLERANCE}.`);
+      } else {
+        setFeedback(`Painted region for ${digit}. Not within ${TOLERANCE} yet.`);
+      }
       const allGood = regionsByDigit[digit].every(rEl => {
         const fill = rEl.getAttribute("fill");
         const rgb = parseRgbString(fill);
@@ -129,7 +134,7 @@ function initPaintByNumbers() {
         unlockedDigits.add(digit);
         saveUnlocked();
         applyUnlockedStyles();
-        setFeedback(`Number ${digit} Unlocked!`);
+        setFeedback(`YNumber ${digit} Unlocked!`);
       }
     });
   });
