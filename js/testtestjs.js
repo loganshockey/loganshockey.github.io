@@ -1,4 +1,3 @@
-const STORAGE_KEY = 'unlockedDigits_v2';
 const TOLERANCE = 50;
 
 const rSlider = document.getElementById("rSlider");
@@ -51,6 +50,14 @@ function withinTolerance(rgb1, rgb2, tol = TOLERANCE) {
   );
 }
 
+function colorDifference(rgb1, rgb2) {
+  return (
+    Math.abs(rgb1[0] - rgb2[0]) +
+    Math.abs(rgb1[1] - rgb2[1]) +
+    Math.abs(rgb1[2] - rgb2[2])
+  );
+}
+
 function setFeedback(msg) {
   feedbackText.textContent = msg;
 }
@@ -64,17 +71,6 @@ function applyUnlockedStyles() {
       btn.disabled = false;
     }
   });
-}
-
-function saveUnlocked() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify([...unlockedDigits]));
-}
-
-function loadUnlocked() {
-  try {
-    const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-    arr.forEach(d => unlockedDigits.add(String(d)));
-  } catch {}
 }
 
 function initPaintByNumbers() {
@@ -110,7 +106,6 @@ function initPaintByNumbers() {
     regionsByDigit[digit].push(region);
   });
 
-  loadUnlocked();
   applyUnlockedStyles();
 
   regionPaths.forEach(region => {
@@ -124,7 +119,8 @@ function initPaintByNumbers() {
       if (closeNow) {
         setFeedback(`This region for ${digit} is within ${TOLERANCE}.`);
       } else {
-        setFeedback(`Painted region for ${digit}. Current difference: ${diff}`);
+        const diff = colorDifference(brush, target);
+        setFeedback(`Current difference: ${diff}`);
       }
       const allGood = regionsByDigit[digit].every(rEl => {
         const fill = rEl.getAttribute("fill");
@@ -133,9 +129,8 @@ function initPaintByNumbers() {
       });
       if (allGood && !unlockedDigits.has(digit)) {
         unlockedDigits.add(digit);
-        saveUnlocked();
         applyUnlockedStyles();
-        setFeedback(`YNumber ${digit} Unlocked!`);
+        setFeedback(`Number ${digit} Unlocked!`);
       }
     });
   });
