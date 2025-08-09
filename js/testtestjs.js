@@ -51,7 +51,7 @@ function initPaintByNumbers() {
   });
 
   
-  const shapes = svg.querySelectorAll("path, polygon, rect");
+  const shapes = svg.querySelectorAll(".paint-region");
   shapes.forEach(shape => {
     const shapeBox = shape.getBBox();
     let closestNum = null;
