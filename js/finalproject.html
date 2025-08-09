@@ -9,18 +9,32 @@
 <body>
 
   <div class="container">
-    <div class="keypad">
-      <button data-digit="0" class="key locked" disabled>0</button>
-      <button data-digit="1" class="key locked" disabled>1</button>
-      <button data-digit="0" class="key locked" disabled>2</button>
-      <button data-digit="1" class="key locked" disabled>3</button>
-      <button data-digit="0" class="key locked" disabled>4</button>
-      <button data-digit="1" class="key locked" disabled>5</button>
-      <button data-digit="0" class="key locked" disabled>6</button>
-      <button data-digit="1" class="key locked" disabled>7</button>
-      <button data-digit="1" class="key locked" disabled>8</button>
-      <button data-digit="0" class="key locked" disabled>9</button>
-    </div>
+<div class="dialer">
+  <div class="entry-row">
+    <input id="phoneEntry" class="entry" type="text" inputmode="numeric" placeholder="(xxx) xxx-xxxx" maxlength="14" readonly />
+    <button id="backspaceBtn" class="entry-btn" aria-label="Backspace">⌫</button>
+  </div>
+
+  <div class="keypad" role="grid" aria-label="Phone keypad">
+    <button data-digit="1" class="key locked" disabled>1</button>
+    <button data-digit="2" class="key locked" disabled>2</button>
+    <button data-digit="3" class="key locked" disabled>3</button>
+
+    <button data-digit="4" class="key locked" disabled>4</button>
+    <button data-digit="5" class="key locked" disabled>5</button>
+    <button data-digit="6" class="key locked" disabled>6</button>
+
+    <button data-digit="7" class="key locked" disabled>7</button>
+    <button data-digit="8" class="key locked" disabled>8</button>
+    <button data-digit="9" class="key locked" disabled>9</button>
+
+    <div class="key-spacer"></div>
+    <button data-digit="0" class="key locked" disabled>0</button>
+    <div class="key-spacer"></div>
+  </div>
+
+  <button id="submitPhone" class="submit-btn" disabled>Submit</button>
+</div>
     
     <div class="controls">
       <div class="slider-group">
