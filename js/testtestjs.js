@@ -1,3 +1,4 @@
+const STORAGE_KEY = 'unlockedDigits_v2';
 const TOLERANCE = 50;
 
 const rSlider = document.getElementById("rSlider");
@@ -66,14 +67,14 @@ function applyUnlockedStyles() {
 }
 
 function saveUnlocked() {
-  localStorage.setItem("unlockedDigits", JSON.stringify([...unlockedDigits]));
+  localStorage.setItem(STORAGE_KEY, JSON.stringify([...unlockedDigits]));
 }
 
 function loadUnlocked() {
   try {
-    const arr = JSON.parse(localStorage.getItem("unlockedDigits") || "[]");
+    const arr = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
     arr.forEach(d => unlockedDigits.add(String(d)));
-  } catch (_) {}
+  } catch {}
 }
 
 function initPaintByNumbers() {
