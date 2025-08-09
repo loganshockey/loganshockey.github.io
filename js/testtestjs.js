@@ -1,7 +1,9 @@
+const TOLERANCE = 50;
 
-const redSlider = document.getElementById("rSlider");
-const greenSlider = document.getElementById("gSlider");
-const blueSlider = document.getElementById("bSlider");
+
+const rSlider = document.getElementById("rSlider");
+const gSlider = document.getElementById("gSlider");
+const bSlider = document.getElementById("bSlider");
 
 const rBox = document.getElementById("rBox");
 const gBox = document.getElementById("gBox");
@@ -9,15 +11,23 @@ const bBox = document.getElementById("bBox");
 
 const feedbackText = document.getElementById("feedbackText");
 
-let brushColor = `rgb(128,128,128)`;
+
+const digitTargetColor = {};          
+const numberGroupsByDigit = {};       
+const regionsByDigit = {};            
+const unlockedDigits = new Set();
 
 
-function updateBrushColor() {
-  const r = parseInt(redSlider.value);
-  const g = parseInt(greenSlider.value);
-  const b = parseInt(blueSlider.value);
-  brushColor = `rgb(${r},${g},${b})`;
+function currentRGB() {
+  return [
+    parseInt(rSlider.value, 10),
+    parseInt(gSlider.value, 10),
+    parseInt(bSlider.value, 10),
+  ];
+}
 
+function updateColorBoxes() {
+  const [r, g, b] = currentRGB();
   rBox.textContent = r;
   gBox.textContent = g;
   bBox.textContent = b;
@@ -27,120 +37,163 @@ function updateBrushColor() {
   bBox.style.backgroundColor = `rgb(0,0,${b})`;
 }
 
-[redSlider, greenSlider, blueSlider].forEach(slider => {
-  slider.addEventListener("input", updateBrushColor);
-});
-updateBrushColor();
+[rSlider, gSlider, bSlider].forEach(s => s.addEventListener("input", updateColorBoxes));
+updateColorBoxes();
+
+
+function parseRgbString(s) {
+  const m = s && s.match(/\d+/g);
+  return m ? m.map(Number) : null;
+}
+
+function withinTolerance(rgb1, rgb2, tol = TOLERANCE) {
+  return (
+    Math.abs(rgb1[0] - rgb2[0]) <= tol &&
+    Math.abs(rgb1[1] - rgb2[1]) <= tol &&
+    Math.abs(rgb1[2] - rgb2[2]) <= tol
+  );
+}
+
+function centroidOfBBox(el) {
+  const b = el.getBBox();
+  return { x: b.x + b.width / 2, y: b.y + b.height / 2 };
+}
+
+function distance(a, b) {
+  const dx = a.x - b.x;
+  const dy = a.y - b.y;
+  return Math.hypot(dx, dy);
+}
+
+function setFeedback(msg) {
+  feedbackText.textContent = msg;
+}
+
+
+function applyUnlockedStyles() {
+  unlockedDigits.forEach(digit => {
+    const btn = document.querySelector(`.key[data-digit="${digit}"]`);
+    if (btn) {
+      btn.classList.remove("locked");
+      btn.classList.add("unlocked");
+      btn.disabled = false;
+    }
+  });
+}
+
+function saveUnlocked() {
+  localStorage.setItem("unlockedDigits", JSON.stringify([...unlockedDigits]));
+}
+
+function loadUnlocked() {
+  try {
+    const arr = JSON.parse(localStorage.getItem("unlockedDigits") || "[]");
+    arr.forEach(d => unlockedDigits.add(String(d)));
+  } catch (_) {}
+}
 
 
 function initPaintByNumbers() {
-  const svg = document.querySelector("svg");
+  const svg = document.querySelector(".svg-container svg");
   if (!svg) {
-    console.error("No SVG found!");
+    console.error("SVG not found in .svg-container");
     return;
   }
 
   
-  const numberTexts = [...svg.querySelectorAll("text")].filter(t => /^\d+$/.test(t.textContent.trim()));
-  numberTexts.forEach(txt => {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    txt.setAttribute("fill", `rgb(${r},${g},${b})`);
-    txt.dataset.targetColor = `${r},${g},${b}`;
+  const numberGroups = [...svg.querySelectorAll(`g[id^="num-"]`)];
+  numberGroups.forEach(group => {
+    
+    const id = group.id || "";
+    const match = id.match(/\d/);
+    if (!match) return;
+    const digit = match[0];
+
+    
+    if (!digitTargetColor[digit]) {
+      const r = Math.floor(Math.random() * 256);
+      const g = Math.floor(Math.random() * 256);
+      const b = Math.floor(Math.random() * 256);
+      digitTargetColor[digit] = [r, g, b];
+    }
+
+    
+    const [r, g, b] = digitTargetColor[digit];
+    group.querySelectorAll("path").forEach(p => p.setAttribute("fill", `rgb(${r},${g},${b})`));
+
+    
+    if (!numberGroupsByDigit[digit]) numberGroupsByDigit[digit] = [];
+    numberGroupsByDigit[digit].push(group);
   });
 
-  
-  const shapes = svg.querySelectorAll(".paint-region");
-  shapes.forEach(shape => {
-    const shapeBox = shape.getBBox();
-    let closestNum = null;
-    let minDist = Infinity;
 
-    numberTexts.forEach(numEl => {
-      const numBox = numEl.getBBox();
-      const dx = (shapeBox.x + shapeBox.width / 2) - (numBox.x + numBox.width / 2);
-      const dy = (shapeBox.y + shapeBox.height / 2) - (numBox.y + numBox.height / 2);
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      if (dist < minDist) {
-        minDist = dist;
-        closestNum = numEl;
+  const regionPaths = [...svg.querySelectorAll(".paint-region")];
+
+  
+  const numGroupInfo = numberGroups.map(g => ({
+    el: g,
+    digit: (g.id.match(/\d/) || [""])[0],
+    center: centroidOfBBox(g),
+  }));
+
+  regionPaths.forEach(region => {
+    const rc = centroidOfBBox(region);
+    
+    let nearest = null;
+    let best = Infinity;
+    numGroupInfo.forEach(info => {
+      if (!info.digit) return;
+      const d = distance(rc, info.center);
+      if (d < best) {
+        best = d;
+        nearest = info;
       }
     });
 
-    if (closestNum) {
-      shape.dataset.number = closestNum.textContent.trim();
-    }
+    if (!nearest) return;
+
+    
+    region.dataset.digit = nearest.digit;
+
+    if (!regionsByDigit[nearest.digit]) regionsByDigit[nearest.digit] = [];
+    regionsByDigit[nearest.digit].push(region);
   });
 
   
-  const numberRegions = {};
-  shapes.forEach(shape => {
-    const num = shape.dataset.number;
-    if (num) {
-      if (!numberRegions[num]) numberRegions[num] = [];
-      numberRegions[num].push(shape);
-    }
-  });
-
-  const completedNumbers = new Set();
+  loadUnlocked();
+  applyUnlockedStyles();
 
   
-  shapes.forEach(shape => {
-    shape.addEventListener("click", () => {
-      const num = shape.dataset.number;
-      if (!num) return;
+  regionPaths.forEach(region => {
+    region.addEventListener("click", () => {
+      const digit = region.dataset.digit;
+      if (!digit) return;
 
-      
-      const currentRGB = [
-        parseInt(redSlider.value),
-        parseInt(greenSlider.value),
-        parseInt(blueSlider.value)
-      ];
-      shape.setAttribute("fill", `rgb(${currentRGB.join(",")})`);
+    
+      const [r, g, b] = currentRGB();
+      region.setAttribute("fill", `rgb(${r},${g},${b})`);
+      setFeedback(`Painted region for number ${digit}.`);
 
-      const targetTxt = numberTexts.find(t => t.textContent.trim() === num);
-      if (!targetTxt) return;
-
-      const targetRGB = targetTxt.dataset.targetColor.split(",").map(Number);
-
-      
-      const allPaintedCorrectly = numberRegions[num].every(s => {
-        const fill = s.getAttribute("fill");
-        if (!fill) return false;
-        const match = fill.match(/\d+/g);
-        if (!match) return false;
-        const rgb = match.map(Number);
-        return colorsMatch(rgb, targetRGB, 50);
+     
+      const target = digitTargetColor[digit];
+      const allGood = regionsByDigit[digit].every(rEl => {
+        const fill = rEl.getAttribute("fill");
+        const rgb = parseRgbString(fill);
+        return rgb && withinTolerance(rgb, target, TOLERANCE);
       });
 
-      if (allPaintedCorrectly && !completedNumbers.has(num)) {
-        completedNumbers.add(num);
-        unlockKey(num);
-        feedbackText.textContent = `Number Unlocked!`;
-      } else {
-        feedbackText.textContent = `Painted region for number ${num}.`;
+      if (allGood && !unlockedDigits.has(digit)) {
+        unlockedDigits.add(digit);
+        saveUnlocked();
+        applyUnlockedStyles();
+        setFeedback(`Number ${digit} Unlocked!`);
       }
     });
   });
-
-  
-  function unlockKey(num) {
-    const keyEl = document.querySelector(`.key[data-number="${num}"]`);
-    if (keyEl) {
-      keyEl.classList.remove("locked");
-      keyEl.classList.add("unlocked");
-    }
-  }
 }
 
 
-function colorsMatch(rgb1, rgb2, tolerance) {
-  return Math.abs(rgb1[0] - rgb2[0]) <= tolerance &&
-         Math.abs(rgb1[1] - rgb2[1]) <= tolerance &&
-         Math.abs(rgb1[2] - rgb2[2]) <= tolerance;
-}
-
-
-window.addEventListener("load", initPaintByNumbers);
-
+window.addEventListener("load", () => {
+  updateColorBoxes();
+  initPaintByNumbers();
+});
