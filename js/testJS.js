@@ -59,10 +59,20 @@ function setupPainting() {
     region.style.cursor = "pointer";
 
     region.addEventListener("click", () => {
-      const color = getCurrentColor();
-      region.setAttribute("fill", color);
+  const userColor = getCurrentColor();
+  const targetColor = targetColors[region.id];
 
-    });
+  region.setAttribute("fill", userColor);
+
+  const feedback = document.getElementById("feedbackText");
+  if (!targetColor) {
+    feedback.textContent = "No target color assigned!";
+    return;
+  }
+
+  const match = isColorMatch(userColor, targetColor);
+  feedback.textContent = match ? "Color Matched!" : "Try Again!";
+  });
   });
 }
 
