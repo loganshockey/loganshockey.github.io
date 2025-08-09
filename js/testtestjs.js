@@ -101,6 +101,7 @@ function initPaintByNumbers() {
   }
 
   
+  
   const numberGroups = [...svg.querySelectorAll(`g[id^="num-"]`)];
   numberGroups.forEach(group => {
     
@@ -196,4 +197,14 @@ function initPaintByNumbers() {
 window.addEventListener("load", () => {
   updateColorBoxes();
   initPaintByNumbers();
+});
+
+window.addEventListener("keydown", (e) => {
+  if (e.altKey && e.shiftKey) {
+    const d = e.key;
+    if (/^[0-9]$/.test(d)) {
+      window.devPaintDigit(d);
+      e.preventDefault();
+    }
+  }
 });
