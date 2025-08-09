@@ -50,17 +50,6 @@ function withinTolerance(rgb1, rgb2, tol = TOLERANCE) {
   );
 }
 
-function centroidOfBBox(el) {
-  const b = el.getBBox();
-  return { x: b.x + b.width / 2, y: b.y + b.height / 2 };
-}
-
-function distance(a, b) {
-  const dx = a.x - b.x;
-  const dy = a.y - b.y;
-  return Math.hypot(dx, dy);
-}
-
 function setFeedback(msg) {
   feedbackText.textContent = msg;
 }
@@ -94,9 +83,9 @@ function initPaintByNumbers() {
   const numberGroups = [...svg.querySelectorAll(`g[id^="num-"]`)];
   numberGroups.forEach(group => {
     const id = group.id || "";
-    const match = id.match(/\d/);
+    const match = id.match(/num-(\d)/);
     if (!match) return;
-    const digit = match[0];
+    const digit = match[1];
     if (!digitTargetColor[digit]) {
       const r = Math.floor(Math.random() * 256);
       const g = Math.floor(Math.random() * 256);
@@ -110,29 +99,14 @@ function initPaintByNumbers() {
   });
 
   const regionPaths = [...svg.querySelectorAll(".paint-region")];
-
-  const numGroupInfo = numberGroups.map(g => ({
-    el: g,
-    digit: (g.id.match(/\d/) || [""])[0],
-    center: centroidOfBBox(g),
-  }));
-
   regionPaths.forEach(region => {
-    const rc = centroidOfBBox(region);
-    let nearest = null;
-    let best = Infinity;
-    numGroupInfo.forEach(info => {
-      if (!info.digit) return;
-      const d = distance(rc, info.center);
-      if (d < best) {
-        best = d;
-        nearest = info;
-      }
-    });
-    if (!nearest) return;
-    region.dataset.digit = nearest.digit;
-    if (!regionsByDigit[nearest.digit]) regionsByDigit[nearest.digit] = [];
-    regionsByDigit[nearest.digit].push(region);
+    const id = region.id || "";
+    const m = id.match(/region-(\d)/);
+    if (!m) return;
+    const digit = m[1];
+    region.dataset.digit = digit;
+    if (!regionsByDigit[digit]) regionsByDigit[digit] = [];
+    regionsByDigit[digit].push(region);
   });
 
   loadUnlocked();
@@ -209,4 +183,3 @@ window.addEventListener("load", () => {
   updateColorBoxes();
   initPaintByNumbers();
 });
-
