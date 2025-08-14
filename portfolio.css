@@ -30,14 +30,6 @@ html {
   box-sizing: border-box;
 }
 
-.page-description {
-  display: flex; 
-  justify-content: flex-end;    
-  margin-top: 5em;
-  text: rgb(200, 133, 206);
-}
-
-
 .nav-list {
   display: flex;       
   list-style: none;         
@@ -72,6 +64,7 @@ body {
   align-items: flex-end;
   width: 100%;
   padding: 1.25em;
+  margin-top: 3em;
 }
 
 h2 {
@@ -87,6 +80,15 @@ h2 {
   overflow: hidden;
 }
 
+.page-description {
+  display: flex; 
+  justify-content: flex-end;    
+  margin-top: 5em;
+  color: rgb(200, 133, 206);
+  font-size: .5em;
+  background-color: none;
+  font-weight: none;
+}
 
 h3 {
   text-align: right;
