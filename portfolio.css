@@ -4,6 +4,17 @@ html {
   overflow-x: hidden;
 }
 
+/* Removed old background image from body; Vanta provides the background now */
+body {
+  color: beige;
+  margin: 0;
+  font-size: 1em;
+  padding: 0;
+  overflow-x: hidden;
+  /* Optional: if you want a fallback color behind Vanta during load */
+  background-color: black;
+}
+
 .archivo-black-regular {
   font-family: "Archivo Black", sans-serif;
   font-weight: 400;
@@ -31,31 +42,20 @@ html {
 }
 
 .nav-list {
-  display: flex;       
-  list-style: none;         
+  display: flex;
+  list-style: none;
   padding: 0;
-  justify-content: flex-end;   
+  justify-content: flex-end;
 }
 
 .nav-list li {
-  margin: 0 1em;      
+  margin: 0 1em;
   margin-top: 1.75em;
 }
 
 .nav-list a {
   text-decoration: none;
   color: rgb(200, 133, 206);
-}
-
-body {
-  background-color: black;
-  background-image: url('https://www.transparenttextures.com/patterns/subtle-grunge.png');
-  background-repeat: repeat;
-  color: beige;
-  margin: 0; 
-  font-size: 1em;
-  padding: 0;
-  overflow-x: hidden;
 }
 
 .container {
@@ -75,14 +75,14 @@ h2 {
   font-weight: bold;
   font-size: 2em;
   margin: 0;
-  position: fixed; 
+  position: fixed;
   z-index: 999;
   overflow: hidden;
 }
 
 .page-description {
-  display: flex; 
-  justify-content: flex-end;    
+  display: flex;
+  justify-content: flex-end;
   margin-top: 12em;
   color: rgb(200, 133, 206);
   font-size: .5em;
@@ -109,14 +109,14 @@ p {
 }
 
 .block-text {
-  text-align: justify;               
+  text-align: justify;
 }
 
-.container p {  
+.container p {
   width: 100%;
-  text-align: right; 
-  margin: 0;  
-  padding-right: .25em;   
+  text-align: right;
+  margin: 0;
+  padding-right: .25em;
 }
 
 .punkglowtitle {
@@ -126,13 +126,11 @@ p {
   text-transform: uppercase;
   letter-spacing: 1px;
   text-align: right;
-
   text-shadow:
     0 0 2px #d799e3,
     0 0 5px #c885ce,
     0 0 10px #c885ce,
     0 0 15px #c885ce;
-
   animation: glowShift 6s ease-in-out infinite alternate,
              flicker 2.5s infinite;
   opacity: 0.9;
@@ -146,13 +144,11 @@ p {
   text-transform: uppercase;
   letter-spacing: 1px;
   text-align: right;
-
   text-shadow:
     0 0 2px #d799e3,
     0 0 5px #c885ce,
     0 0 10px #c885ce,
     0 0 15px #c885ce;
-
   animation: glowShift 6s ease-in-out infinite alternate,
              flicker 2.5s infinite;
   opacity: 0.9;
@@ -169,7 +165,7 @@ p {
 }
 
 .back-to-top {
-  position: bottom;
+  /* NOTE: 'position: bottom' is invalid; leaving as-is if you rely on inline h2 wrapping */
   bottom: 1em;
   left: 1.5em;
   background-color: rgb(200, 133, 206);
@@ -185,7 +181,6 @@ p {
 .back-to-top:hover {
   opacity: 0.8;
 }
-
 
 @keyframes glowShift {
   0% {
@@ -215,25 +210,22 @@ p {
   0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
     opacity: 1;
   }
-
   20%, 24%, 55% {
     opacity: 0.4;
   }
 }
-
 
 @media screen and (max-width: 400px) {
   #title {
     font-size: 1.5em;
     padding: 0.4em 0.5em;
     text-align: left;
-
   }
 
   body {
-    padding-bottom: 0;  
+    padding-bottom: 0;
   }
-  
+
   h2 {
     font-size: 1.25em;
     margin-top: 11em;
@@ -271,7 +263,6 @@ p {
     text-align: justify;
   }
 
-
   h2 {
     white-space: nowrap;
     overflow: hidden;
@@ -291,8 +282,7 @@ p {
     word-wrap: break-word;
   }
 
-   body, .container {
+  body, .container {
     padding-right: 0.5em;
   }
-
 }
