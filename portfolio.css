@@ -30,6 +30,15 @@ html {
   box-sizing: border-box;
 }
 
+.page-description {
+  display: flex; 
+  justify-content: flex-end;
+  margin: 0 1em;      
+  margin-top: 1.75em;
+  color: rgb(200, 133, 206);
+}
+
+
 .nav-list {
   display: flex;       
   list-style: none;         
