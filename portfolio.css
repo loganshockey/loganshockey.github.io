@@ -163,6 +163,9 @@ p {
   white-space: nowrap;
   margin-top: 4em;
   display: block;
+  word-spacing: 2em;
+  padding-left: .5em;
+  color: black;
 }
 
 .back-to-top {
