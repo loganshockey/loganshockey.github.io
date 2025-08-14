@@ -33,7 +33,7 @@ html {
 .page-description {
   display: flex; 
   justify-content: flex-end;    
-  margin-top: 3em;
+  margin-top: 5em;
   text: rgb(200, 133, 206);
 }
 
