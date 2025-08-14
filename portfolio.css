@@ -75,6 +75,7 @@ h2 {
   font-weight: bold;
   font-size: 2em;
   margin: 0;
+  margin-left: 5em;
   position: fixed;
   z-index: 999;
   overflow: hidden;
@@ -157,10 +158,9 @@ p {
 
 .repeat-text1 {
   white-space: nowrap;
-  margin-top: 5em;
+  margin-top: 7.5em;
   display: block;
   word-spacing: 3em;
-  padding-left: .5em;
   color: black;
 }
 
@@ -180,6 +180,17 @@ p {
 
 .back-to-top:hover {
   opacity: 0.8;
+}
+
+
+html, body {
+  -ms-overflow-style: none;   /* IE/Edge (legacy) */
+  scrollbar-width: none;      /* Firefox */
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 0;                   /* Chrome/Safari/Opera */
+  height: 0;
 }
 
 @keyframes glowShift {
