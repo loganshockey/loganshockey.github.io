@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Planner Dashboard (Starter Kit)</title>
+<style>
+  :root{
+    --bg:#0f1220;           /* dark but calm */
+    --card:#171a2b;
+    --muted:#8f96b3;
+    --text:#eef1ff;
+    --accent:#7aa2ff;
+    --accent-2:#9bffd1;
+    --danger:#ff6b6b;
+    --ring: 0 0 0 2px var(--accent) inset;
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background: radial-gradient(1200px 600px at 120% -10%, rgba(122,162,255,.15), transparent) , var(--bg);
+    color:var(--text); font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  }
+
+  header{
+    position:sticky; top:0; z-index:10;
+    backdrop-filter: blur(8px);
+    background: linear-gradient(to bottom, rgba(15,18,32,.9), rgba(15,18,32,.6));
+    border-bottom:1px solid rgba(255,255,255,.06);
+  }
+  .bar{
+    max-width:1100px; margin:0 auto; padding:12px 16px; display:flex; gap:12px; align-items:center; justify-content:space-between;
+  }
+  .brand{font-weight:700; letter-spacing:.2px}
+  .actions{display:flex; gap:8px; align-items:center}
+
+  button, .menu-toggle{
+    background: var(--card); color:var(--text); border:1px solid rgba(255,255,255,.08);
+    padding:10px 14px; border-radius:12px; cursor:pointer; font-weight:600;
+  }
+  button:hover, .menu-toggle:hover{border-color: rgba(255,255,255,.18)}
+  .menu{position:relative}
+  .menu-list{
+    position:absolute; top:calc(100% + 8px); right:0; min-width:220px; padding:8px;
+    background: var(--card); border:1px solid rgba(255,255,255,.08); border-radius:12px; display:none;
+    box-shadow: 0 10px 30px rgba(0,0,0,.35);
+  }
+  .menu.open .menu-list{display:block}
+  .menu-list button{
+    width:100%; text-align:left; background:transparent; border:none; padding:10px 10px; border-radius:10px;
+  }
+  .menu-list button:hover{background:rgba(255,255,255,.06)}
+
+  main{max-width:1100px; margin:20px auto; padding:0 16px 48px}
+
+  /* responsive grid */
+  .grid{
+    display:grid; gap:12px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    align-items:stretch;
+  }
+
+  /* card / widget shell */
+  .widget{
+    background: var(--card); border:1px solid rgba(255,255,255,.08); border-radius: var(--radius);
+    padding:0; display:flex; flex-direction:column; min-height:120px;
+  }
+  .widget.dragging{opacity:.6; outline:2px dashed var(--accent)}
+  .widget-header{
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    padding:12px 12px; border-bottom:1px solid rgba(255,255,255,.06)
+  }
+  .title{font-weight:700}
+  .widget-actions{display:flex; gap:6px; align-items:center}
+  .icon-btn{
+    background:transparent; border:none; color:var(--muted); padding:6px; border-radius:8px; cursor:pointer;
+  }
+  .icon-btn:hover{color:var(--text); background:rgba(255,255,255,.06)}
+  .drag-hint{cursor:grab}
+  .widget-content{padding:12px}
+
+  /* To-Do */
+  .todo-input-row{display:flex; gap:8px; margin-bottom:10px}
+  .todo-input-row input[type="text"]{
+    flex:1; background:#0e1120; color:var(--text); border:1px solid rgba(255,255,255,.1);
+    padding:10px 12px; border-radius:10px;
+  }
+  .todo-list{display:flex; flex-direction:column; gap:8px; list-style:none; padding:0; margin:0}
+  .todo-item{
+    display:flex; align-items:center; gap:10px; background:#0f1325; border:1px solid rgba(255,255,255,.06);
+    padding:8px 10px; border-radius:10px;
+  }
+  .todo-item input[type="checkbox"]{transform:scale(1.15)}
+  .todo-item.done{opacity:.65; text-decoration: line-through}
+  .tiny-btn{
+    background:transparent; border:1px solid rgba(255,255,255,.14); color:var(--muted);
+    border-radius:8px; padding:6px 8px; cursor:pointer; font-size:.9rem;
+  }
+  .tiny-btn:hover{color:var(--text); border-color: rgba(255,255,255,.28)}
+
+  /* Notes */
+  .notes-area{
+    width:100%; min-height:140px; resize:vertical; background:#0e1120; color:var(--text);
+    border:1px solid rgba(255,255,255,.1); border-radius:10px; padding:10px 12px;
+  }
+
+  /* Focus Timer */
+  .timer-wrap{display:flex; flex-direction:column; gap:10px}
+  .timer-row{display:flex; gap:8px; align-items:center; flex-wrap:wrap}
+  .timer-display{font-size:2rem; font-weight:800; letter-spacing:.5px}
+  .num{background:#0e1120; color:var(--text); border:1px solid rgba(255,255,255,.1);
+       padding:8px 10px; border-radius:10px; width:90px}
+
+  /* Habit */
+  .habit-days{display:grid; grid-template-columns: repeat(7,1fr); gap:8px}
+  .habit-day{
+    text-align:center; padding:10px 8px; border-radius:10px; background:#0e1120; border:1px solid rgba(255,255,255,.1);
+    cursor:pointer; user-select:none;
+  }
+  .habit-day.active{outline: var(--ring); background:#0f152f}
+  .muted{color:var(--muted); font-size:.9rem}
+
+  /* empty state */
+  .empty{
+    border:1px dashed rgba(255,255,255,.16); border-radius:16px; padding:24px; text-align:center; color:var(--muted);
+  }
+
+  /* accessibility focus */
+  :focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:8px}
+</style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <div class="brand">🗓️ Planner Dashboard</div>
+      <div class="actions">
+        <div class="menu" id="addMenu">
+          <button class="menu-toggle" aria-haspopup="true" aria-expanded="false">＋ Add widget</button>
+          <div class="menu-list" role="menu" aria-label="Add widget menu">
+            <button data-add="todo" role="menuitem">✅ To-Do List</button>
+            <button data-add="notes" role="menuitem">📝 Notes</button>
+            <button data-add="timer" role="menuitem">⏱️ Focus Timer</button>
+            <button data-add="habit" role="menuitem">📅 Habit Tracker</button>
+          </div>
+        </div>
+        <button id="clearAll" title="Reset everything" style="color:var(--danger); border-color:rgba(255,0,0,.25)">Reset</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div id="emptyState" class="empty" style="display:none">
+      Your dashboard is empty. Click “Add widget” to get started.
+    </div>
+    <section id="grid" class="grid" aria-live="polite"></section>
+  </main>
+
+<script>
+(() => {
+  const STORAGE_KEY = "planner_dashboard_v1";
+
+  const $grid = document.getElementById('grid');
+  const $empty = document.getElementById('emptyState');
+  const $addMenu = document.getElementById('addMenu');
+  const $toggle = $addMenu.querySelector('.menu-toggle');
+  const $list = $addMenu.querySelector('.menu-list');
+  const $reset = document.getElementById('clearAll');
+
+  // ---------- state ----------
+  let state = loadState() || { widgets: [] };
+
+  // ---------- helpers ----------
+  function uid(){ return "w_" + Math.random().toString(36).slice(2,9); }
+  function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  function loadState(){
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); }
+    catch(e){ return null; }
+  }
+  function setEmptyVisibility(){
+    $empty.style.display = state.widgets.length ? 'none' : 'block';
+  }
+
+  // ---------- menu ----------
+  function closeMenu(){ $addMenu.classList.remove('open'); $toggle.setAttribute('aria-expanded','false'); }
+  function openMenu(){ $addMenu.classList.add('open'); $toggle.setAttribute('aria-expanded','true'); }
+
+  $toggle.addEventListener('click', () => $addMenu.classList.toggle('open') ? openMenu() : closeMenu());
+  document.addEventListener('click', (e) => {
+    if (!$addMenu.contains(e.target)) closeMenu();
+  });
+  $list.addEventListener('click', (e) => {
+    const type = e.target.dataset.add;
+    if (!type) return;
+    addWidget(type);
+    closeMenu();
+  });
+
+  $reset.addEventListener('click', () => {
+    if (!confirm("Reset your dashboard? This clears all widget data.")) return;
+    state = { widgets: [] };
+    saveState();
+    syncRender();
+  });
+
+  // ---------- widget factory ----------
+  const widgetFactories = {
+    todo: () => ({
+      id: uid(), type:'todo', title:'To-Do',
+      data: { items: [] }
+    }),
+    notes: () => ({
+      id: uid(), type:'notes', title:'Notes',
+      data: { text: '' }
+    }),
+    timer: () => ({
+      id: uid(), type:'timer', title:'Focus Timer',
+      data: { minutes: 25, seconds: 0, running: false }
+    }),
+    habit: () => ({
+      id: uid(), type:'habit', title:'Habit (This Week)',
+      // days: Sun..Sat
+      data: { days: [false,false,false,false,false,false,false] }
+    })
+  };
+
+  function addWidget(type){
+    const factory = widgetFactories[type];
+    if (!factory) return;
+    state.widgets.push(factory());
+    saveState();
+    syncRender();
+  }
+
+  function removeWidget(id){
+    state.widgets = state.widgets.filter(w => w.id !== id);
+    saveState();
+    syncRender();
+  }
+
+  // ---------- rendering ----------
+  function syncRender(){
+    setEmptyVisibility();
+    // clear
+    $grid.innerHTML = '';
+    state.widgets.forEach(w => $grid.appendChild(renderWidget(w)));
+    enableDragAndDrop();
+  }
+
+  function renderWidget(widget){
+    const el = document.createElement('article');
+    el.className = 'widget';
+    el.setAttribute('draggable','true');
+    el.dataset.id = widget.id;
+
+    // header
+    const header = document.createElement('div');
+    header.className = 'widget-header';
+    const title = document.createElement('div');
+    title.className = 'title';
+    title.textContent = widget.title;
+    const actions = document.createElement('div');
+    actions.className = 'widget-actions';
+
+    const drag = document.createElement('button');
+    drag.className = 'icon-btn drag-hint';
+    drag.title = 'Drag to reorder';
+    drag.innerHTML = '↕︎';
+
+    const del = document.createElement('button');
+    del.className = 'icon-btn';
+    del.title = 'Delete';
+    del.style.color = 'var(--danger)';
+    del.textContent = '✕';
+    del.addEventListener('click', () => removeWidget(widget.id));
+
+    actions.append(drag, del);
+    header.append(title, actions);
+
+    // content
+    const content = document.createElement('div');
+    content.className = 'widget-content';
+    // mount specific UI
+    mountByType[widget.type]?.(content, widget);
+
+    el.append(header, content);
+    return el;
+  }
+
+  // ---------- mount per type ----------
+  const mountByType = {
+    todo(container, widget){
+      const row = document.createElement('div');
+      row.className = 'todo-input-row';
+      const input = document.createElement('input');
+      input.type = 'text'; input.placeholder = 'Add a task and press Enter';
+      const addBtn = document.createElement('button');
+      addBtn.className = 'tiny-btn'; addBtn.textContent = 'Add';
+
+      function addItem(){
+        const text = input.value.trim();
+        if (!text) return;
+        widget.data.items.push({ text, done:false });
+        input.value = '';
+        saveState(); renderList();
+      }
+      input.addEventListener('keydown', e => { if (e.key === 'Enter') addItem(); });
+      addBtn.addEventListener('click', addItem);
+      row.append(input, addBtn);
+
+      const list = document.createElement('ul');
+      list.className = 'todo-list';
+
+      function renderList(){
+        list.innerHTML = '';
+        widget.data.items.forEach((item, idx) => {
+          const li = document.createElement('li');
+          li.className = 'todo-item' + (item.done ? ' done' : '');
+          const cb = document.createElement('input');
+          cb.type = 'checkbox'; cb.checked = item.done;
+          cb.addEventListener('change', () => {
+            item.done = cb.checked; saveState(); renderList();
+          });
+          const span = document.createElement('span');
+          span.textContent = item.text; span.style.flex = '1';
+          const remove = document.createElement('button');
+          remove.className = 'tiny-btn'; remove.textContent = 'Del';
+          remove.addEventListener('click', () => { widget.data.items.splice(idx,1); saveState(); renderList(); });
+          li.append(cb, span, remove);
+          list.appendChild(li);
+        });
+      }
+
+      container.append(row, list);
+      renderList();
+    },
+
+    notes(container, widget){
+      const ta = document.createElement('textarea');
+      ta.className = 'notes-area';
+      ta.placeholder = 'Type notes…';
+      ta.value = widget.data.text || '';
+      let t;
+      ta.addEventListener('input', () => {
+        clearTimeout(t);
+        t = setTimeout(() => {
+          widget.data.text = ta.value; saveState();
+        }, 150);
+      });
+      container.appendChild(ta);
+    },
+
+    timer(container, widget){
+      const wrap = document.createElement('div'); wrap.className='timer-wrap';
+
+      const display = document.createElement('div'); display.className='timer-display';
+      const controls = document.createElement('div'); controls.className='timer-row';
+      const inputs = document.createElement('div'); inputs.className='timer-row';
+
+      const min = document.createElement('input'); min.type='number'; min.min='0'; min.max='180'; min.value=widget.data.minutes; min.className='num';
+      const sec = document.createElement('input'); sec.type='number'; sec.min='0'; sec.max='59'; sec.value=widget.data.seconds; sec.className='num';
+
+      const startBtn = document.createElement('button'); startBtn.className='tiny-btn'; startBtn.textContent='Start';
+      const pauseBtn = document.createElement('button'); pauseBtn.className='tiny-btn'; pauseBtn.textContent='Pause';
+      const resetBtn = document.createElement('button'); resetBtn.className='tiny-btn'; resetBtn.textContent='Reset';
+
+      let interval = null;
+
+      function fmt(n){ return String(n).padStart(2,'0'); }
+      function updateDisplay(){ display.textContent = `${fmt(widget.data.minutes)}:${fmt(widget.data.seconds)}`; }
+
+      function tick(){
+        let total = widget.data.minutes*60 + widget.data.seconds;
+        if (total <= 0){ stop(); return; }
+        total--;
+        widget.data.minutes = Math.floor(total/60);
+        widget.data.seconds = total%60;
+        updateDisplay(); saveState();
+      }
+      function start(){
+        if (interval) return;
+        interval = setInterval(tick, 1000);
+        widget.data.running = true; saveState();
+      }
+      function stop(){
+        clearInterval(interval); interval = null;
+        widget.data.running = false; saveState();
+      }
+      function reset(){
+        stop();
+        widget.data.minutes = parseInt(min.value || 25,10);
+        widget.data.seconds = parseInt(sec.value || 0,10);
+        updateDisplay(); saveState();
+      }
+
+      min.addEventListener('change', () => { widget.data.minutes = Math.max(0, Math.min(180, parseInt(min.value||0,10))); updateDisplay(); saveState(); });
+      sec.addEventListener('change', () => { let v = Math.max(0, Math.min(59, parseInt(sec.value||0,10))); widget.data.seconds = v; sec.value=v; updateDisplay(); saveState(); });
+
+      startBtn.addEventListener('click', start);
+      pauseBtn.addEventListener('click', stop);
+      resetBtn.addEventListener('click', reset);
+
+      updateDisplay();
+      if (widget.data.running){ start(); } // continue if running
+
+      inputs.append(
+        Object.assign(document.createElement('span'),{textContent:'Minutes:'}), min,
+        Object.assign(document.createElement('span'),{textContent:'Seconds:'}), sec
+      );
+      controls.append(startBtn, pauseBtn, resetBtn);
+      wrap.append(display, inputs, controls);
+      container.appendChild(wrap);
+    },
+
+    habit(container, widget){
+      const info = document.createElement('div');
+      info.className='muted'; info.textContent = 'Toggle days as you complete the habit';
+      const daysWrap = document.createElement('div'); daysWrap.className='habit-days';
+      const labels = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      labels.forEach((label, i) => {
+        const d = document.createElement('div');
+        d.className = 'habit-day' + (widget.data.days[i] ? ' active' : '');
+        d.textContent = label;
+        d.addEventListener('click', () => {
+          widget.data.days[i] = !widget.data.days[i];
+          d.classList.toggle('active', widget.data.days[i]);
+          saveState();
+        });
+        daysWrap.appendChild(d);
+      });
+      container.append(info, daysWrap);
+    }
+  };
+
+  // ---------- drag + drop reorder ----------
+  function enableDragAndDrop(){
+    const items = Array.from($grid.querySelectorAll('.widget'));
+    items.forEach(el => {
+      el.addEventListener('dragstart', (e) => {
+        el.classList.add('dragging');
+        e.dataTransfer.setData('text/plain', el.dataset.id);
+        e.dataTransfer.effectAllowed = 'move';
+      });
+      el.addEventListener('dragend', () => el.classList.remove('dragging'));
+      el.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const dragging = $grid.querySelector('.widget.dragging');
+        if (!dragging || dragging === el) return;
+        // insert before or after based on vertical midpoint
+        const rect = el.getBoundingClientRect();
+        const before = (e.clientY - rect.top) < rect.height/2;
+        $grid.insertBefore(dragging, before ? el : el.nextSibling);
+      });
+    });
+
+    $grid.addEventListener('drop', () => {
+      // read new DOM order into state
+      const ordered = Array.from($grid.querySelectorAll('.widget')).map(w => w.dataset.id);
+      state.widgets.sort((a,b) => ordered.indexOf(a.id) - ordered.indexOf(b.id));
+      saveState();
+    });
+  }
+
+  // ---------- boot ----------
+  syncRender();
+})();
+</script>
+</body>
+</html>
