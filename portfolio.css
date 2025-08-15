@@ -45,6 +45,7 @@ body {
   box-sizing: border-box;
 }
 
+
 .site-nav {
   position: fixed;          
   top: 3.75em;              
@@ -61,7 +62,7 @@ body {
   display: flex;
   list-style: none;
   margin: 0;
-  padding: 0;               
+  padding: 0;              
   gap: 1.25rem;
   justify-content: flex-end;
   align-items: center;
@@ -73,26 +74,31 @@ body {
 
 .nav-list a {
   text-decoration: none;
-  font-family: "Archivo Black", sans-serif;
-  text-transform: lowercase;
-  letter-spacing: 0.02em;
+  font-family: monospace; 
+  text-transform: uppercase;
+  letter-spacing: 1px;
   font-size: clamp(0.9rem, 2vw, 1.05rem);
-  color: #e9ffe0;           
+  color: #e7d6f3;
   padding: 0.25em 0.1em;
   position: relative;
   transition: transform 120ms ease;
+  text-shadow:
+    0 0 2px #39ff14,
+    0 0 5px #39ff14,
+    0 0 10px #ffea00,
+    0 0 15px #ffea00;
+  animation: glowShift 6s ease-in-out infinite alternate,
+             flicker 2.5s infinite;
+  opacity: 0.9;
 }
+
 
 .nav-list a:hover,
 .nav-list a:focus-visible {
   transform: translateY(-1px);
-  text-shadow:
-    0 0 2px #39ff14,   
-    0 0 5px #39ff14,
-    0 0 10px #ffea00,  
-    0 0 15px #ffea00;
   outline: none;
 }
+
 
 .nav-list a::after {
   content: "";
@@ -110,6 +116,7 @@ body {
 .nav-list a.active::after {
   transform: scaleX(1);
 }
+
 
 /* Content spacing       */
 .container {
