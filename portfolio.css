@@ -51,21 +51,18 @@ body {
 /* ===================== */
 .site-nav {
   position: fixed;          /* sits under the fixed title */
-  top: 3.75em;              /* adjust to sit nicely below #title */
+  top: 4em;              /* adjust to sit nicely below #title */
   left: 0;
   right: 0;
   z-index: 999;             /* below #title (1000), above content */
   padding: 0.35em 1rem;     /* <-- RIGHT PADDING = 1rem (alignment anchor) */
-  background: rgba(0, 0, 0, 0.15);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(4px);
 }
 
 .nav-list {
   display: flex;
   list-style: none;
   margin: 0;
-  padding: 0;               /* keep 0 so right edge matches .site-nav padding */
+  padding: 0;           /* keep 0 so right edge matches .site-nav padding */
   gap: 2.5rem;              /* space ONLY between items */
   justify-content: flex-end;
   align-items: center;
