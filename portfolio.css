@@ -84,10 +84,10 @@ body {
   transition: transform 120ms ease;
   /* Neon glow & flicker */
   text-shadow:
-    0 0 2px #39ff14,
-    0 0 5px #39ff14,
-    0 0 10px #ffea00,
-    0 0 15px #ffea00;
+  0 0 2px #39ff14,  /* vivid neon green */
+  0 0 5px #39ff14,
+  0 0 10px #7dff57, /* lime green */
+  0 0 15px #66ff33; /* softer electric green */
   animation: glowShift 2s ease-in-out infinite alternate,
              flicker 3.5s infinite;
   opacity: 0.9;
@@ -232,10 +232,10 @@ body::-webkit-scrollbar {
   letter-spacing: 1px;
   text-align: right;
   text-shadow:
-    0 0 2px #39ff14,
-    0 0 5px #39ff14,
-    0 0 10px #ffea00,
-    0 0 15px #ffea00;
+  0 0 2px #39ff14,  /* vivid neon green */
+  0 0 5px #39ff14,
+  0 0 10px #7dff57, /* lime green */
+  0 0 15px #66ff33; /* softer electric green */
   animation: glowShift 6s ease-in-out infinite alternate,
              flicker 2.5s infinite;
   opacity: 0.9;
@@ -253,22 +253,22 @@ body::-webkit-scrollbar {
     text-shadow:
       0 0 2px #39ff14,
       0 0 5px #39ff14,
-      0 0 10px #ffea00,
-      0 0 15px #ffea00;
+      0 0 10px #7dff57,
+      0 0 15px #66ff33;
   }
   50% {
     text-shadow:
-      0 0 3px #7dff57,
-      0 0 7px #7dff57,
-      0 0 12px #ffe84a,
-      0 0 20px #ffe84a;
+      0 0 3px #52ff52,   /* mid neon green pulse */
+      0 0 7px #52ff52,
+      0 0 12px #8cff66,  /* bright lime */
+      0 0 20px #39ff14;  /* anchor back to neon green */
   }
   100% {
     text-shadow:
       0 0 2px #39ff14,
       0 0 5px #39ff14,
-      0 0 10px #ffea00,
-      0 0 15px #ffea00;
+      0 0 10px #7dff57,
+      0 0 15px #66ff33;
   }
 }
 
