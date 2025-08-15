@@ -10,6 +10,7 @@ body {
   margin: 0;
   font-size: 1em;
   padding: 0;
+  padding-right: 1em;
   overflow-x: hidden;
   background-color: black; /* fallback while Vanta loads */
 }
