@@ -73,7 +73,6 @@ body {
   text-decoration: none;
   font-family: monospace; 
   text-transform: uppercase;
-  letter-spacing: 1px;
   font-size: clamp(1.35rem, 3vw, 1.575rem);
   color: #e7d6f3;
   padding: 0.25em 0.1em;
