@@ -133,10 +133,10 @@ p {
   letter-spacing: 1px;
   text-align: right;
   text-shadow:
-    0 0 2px #d799e3,
-    0 0 5px #c885ce,
-    0 0 10px #c885ce,
-    0 0 15px #c885ce;
+    0 0 2px #39ff14,   
+    0 0 5px #39ff14,   
+    0 0 10px #ffea00,  
+    0 0 15px #ffea00;
   animation: glowShift 6s ease-in-out infinite alternate,
              flicker 2.5s infinite;
   opacity: 0.9;
@@ -151,10 +151,10 @@ p {
   letter-spacing: 1px;
   text-align: right;
   text-shadow:
-    0 0 2px #d799e3,
-    0 0 5px #c885ce,
-    0 0 10px #c885ce,
-    0 0 15px #c885ce;
+    0 0 2px #39ff14,   
+    0 0 5px #39ff14,   
+    0 0 10px #ffea00,  
+    0 0 15px #ffea00;
   animation: glowShift 6s ease-in-out infinite alternate,
              flicker 2.5s infinite;
   opacity: 0.9;
