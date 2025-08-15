@@ -301,16 +301,5 @@
         });
         </script>
 
-        <script>
-            const btn = document.querySelector('.back-to-top');
-            function toggleBtn() {
-                if (!btn) return;
-                const show = window.scrollY > 600;
-                btn.style.pointerEvents = show ? 'auto' : 'none';
-                btn.style.opacity = show ? '0.9' : '0';
-            }
-            toggleBtn();
-            window.addEventListener('scroll', toggleBtn, { passive: true });
-        </script>
     </body>
 </html>
