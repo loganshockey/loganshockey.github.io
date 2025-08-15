@@ -82,7 +82,7 @@ body {
   /* no letter-spacing so intra-word spacing stays normal */
   font-size: clamp(1.62rem, 3.6vw, 1.89rem); /* 20% larger than 1.35/3vw/1.575 */
   color: #e7d6f3;
-  padding: 0.25em 0.1em;
+  padding: 0.25em 0em;
   position: relative;
   transition: transform 120ms ease;
   /* Neon glow & flicker */
