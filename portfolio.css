@@ -51,7 +51,7 @@ body {
 /* ===================== */
 .site-nav {
   position: fixed;          /* sits under the fixed title */
-  top: 4em;              /* adjust to sit nicely below #title */
+  top: 5em;              /* adjust to sit nicely below #title */
   left: 0;
   right: 0;
   z-index: 999;             /* below #title (1000), above content */
