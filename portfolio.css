@@ -208,21 +208,36 @@ p,
   100% { transform: translateX(-100%); }
 }
 
+/* Back-to-top button (always visible) */
 .back-to-top {
-  bottom: 1em;
-  left: 1.5em;
+  position: fixed;              
+  left: 1rem;                  
+  bottom: 1rem;
+  z-index: 1200;                /* above #title (1000) and nav (999) */
   background-color: rgb(200, 133, 206);
   color: black;
-  padding: 0.5em 1em;
+  padding: 0.6em 1em;
   text-decoration: none;
-  border-radius: 5px;
+  border-radius: 6px;
   font-weight: bold;
-  z-index: 1000;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  opacity: 0.9;
 }
 
-.back-to-top:hover { opacity: 0.8; }
+.back-to-top:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
 
+/* (optional) mobile tweak */
+@media (max-width: 400px) {
+  .back-to-top {
+    right: 0.75rem;
+    bottom: 0.75rem;
+    padding: 0.5em 0.8em;
+    font-size: 1em;
+  }
+}
 /* Hide scrollbars but keep scrolling */
 html, body {
   -ms-overflow-style: none; 
