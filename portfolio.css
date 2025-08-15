@@ -136,14 +136,10 @@ body {
 /* Headings */
 h2 {
   font-family: "Archivo Black", sans-serif;
-  background-color: rgb(200, 133, 206);
-  color: black;
+  color: rgb(200, 133, 206);
   text-align: center;
-  font-weight: bold;
   font-size: 2em;
-  margin: 0;
-  margin-left: 5em;
-  position: fixed;
+  padding-top: 10em;
   z-index: 999;
   overflow: hidden;
 }
@@ -216,7 +212,7 @@ p,
   align-items: center;
   gap: 2rem;             /* space between repeats */
   will-change: transform;
-  animation: marquee 18s linear infinite;
+  animation: marquee 28s linear infinite;
 }
 
 /* Pause on hover (optional) */
