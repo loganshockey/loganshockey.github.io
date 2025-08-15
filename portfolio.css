@@ -202,6 +202,39 @@ p,
   animation: scrollText 20s linear infinite;
 }
 
+/* Marquee container */
+.repeat-text1 {
+  position: relative;
+  width: 100%;
+  overflow: hidden;      /* hides the scrolling overflow */
+  white-space: nowrap;
+}
+
+/* The moving row */
+.repeat-text1 .track {
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;             /* space between repeats */
+  will-change: transform;
+  animation: marquee 18s linear infinite;
+}
+
+/* Pause on hover (optional) */
+.repeat-text1 .track:hover {
+  animation-play-state: paused;
+}
+
+/* Make each phrase behave like a chunk */
+.repeat-text1 .track > span {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); } /* we’ll duplicate content so this loops seamlessly */
+}
+
 /* Keyframes for leftward scroll */
 @keyframes scrollText {
   0%   { transform: translateX(0); }
