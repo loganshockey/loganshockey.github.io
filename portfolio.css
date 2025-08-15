@@ -4,13 +4,14 @@ html {
   overflow-x: hidden;
 }
 
+/* Vanta provides the background */
 body {
   color: beige;
   margin: 0;
   font-size: 1em;
   padding: 0;
   overflow-x: hidden;
-  background-color: black;
+  background-color: black; /* fallback while Vanta loads */
 }
 
 /* Mirror the Vanta background horizontally */
@@ -45,50 +46,55 @@ body {
   box-sizing: border-box;
 }
 
-
+/* ===================== */
+/* Fixed Neon Nav        */
+/* ===================== */
 .site-nav {
-  position: fixed;          
-  top: 3.75em;              
+  position: fixed;          /* sits under the fixed title */
+  top: 3.75em;              /* adjust to sit nicely below #title */
   left: 0;
   right: 0;
-  z-index: 999;             
-  padding: 0.35em 1rem;
+  z-index: 999;             /* below #title (1000), above content */
+  padding: 0.35em 1rem;     /* <-- RIGHT PADDING = 1rem (alignment anchor) */
+  background: rgba(0, 0, 0, 0.15);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(4px);
 }
 
 .nav-list {
   display: flex;
   list-style: none;
   margin: 0;
-  padding: 0; 
-  padding-top: 1em;             
-  gap: 3rem;
+  padding: 0;               /* keep 0 so right edge matches .site-nav padding */
+  gap: 2.5rem;              /* space ONLY between items */
   justify-content: flex-end;
   align-items: center;
 }
 
 .nav-list li {
-  margin: 0;                
+  margin: 0;
 }
 
 .nav-list a {
   text-decoration: none;
-  font-family: monospace; 
+  font-family: monospace;   /* match your punkglow vibe */
   text-transform: uppercase;
-  font-size: clamp(1.62rem, 3.6vw, 1.89rem);
+  /* no letter-spacing so intra-word spacing stays normal */
+  font-size: clamp(1.62rem, 3.6vw, 1.89rem); /* 20% larger than 1.35/3vw/1.575 */
   color: #e7d6f3;
   padding: 0.25em 0.1em;
   position: relative;
   transition: transform 120ms ease;
+  /* Neon glow & flicker */
   text-shadow:
     0 0 2px #39ff14,
     0 0 5px #39ff14,
     0 0 10px #ffea00,
     0 0 15px #ffea00;
-  animation: glowShift 4s ease-in-out infinite alternate,
+  animation: glowShift 2s ease-in-out infinite alternate,
              flicker 3.5s infinite;
   opacity: 0.9;
 }
-
 
 .nav-list a:hover,
 .nav-list a:focus-visible {
@@ -96,7 +102,7 @@ body {
   outline: none;
 }
 
-
+/* Neon underline accent */
 .nav-list a::after {
   content: "";
   position: absolute;
@@ -114,17 +120,22 @@ body {
   transform: scaleX(1);
 }
 
-
+/* ===================== */
 /* Content spacing       */
+/* ===================== */
+
+/* Match body text right edge to nav’s right edge (1rem) */
 .container {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   width: 100%;
-  padding: 1.25em;
-  margin-top: 20em;
+  padding-left: clamp(1rem, 4vw, 3rem); /* flexible left padding */
+  padding-right: 1rem;                  /* <-- MUST MATCH .site-nav right padding */
+  margin-top: 20em;                     /* space for fixed title + nav */
 }
 
+/* Headings */
 h2 {
   font-family: "Archivo Black", sans-serif;
   background-color: rgb(200, 133, 206);
@@ -154,65 +165,30 @@ h3 {
   font-family: monospace, 'Lucida Sans';
   color: beige;
   font-size: 2em;
-  padding-right: .25em;
+  padding-right: 0;     /* rely on container padding */
+  margin-right: 0;      /* align to right padding */
 }
 
-p {
-  margin-left: auto;
+/* Paragraphs — safe width & right alignment */
+p,
+.container p,
+.block-text {
+  width: auto;                     
+  max-width: min(70ch, 92vw);      /* readable line length, never overflows viewport */
+  margin-left: auto;               /* keep right-aligned layout */
+  margin-right: 0;                 
+  box-sizing: border-box;
+  padding-right: 0;                /* rely on .container padding-right */
   text-align: right;
-  width: 50vw;
   font-family: monospace, 'Lucida Sans';
   color: beige;
   font-size: 1.25em;
-  padding-right: .25em;
+  overflow-wrap: anywhere;         /* break long words/URLs instead of spilling */
+  word-break: normal;
+  hyphens: auto;
 }
 
-.block-text {
-  text-align: justify;
-}
-
-.container p {
-  width: 100%;
-  text-align: right;
-  margin: 0;
-  padding-right: .25em;
-}
-
-.punkglowtitle {
-  font-family: monospace;
-  font-size: 2em;
-  color: #e7d6f3;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: right;
-  text-shadow:
-    0 0 2px #39ff14,
-    0 0 5px #39ff14,
-    0 0 10px #ffea00,
-    0 0 15px #ffea00;
-  animation: glowShift 6s ease-in-out infinite alternate,
-             flicker 2.5s infinite;
-  opacity: 0.9;
-  margin-top: 1em;
-}
-
-.punkglow {
-  font-family: monospace;
-  font-size: 1.25em;
-  color: #e7d6f3;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: right;
-  text-shadow:
-    0 0 2px #39ff14,
-    0 0 5px #39ff14,
-    0 0 10px #ffea00,
-    0 0 15px #ffea00;
-  animation: glowShift 6s ease-in-out infinite alternate,
-             flicker 2.5s infinite;
-  opacity: 0.9;
-  margin-top: 1em;
-}
+.block-text { text-align: justify; }
 
 .repeat-text1 {
   white-space: nowrap;
@@ -223,6 +199,7 @@ p {
 }
 
 .back-to-top {
+  bottom: 1em;
   left: 1.5em;
   background-color: rgb(200, 133, 206);
   color: black;
@@ -234,22 +211,46 @@ p {
   transition: opacity 0.3s ease;
 }
 
-.back-to-top:hover {
-  opacity: 0.8;
-}
+.back-to-top:hover { opacity: 0.8; }
 
-/* Hide scrollbars visually but keep scrolling */
+/* Hide scrollbars but keep scrolling */
 html, body {
-  -ms-overflow-style: none;   /* IE/Edge (legacy) */
-  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none; 
+  scrollbar-width: none;     
 }
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
-  width: 0;                   /* Chrome/Safari/Opera */
+  width: 0;
   height: 0;
 }
 
+/* ===================== */
+/* Neon text styles      */
+/* ===================== */
+.punkglowtitle,
+.punkglow {
+  font-family: monospace;
+  color: #e7d6f3;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: right;
+  text-shadow:
+    0 0 2px #39ff14,
+    0 0 5px #39ff14,
+    0 0 10px #ffea00,
+    0 0 15px #ffea00;
+  animation: glowShift 6s ease-in-out infinite alternate,
+             flicker 2.5s infinite;
+  opacity: 0.9;
+  margin-top: 1em;
+}
 
+.punkglowtitle { font-size: 2em; }
+.punkglow      { font-size: 1.25em; }
+
+/* ===================== */
+/* Animations            */
+/* ===================== */
 @keyframes glowShift {
   0% {
     text-shadow:
@@ -260,9 +261,9 @@ body::-webkit-scrollbar {
   }
   50% {
     text-shadow:
-      0 0 3px #7dff57,   
+      0 0 3px #7dff57,
       0 0 7px #7dff57,
-      0 0 12px #ffe84a,  
+      0 0 12px #ffe84a,
       0 0 20px #ffe84a;
   }
   100% {
@@ -275,17 +276,13 @@ body::-webkit-scrollbar {
 }
 
 @keyframes flicker {
-  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
-    opacity: 1;
-  }
-  20%, 24%, 55% {
-    opacity: 0.4;
-  }
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
+  20%, 24%, 55% { opacity: 0.4; }
 }
 
-
-
-
+/* ===================== */
+/* Mobile tweaks         */
+/* ===================== */
 @media screen and (max-width: 400px) {
   #title {
     font-size: 1.5em;
@@ -295,17 +292,15 @@ body::-webkit-scrollbar {
 
   .site-nav {
     top: 2.75em;
-    padding: 0.25em 0.75em;
+    padding: 0.25em 0.75rem; /* RIGHT PADDING = 0.75rem on mobile */
   }
 
   .nav-list {
-    gap: 0.75rem;
-    justify-content: flex-start; 
+    gap: 1rem;                 /* tighter spacing so items fit */
+    justify-content: flex-start;
   }
 
-  body {
-    padding-bottom: 0;
-  }
+  body { padding-bottom: 0; }
 
   h2 {
     font-size: 1.25em;
@@ -318,23 +313,23 @@ body::-webkit-scrollbar {
 
   .container {
     align-items: flex-start;
-    padding: 0.75em 1em;
+    padding-left: clamp(0.75rem, 4vw, 1rem);
+    padding-right: 0.75rem;    /* match .site-nav mobile right padding */
   }
 
   h3 {
     font-size: 1.25em;
     text-align: right;
-    padding-right: 0.5em;
-    margin-top: 0.4em;
-    width: 100%;
     padding: 0.5em 0.25em;
     margin: 0.25em 0;
+    width: 100%;
     overflow-wrap: break-word;
   }
 
   p,
-  .container p {
-    width: 100%;
+  .container p,
+  .block-text {
+    max-width: 100%;
     text-align: right;
     padding: 0.5em 0.25em;
     margin: 0.25em 0;
@@ -342,9 +337,7 @@ body::-webkit-scrollbar {
     overflow-wrap: break-word;
   }
 
-  .block-text {
-    text-align: justify;
-  }
+  .block-text { text-align: justify; }
 
   .back-to-top {
     padding: 0.4em 0.8em;
@@ -360,53 +353,5 @@ body::-webkit-scrollbar {
     word-wrap: break-word;
   }
 
-  body, .container {
-    padding-right: 0.5em;
-  }
-}
-
-.container {
-  padding-inline: clamp(1rem, 4vw, 3rem); 
-}
-
-
-h3 {
-  margin-right: 0;                 
-  padding-right: 0;                
-}
-
-
-p,
-.container p,
-.block-text {
-  width: auto;                     
-  max-width: min(70ch, 92vw);      
-  margin-left: auto;               
-  margin-right: 0;                 
-  box-sizing: border-box;
-  padding-right: 0;                
-  overflow-wrap: anywhere;         
-  word-break: normal;                
-}
-
-
-img, video, canvas, svg {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin-left: auto;               
-}
-
-
-@media screen and (max-width: 600px) {
-  .container {
-    padding-inline: clamp(0.75rem, 4vw, 1rem);
-  }
-
-  p,
-  .container p,
-  .block-text {
-    max-width: 100%;               
-    text-align: right;             
-  }
+  body, .container { padding-right: 0.5em; }
 }
