@@ -189,11 +189,23 @@ p,
 .block-text { text-align: justify; }
 
 .repeat-text1 {
+  display: flex;
   white-space: nowrap;
-  margin-top: 7.5em;
-  display: block;
-  word-spacing: 3em;
-  color: black;
+  overflow: hidden;
+  width: 100vw;              /* span full screen width */
+  position: relative;
+}
+
+.repeat-text1 span {
+  display: inline-block;
+  padding-right: 2rem;       /* space between repeats */
+  animation: scrollText 20s linear infinite;
+}
+
+/* Keyframes for leftward scroll */
+@keyframes scrollText {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
 }
 
 .back-to-top {
