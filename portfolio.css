@@ -228,6 +228,7 @@ p,
 .repeat-text1 .track > span {
   display: inline-block;
   white-space: nowrap;
+  word-spacing: 1.5rem;
 }
 
 @keyframes marquee {
@@ -245,7 +246,7 @@ p,
 .back-to-top {
   position: fixed;              
   left: 3rem;                  
-  bottom: 1rem;
+  bottom: 2rem;
   z-index: 1200;                /* above #title (1000) and nav (999) */
   background-color: rgb(200, 133, 206);
   color: black;
