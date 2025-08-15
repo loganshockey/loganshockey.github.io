@@ -211,7 +211,7 @@ p,
 /* Back-to-top button (always visible) */
 .back-to-top {
   position: fixed;              
-  left: 1rem;                  
+  left: 3rem;                  
   bottom: 1rem;
   z-index: 1200;                /* above #title (1000) and nav (999) */
   background-color: rgb(200, 133, 206);
