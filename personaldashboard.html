@@ -4,18 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>My Daily Dashboard</title>
-  
   <style>
-    .cal-head { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px; }
-    .cal-head .btn { padding:8px 12px; }
-    .cal-title { font-weight:700; letter-spacing:.3px; }
-    .cal-grid { display:grid; grid-template-columns: repeat(7, 1fr); gap:8px; }
-    .cal-dow { text-align:center; color:var(--muted); font-weight:600; font-size:.8rem; }
-    .cal-cell { min-height:110px; border:1px solid rgba(255,255,255,.08); border-radius:12px; background:#0c1023; padding:8px; display:flex; flex-direction:column; gap:6px; }
-    .cal-day-num { font-size:.85rem; color:var(--muted); align-self:flex-end; }
-    .event-pill { display:flex; align-items:center; gap:6px; padding:6px 8px; border-radius:10px; background:rgba(123,197,255,.16); border:1px solid rgba(123,197,255,.35); font-size:.8rem; }
-    .event-pill .del { margin-left:auto; cursor:pointer; border:none; background:transparent; color:var(--muted); }
-    .cal-outmonth { opacity:.45; }
     :root {
       --bg: #0f1222;
       --panel: #161a31;
@@ -107,6 +96,27 @@
     footer { position: fixed; bottom: 0; left: 0; right: 0; background: rgba(15,18,34,.8); border-top: 1px solid rgba(255,255,255,.08); }
     .foot { max-width: 1100px; margin: 0 auto; padding: 10px 16px; display: flex; gap: 10px; justify-content: space-between; align-items: center; }
     .foot .row { gap: 8px; }
+
+    /* Calendar Grid */
+    .cal-head { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:12px; }
+    .cal-head .btn { padding:8px 12px; }
+    .cal-title { font-weight:700; letter-spacing:.3px; }
+    .cal-grid { display:grid; grid-template-columns: repeat(7, 1fr); gap:8px; }
+    .cal-dow { text-align:center; color:var(--muted); font-weight:600; font-size:.8rem; }
+    .cal-cell { min-height:110px; border:1px solid rgba(255,255,255,.08); border-radius:12px; background:#0c1023; padding:8px; display:flex; flex-direction:column; gap:6px; }
+    .cal-day-num { font-size:.85rem; color:var(--muted); align-self:flex-end; }
+    .event-pill { display:flex; align-items:center; gap:6px; padding:6px 8px; border-radius:10px; background:rgba(123,197,255,.16); border:1px solid rgba(123,197,255,.35); font-size:.8rem; }
+    .event-pill .del { margin-left:auto; cursor:pointer; border:none; background:transparent; color:var(--muted); }
+    .cal-outmonth { opacity:.45; }
+
+    /* Tag styles */
+    .event-pill[data-type="event"]    { background: rgba(123,197,255,.16); border-color: rgba(123,197,255,.35); }
+    .event-pill[data-type="todo"]     { background: rgba(120,255,160,.16); border-color: rgba(120,255,160,.35); }
+    .event-pill[data-type="deadline"] { background: rgba(255,120,120,.16); border-color: rgba(255,120,120,.35); }
+    .event-pill .tag {
+      font-size: .7rem; padding: 2px 6px; border: 1px solid rgba(255,255,255,.2);
+      border-radius: 6px; opacity: .9;
+    }
   </style>
 </head>
 <body>
@@ -243,6 +253,13 @@
             <form id="cal-form">
               <div class="field half"><label for="cal-title">Title</label><input id="cal-title" placeholder="Doctor appt, Deadline…" required/></div>
               <div class="field half"><label for="cal-date">Date</label><input type="date" id="cal-date" required/></div>
+              <div class="field half"><label for="cal-type">Type</label>
+                <select id="cal-type">
+                  <option value="event" selected>Event</option>
+                  <option value="todo">To do</option>
+                  <option value="deadline">Deadline</option>
+                </select>
+              </div>
               <div class="field" style="grid-column: span 12;"><label for="cal-note">Notes</label><textarea id="cal-note"></textarea></div>
               <div class="actions"><button class="btn primary" type="submit">Add</button><button class="btn ghost" type="button" id="cal-clear">Clear</button></div>
             </form>
@@ -267,9 +284,9 @@
               <div style="width:120px"></div>
             </div>
             <div class="cal-grid" id="cal-grid"></div>
+            <p class="muted" style="margin-top:8px;">Tip: Click the ✕ next to an event to delete it. (Goal target pills are shown but not deletable here.)</p>
           </div>
         </div>
-
       </div>
     </section>
 
@@ -376,83 +393,7 @@
     </div>
   </footer>
 
-
-  
   <script>
-
-      // ===== Calendar Month View (override table with grid) =====
-  // State for current month view
-  let calView = (()=>{ const d = new Date(); return { y: d.getFullYear(), m: d.getMonth() }; })();
-
-  // Override renderCalendar to also draw month grid
-  function renderCalendar() {
-    // Upcoming list (unchanged)
-    const list = $('#cal-upcoming'); list.innerHTML = '';
-    const upcoming = data.calendar.events
-      .filter(e => Date.parse(e.date) >= Date.now()-24*3600*1000)
-      .sort((a,b)=>a.date.localeCompare(b.date))
-      .filter(e => daysBetween(todayISO(), e.date) <= 60);
-    for (const e of upcoming) {
-      const li = document.createElement('li');
-      const days = daysBetween(todayISO(), e.date);
-      li.innerHTML = `<div class="row" style="justify-content:space-between; border:1px solid rgba(255,255,255,.08); padding:10px 12px; border-radius:12px; background:#0c1023;">
-        <div><div style="font-weight:600;">${e.title}</div><div class="muted">${new Date(e.date).toLocaleDateString()} • ${e.note||''}</div></div>
-        <div class="pill">in ${days} day${days===1?'':'s'}</div>
-      </div>`;
-      list.appendChild(li);
-    }
-    renderCalendarMonth();
-  }
-
-  function monthLabel(y,m){
-    return new Date(y, m, 1).toLocaleDateString(undefined, { month:'long', year:'numeric' });
-  }
-
-  function getMonthMatrix(y,m){
-    // 6 weeks x 7 days = 42 cells starting on Sunday
-    const first = new Date(y, m, 1);
-    const start = new Date(first);
-    const dow = start.getDay(); // 0-6
-    start.setDate(start.getDate() - dow);
-    const days = [];
-    for (let i=0;i<42;i++) { const d = new Date(start); d.setDate(start.getDate()+i); days.push(d); }
-    return days;
-  }
-
-  function renderCalendarMonth(){
-    const label = $('#cal-month-label'); if (label) label.textContent = monthLabel(calView.y, calView.m);
-    const grid = $('#cal-grid'); if (!grid) return; grid.innerHTML = '';
-    const dows = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    for (const d of dows){ const h = document.createElement('div'); h.className='cal-dow'; h.textContent=d; grid.appendChild(h); }
-    const cells = getMonthMatrix(calView.y, calView.m);
-    const map = new Map();
-    for (const ev of data.calendar.events){ if (!map.has(ev.date)) map.set(ev.date, []); map.get(ev.date).push(ev); }
-    for (const d of cells){
-      const iso = d.toISOString().slice(0,10);
-      const cell = document.createElement('div'); cell.className = 'cal-cell';
-      if (d.getMonth() !== calView.m) cell.classList.add('cal-outmonth');
-      const num = document.createElement('div'); num.className = 'cal-day-num'; num.textContent = d.getDate();
-      cell.appendChild(num);
-      const events = map.get(iso)||[];
-      for (const ev of events){
-        const pill = document.createElement('div'); pill.className='event-pill';
-        pill.innerHTML = `<span>${ev.title}</span> ${ev.note?`<span class="muted">• ${ev.note}</span>`:''} <button title="Delete" class="del" data-del-cal="${ev.id}">✕</button>`;
-        cell.appendChild(pill);
-      }
-      grid.appendChild(cell);
-    }
-  }
-
-  // Header controls + delete handlers (event delegation)
-  document.addEventListener('click', (e)=>{
-    if (e.target && e.target.id === 'cal-prev'){ calView.m--; if (calView.m<0){ calView.m=11; calView.y--; } renderCalendarMonth(); }
-    if (e.target && e.target.id === 'cal-next'){ calView.m++; if (calView.m>11){ calView.m=0; calView.y++; } renderCalendarMonth(); }
-    if (e.target && e.target.id === 'cal-today'){ const d=new Date(); calView.y=d.getFullYear(); calView.m=d.getMonth(); renderCalendarMonth(); }
-    const delId = e.target?.dataset?.delCal; if (delId){
-      data.calendar.events = data.calendar.events.filter(x=>x.id!==delId); db.save(data); renderCalendar();
-    }
-  });
-
     // ========= Utilities =========
     const $ = (sel, root=document) => root.querySelector(sel);
     const $$ = (sel, root=document) => Array.from(root.querySelectorAll(sel));
@@ -460,6 +401,15 @@
     const toMoney = n => (n||0).toLocaleString(undefined, { style: 'currency', currency: 'USD' });
     const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
     const daysBetween = (d1, d2) => Math.round((Date.parse(d2) - Date.parse(d1))/(1000*60*60*24));
+    function escapeHtml(s){ return String(s).replace(/[&<>\"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+    function iconForType(t){
+      switch (t){
+        case 'todo': return '☑️';
+        case 'deadline': return '⏰';
+        case 'goal': return '🎯';
+        default: return '📅';
+      }
+    }
 
     function setDefaultDates() {
       ['fin-date','nutri-date','cal-date','goal-target'].forEach(id => {
@@ -474,8 +424,8 @@
     const emptyData = () => ({
       finance: { entries: [] },
       nutrition: { entries: [] },
-      calendar: { events: [] },
-      goals: { list: [] },
+      calendar: { events: [] }, // {id, title, date, type, note}
+      goals: { list: [] },      // {id, title, startDate, targetDate}
       habits: { list: [] }
     });
 
@@ -489,17 +439,22 @@
 
     let data = db.load();
 
+    // Migrate legacy calendar events without type -> event
+    if (Array.isArray(data?.calendar?.events)) {
+      let changed = false;
+      for (const e of data.calendar.events) { if (!e.type) { e.type = 'event'; changed = true; } }
+      if (changed) db.save(data);
+    }
+
     // ========= Tabs =========
     function activateTab(name) {
       $$('.tabs button').forEach(b => b.classList.toggle('active', b.dataset.tab === name));
       $$('.tab').forEach(sec => { sec.hidden = sec.id !== `tab-${name}`; });
-      // focus first focusable input in visible tab for quick entry
       const first = $('#tab-' + name).querySelector('input,textarea,button,select');
       if (first) first.focus({ preventScroll: true });
       renderAll();
       location.hash = name;
     }
-
     $$('.tabs button').forEach(b => b.addEventListener('click', () => activateTab(b.dataset.tab)));
     $$('[data-tabjump]').forEach(b => b.addEventListener('click', () => activateTab(b.dataset.tabjump)));
 
@@ -524,13 +479,9 @@
       const rows = [...data.finance.entries].sort((a,b)=>b.date.localeCompare(a.date));
       for (const r of rows) {
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${r.date}</td><td>${toMoney(r.income)}</td><td>${toMoney(r.expense)}</td><td>${toMoney((r.income - r.expense))}</td><td>${r.note||''}</td><td><button class="btn" data-del-fin="${r.id}">Delete</button></td>`;
+        tr.innerHTML = `<td>${r.date}</td><td>${toMoney(r.income)}</td><td>${toMoney(r.expense)}</td><td>${toMoney((r.income - r.expense))}</td><td>${escapeHtml(r.note||'')}</td><td><button class="btn" data-del-fin="${r.id}">Delete</button></td>`;
         tbody.appendChild(tr);
       }
-      tbody.addEventListener('click', e => {
-        const id = e.target?.dataset?.delFin; if (!id) return;
-        data.finance.entries = data.finance.entries.filter(x=>x.id!==id); db.save(data); renderFinance(); drawFinanceChart(); renderFinanceSummary();
-      }, { once: true });
       drawFinanceChart();
       renderFinanceSummary();
     }
@@ -569,16 +520,13 @@
       }
       const maxAbs = Math.max(1, ...points.map(p=>Math.abs(p.value)));
       const mid = canvas.height/2; const xstep = canvas.width/(points.length-1);
-      // zero line
       ctx.globalAlpha = 0.6; ctx.beginPath(); ctx.moveTo(0, mid); ctx.lineTo(canvas.width, mid); ctx.strokeStyle = 'rgba(255,255,255,.15)'; ctx.lineWidth = 1; ctx.stroke(); ctx.globalAlpha = 1;
-      // line
       ctx.beginPath();
       points.forEach((p,i)=>{
         const x = i*xstep; const y = mid - (p.value/maxAbs)*(canvas.height*0.45);
         if (i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
       });
       ctx.lineWidth = 2; ctx.strokeStyle = '#7bc5ff'; ctx.stroke();
-      // fills for + and -
       ctx.lineTo(canvas.width, mid); ctx.lineTo(0, mid); ctx.closePath();
       const grad = ctx.createLinearGradient(0,0,0,canvas.height);
       grad.addColorStop(0,'rgba(123,197,255,.25)'); grad.addColorStop(1,'rgba(179,140,255,.05)');
@@ -608,13 +556,9 @@
       const rows = [...data.nutrition.entries].sort((a,b)=>b.date.localeCompare(a.date));
       for (const r of rows) {
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${r.date}</td><td>${r.protein}g</td><td>${r.carbs}g</td><td>${r.fat}g</td><td>${r.sugar}g</td><td>${r.note||''}</td><td><button class="btn" data-del-nutri="${r.id}">Delete</button></td>`;
+        tr.innerHTML = `<td>${r.date}</td><td>${r.protein}g</td><td>${r.carbs}g</td><td>${r.fat}g</td><td>${r.sugar}g</td><td>${escapeHtml(r.note||'')}</td><td><button class="btn" data-del-nutri="${r.id}">Delete</button></td>`;
         tbody.appendChild(tr);
       }
-      tbody.addEventListener('click', e => {
-        const id = e.target?.dataset?.delNutri; if (!id) return;
-        data.nutrition.entries = data.nutrition.entries.filter(x=>x.id!==id); db.save(data); renderNutrition(); drawSugarChart(); renderNutritionAverages();
-      }, { once: true });
       drawSugarChart();
       renderNutritionAverages();
     }
@@ -642,10 +586,8 @@
       }
       const max = Math.max(10, ...values);
       const w = canvas.width, h = canvas.height; const step = w/values.length;
-      // axis
       const ctxLine = (x1,y1,x2,y2,alpha=.15)=>{ ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.strokeStyle=`rgba(255,255,255,${alpha})`; ctx.lineWidth=1; ctx.stroke(); };
       ctxLine(0,h-20,w,h-20, .2);
-      // bars
       for (let i=0;i<values.length;i++){
         const v = values[i];
         const bh = (h-30) * (v/max);
@@ -657,13 +599,20 @@
     // ========= Calendar =========
     $('#cal-form').addEventListener('submit', e => {
       e.preventDefault();
-      const ev = { id: crypto.randomUUID(), title: $('#cal-title').value.trim(), date: $('#cal-date').value, note: $('#cal-note').value.trim() };
-      if (!ev.title) return;
+      const ev = {
+        id: crypto.randomUUID(),
+        title: $('#cal-title').value.trim(),
+        date: $('#cal-date').value,
+        type: $('#cal-type').value || 'event',
+        note: $('#cal-note').value.trim()
+      };
+      if (!ev.title || !ev.date) return;
       data.calendar.events.push(ev); db.save(data); e.target.reset(); setDefaultDates(); renderCalendar();
     });
     $('#cal-clear').addEventListener('click', ()=> { $('#cal-form').reset(); setDefaultDates(); });
 
     function renderCalendar() {
+      // Upcoming list
       const list = $('#cal-upcoming'); list.innerHTML = '';
       const upcoming = data.calendar.events
         .filter(e => Date.parse(e.date) >= Date.now()-24*3600*1000)
@@ -672,30 +621,98 @@
       for (const e of upcoming) {
         const li = document.createElement('li');
         const days = daysBetween(todayISO(), e.date);
+        const badge = `<span class="tag" style="margin-left:8px;">${escapeHtml(e.type || 'event')}</span>`;
         li.innerHTML = `<div class="row" style="justify-content:space-between; border:1px solid rgba(255,255,255,.08); padding:10px 12px; border-radius:12px; background:#0c1023;">
-          <div><div style="font-weight:600;">${e.title}</div><div class="muted">${new Date(e.date).toLocaleDateString()} • ${e.note||''}</div></div>
+          <div>
+            <div style="font-weight:600;">${escapeHtml(e.title)} ${badge}</div>
+            <div class="muted">${new Date(e.date).toLocaleDateString()} • ${escapeHtml(e.note||'')}</div>
+          </div>
           <div class="pill">in ${days} day${days===1?'':'s'}</div>
         </div>`;
         list.appendChild(li);
       }
-      const tbody = $('#cal-table tbody'); tbody.innerHTML = '';
-      const rows = [...data.calendar.events].sort((a,b)=>a.date.localeCompare(b.date));
-      for (const r of rows){
-        const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${r.date}</td><td>${r.title}</td><td>${r.note||''}</td><td><button class="btn" data-del-cal="${r.id}">Delete</button></td>`;
-        tbody.appendChild(tr);
-      }
-      tbody.addEventListener('click', e => {
-        const id = e.target?.dataset?.delCal; if (!id) return;
-        data.calendar.events = data.calendar.events.filter(x=>x.id!==id); db.save(data); renderCalendar();
-      }, { once: true });
+      // Month grid
+      renderCalendarMonth();
     }
+
+    // Calendar month view state & helpers
+    let calView = (()=>{ const d = new Date(); return { y: d.getFullYear(), m: d.getMonth() }; })();
+    function monthLabel(y,m){
+      return new Date(y, m, 1).toLocaleDateString(undefined, { month:'long', year:'numeric' });
+    }
+    function getMonthMatrix(y,m){
+      const first = new Date(y, m, 1);
+      const start = new Date(first);
+      const dow = start.getDay(); // 0-6 (Sunday start)
+      start.setDate(start.getDate() - dow);
+      const days = [];
+      for (let i=0;i<42;i++) { const d = new Date(start); d.setDate(start.getDate()+i); days.push(d); }
+      return days;
+    }
+
+    function renderCalendarMonth(){
+      $('#cal-month-label').textContent = monthLabel(calView.y, calView.m);
+      const grid = $('#cal-grid'); grid.innerHTML = '';
+      const dows = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+      for (const d of dows){ const h = document.createElement('div'); h.className='cal-dow'; h.textContent=d; grid.appendChild(h); }
+      const cells = getMonthMatrix(calView.y, calView.m);
+
+      // Combine saved calendar events + derived goal target dates
+      const savedEvents = Array.isArray(data?.calendar?.events) ? data.calendar.events : [];
+      const goalTargets = (Array.isArray(data?.goals?.list) ? data.goals.list : [])
+        .filter(g => g?.targetDate)
+        .map(g => ({
+          id: `goal-${g.id}`,
+          title: `Goal: ${g.title || 'Untitled'}`,
+          date: g.targetDate,
+          note: 'Target date',
+          type: 'deadline',
+          _derivedFromGoal: true
+        }));
+      const allEvents = [...savedEvents, ...goalTargets];
+
+      const map = new Map();
+      for (const ev of allEvents){
+        if (!map.has(ev.date)) map.set(ev.date, []);
+        map.get(ev.date).push(ev);
+      }
+
+      for (const d of cells){
+        const iso = d.toISOString().slice(0,10);
+        const cell = document.createElement('div'); cell.className = 'cal-cell';
+        if (d.getMonth() !== calView.m) cell.classList.add('cal-outmonth');
+        const num = document.createElement('div'); num.className = 'cal-day-num'; num.textContent = d.getDate();
+        cell.appendChild(num);
+
+        const events = map.get(iso)||[];
+        for (const ev of events){
+          const pill = document.createElement('div'); pill.className='event-pill'; pill.dataset.type = ev._derivedFromGoal ? 'deadline' : (ev.type || 'event');
+          const tagLabel = ev._derivedFromGoal ? 'goal' : (ev.type || 'event');
+          const icon = iconForType(ev._derivedFromGoal ? 'goal' : (ev.type || 'event'));
+          pill.innerHTML = `<span>${icon} ${escapeHtml(ev.title)}</span> ${ev.note?`<span class="muted">• ${escapeHtml(ev.note)}</span>`:''} <span class="tag">${tagLabel}</span> ${ev._derivedFromGoal ? '' : `<button title="Delete" class="del" data-del-cal="${ev.id}">✕</button>`}`;
+          cell.appendChild(pill);
+        }
+        grid.appendChild(cell);
+      }
+    }
+
+    // Calendar header controls + deletes
+    document.addEventListener('click', (e)=>{
+      if (e.target && e.target.id === 'cal-prev'){ calView.m--; if (calView.m<0){ calView.m=11; calView.y--; } renderCalendarMonth(); }
+      if (e.target && e.target.id === 'cal-next'){ calView.m++; if (calView.m>11){ calView.m=0; calView.y++; } renderCalendarMonth(); }
+      if (e.target && e.target.id === 'cal-today'){ const d=new Date(); calView.y=d.getFullYear(); calView.m=d.getMonth(); renderCalendarMonth(); }
+
+      // Calendar delete (only for saved events, not goal-derived)
+      const delId = e.target?.dataset?.delCal; if (delId){
+        data.calendar.events = data.calendar.events.filter(x=>x.id!==delId); db.save(data); renderCalendar();
+      }
+    });
 
     // ========= Goals =========
     $('#goal-form').addEventListener('submit', e => {
       e.preventDefault();
       const g = { id: crypto.randomUUID(), title: $('#goal-title').value.trim(), startDate: todayISO(), targetDate: $('#goal-target').value, completed: false };
-      if (!g.title) return; data.goals.list.push(g); db.save(data); e.target.reset(); setDefaultDates(); renderGoals();
+      if (!g.title) return; data.goals.list.push(g); db.save(data); e.target.reset(); setDefaultDates(); renderGoals(); renderCalendar(); // also refresh calendar to show target
     });
     $('#goal-clear').addEventListener('click', ()=> { $('#goal-form').reset(); setDefaultDates(); });
 
@@ -709,16 +726,12 @@
         const elapsed = clamp(daysBetween(g.startDate, todayISO()), 0, totalDays);
         const pct = clamp(Math.round((elapsed/totalDays)*100), 0, 100);
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${g.title}</td><td>${g.startDate}</td><td>${g.targetDate}</td><td>${daysLeft>=0? daysLeft+ ' days':'passed'}</td><td style="min-width:160px;"><progress max="100" value="${pct}"></progress> ${pct}%</td><td><button class="btn" data-del-goal="${g.id}">Delete</button></td>`;
+        tr.innerHTML = `<td>${escapeHtml(g.title)}</td><td>${g.startDate}</td><td>${g.targetDate}</td><td>${daysLeft>=0? daysLeft+ ' days':'passed'}</td><td style="min-width:160px;"><progress max="100" value="${pct}"></progress> ${pct}%</td><td><button class="btn" data-del-goal="${g.id}">Delete</button></td>`;
         tbody.appendChild(tr);
         const card = document.createElement('div'); card.className = 'card span-12';
-        card.innerHTML = `<div class="inner"><div class="row" style="justify-content:space-between; align-items:center;"><div><div style="font-weight:700;">${g.title}</div><div class="muted">Target: ${new Date(g.targetDate).toLocaleDateString()}</div></div><div style="min-width:200px;">${daysLeft>=0? '<span class="pill">'+daysLeft+' days left</span>':'<span class="pill" style="background:rgba(255,123,123,.2)">past due</span>'}<div style="margin-top:6px;"><progress max="100" value="${pct}"></progress> ${pct}%</div></div></div></div>`;
+        card.innerHTML = `<div class="inner"><div class="row" style="justify-content:space-between; align-items:center;"><div><div style="font-weight:700;">${escapeHtml(g.title)}</div><div class="muted">Target: ${new Date(g.targetDate).toLocaleDateString()}</div></div><div style="min-width:200px;">${daysLeft>=0? '<span class="pill">'+daysLeft+' days left</span>':'<span class="pill" style="background:rgba(255,123,123,.2)">past due</span>'}<div style="margin-top:6px;"><progress max="100" value="${pct}"></progress> ${pct}%</div></div></div></div>`;
         cards.appendChild(card);
       }
-      tbody.addEventListener('click', e => {
-        const id = e.target?.dataset?.delGoal; if (!id) return;
-        data.goals.list = data.goals.list.filter(x=>x.id!==id); db.save(data); renderGoals();
-      }, { once: true });
     }
 
     // ========= Habits =========
@@ -730,32 +743,26 @@
     $('#habit-clear').addEventListener('click', ()=> { $('#habit-form').reset(); });
 
     function renderHabits(){
-      // Today quick checkers
       const wrap = $('#habit-today'); wrap.innerHTML = '';
       for (const h of data.habits.list){
         const btn = document.createElement('button'); btn.className = 'btn'; btn.style.minWidth='180px';
         const checkedToday = h.lastCheckDate === todayISO();
-        btn.innerHTML = checkedToday ? `✅ ${h.name} (logged)` : `Mark done: ${h.name}`;
+        btn.innerHTML = checkedToday ? `✅ ${escapeHtml(h.name)} (logged)` : `Mark done: ${escapeHtml(h.name)}`;
         if (checkedToday) btn.style.background = 'linear-gradient(90deg, var(--good), #8be3ff)';
         btn.addEventListener('click', ()=>{
-          if (h.lastCheckDate === todayISO()) return; // already logged today
+          if (h.lastCheckDate === todayISO()) return;
           if (h.lastCheckDate && daysBetween(h.lastCheckDate, todayISO()) === 1) h.streak += 1; else h.streak = 1;
           h.lastCheckDate = todayISO(); db.save(data); renderHabits();
         });
         wrap.appendChild(btn);
       }
-      // Table
       const tbody = $('#habit-table tbody'); tbody.innerHTML = '';
       const rows = [...data.habits.list];
       for (const r of rows){
         const tr = document.createElement('tr');
-        tr.innerHTML = `<td>${r.name}</td><td>${r.streak} day${r.streak===1?'':'s'}</td><td>${r.lastCheckDate||'-'}</td><td><button class="btn" data-del-habit="${r.id}">Delete</button></td>`;
+        tr.innerHTML = `<td>${escapeHtml(r.name)}</td><td>${r.streak} day${r.streak===1?'':'s'}</td><td>${r.lastCheckDate||'-'}</td><td><button class="btn" data-del-habit="${r.id}">Delete</button></td>`;
         tbody.appendChild(tr);
       }
-      tbody.addEventListener('click', e => {
-        const id = e.target?.dataset?.delHabit; if (!id) return;
-        data.habits.list = data.habits.list.filter(x=>x.id!==id); db.save(data); renderHabits(); drawHabitChart();
-      }, { once: true });
       drawHabitChart();
     }
 
@@ -764,9 +771,7 @@
       ctx.clearRect(0,0,canvas.width, canvas.height);
       const items = data.habits.list; const max = Math.max(1, ...items.map(h=>h.streak));
       const w = canvas.width, h = canvas.height; const step = w/Math.max(1, items.length);
-      // axes
       ctx.beginPath(); ctx.moveTo(0,h-20); ctx.lineTo(w,h-20); ctx.strokeStyle='rgba(255,255,255,.2)'; ctx.stroke();
-      // bars
       items.forEach((it, i)=>{
         const bh = (h-30) * (it.streak/max);
         ctx.fillStyle = '#6be39e';
@@ -785,7 +790,6 @@
       const file = e.target.files[0]; if (!file) return;
       try {
         const text = await file.text(); const json = JSON.parse(text);
-        // naive merge: replace all
         data = Object.assign(emptyData(), json); db.save(data); renderAll(); alert('Import complete.');
       } catch(err) { alert('Import failed: ' + err.message); }
       e.target.value = '';
@@ -802,6 +806,43 @@
         <div class="stat">🔥 Habits: <strong>${hab}</strong></div>
       </div>`;
     }
+
+    // ========= Global delegated deletes (fixes Money tab delete) =========
+    document.addEventListener('click', (e) => {
+      // Finance delete
+      const delFin = e.target?.dataset?.delFin;
+      if (delFin){
+        data.finance.entries = data.finance.entries.filter(x => x.id !== delFin);
+        db.save(data);
+        renderFinance();
+        return;
+      }
+      // Nutrition delete
+      const delNutri = e.target?.dataset?.delNutri;
+      if (delNutri){
+        data.nutrition.entries = data.nutrition.entries.filter(x => x.id !== delNutri);
+        db.save(data);
+        renderNutrition();
+        return;
+      }
+      // Habit delete
+      const delHabit = e.target?.dataset?.delHabit;
+      if (delHabit){
+        data.habits.list = data.habits.list.filter(x => x.id !== delHabit);
+        db.save(data);
+        renderHabits();
+        return;
+      }
+      // Goal delete
+      const delGoal = e.target?.dataset?.delGoal;
+      if (delGoal){
+        data.goals.list = data.goals.list.filter(x => x.id !== delGoal);
+        db.save(data);
+        renderGoals();
+        renderCalendar(); // update calendar to remove derived pill
+        return;
+      }
+    });
 
     // ========= Global Render =========
     function renderAll(){
