@@ -582,3 +582,115 @@ body::-webkit-scrollbar {
   .muse-viewport { aspect-ratio: 4/3; }
   .muse-toc { position: static; }
 }
+
+/* ===================== */
+/* MuSE TOC (text-only)  */
+/* ===================== */
+.muse-toc-top {
+  margin: 1rem 0 1.5rem;
+  text-align: right;               /* matches your layout */
+}
+.muse-toc-top ol {
+  list-style: none; margin: 0; padding: 0;
+  display: inline-flex; gap: 1rem;
+  flex-wrap: wrap;
+}
+.muse-toc-top a {
+  text-decoration: none;
+  font-family: monospace, 'Lucida Sans';
+  color: #e7d6f3;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 2px;
+  border-bottom: 1px dotted rgba(231,214,243,0.5);
+}
+.muse-toc-top a:hover,
+.muse-toc-top a:focus-visible {
+  border-bottom-style: solid;
+}
+
+/* ===================== */
+/* Full-viewport carousel */
+/* (does not change text widths/alignment) */
+/* ===================== */
+.muse-stage {
+  /* Full-bleed section that ignores the container’s right alignment */
+  width: 100vw;
+  margin-left: calc(50% - 50vw);  /* let it span the viewport edge-to-edge */
+  height: 100vh;                  /* fill the screen */
+  position: relative;
+  border-top: 1px solid rgba(231,214,243,0.18);
+  border-bottom: 1px solid rgba(231,214,243,0.18);
+  background: rgba(0,0,0,0.25);
+  overflow: clip;
+}
+
+.muse-viewport {
+  position: absolute; inset: 0;
+  background: transparent;
+}
+
+/* Slides (hash-targeted) */
+.muse-slide {
+  position: absolute; inset: 0;
+  display: none;
+  margin: 0;
+  background: transparent;
+}
+.muse-slide img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+  background: transparent;
+}
+
+/* Show first slide by default when no #hash present */
+.muse-viewport:not(:has(:target)) #muse-slide-1 { display: block; }
+
+/* Show targeted slide */
+#muse-slide-1:target,
+#muse-slide-2:target,
+#muse-slide-3:target,
+#muse-slide-4:target,
+#muse-slide-5:target,
+#muse-slide-6:target,
+#muse-slide-7:target,
+#muse-slide-8:target { display: block; }
+
+/* Caption (consistent with your neon vibe, right-aligned) */
+.muse-caption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 0.7rem 1rem;
+  font-family: monospace, 'Lucida Sans';
+  font-size: 1rem;
+  color: beige;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.0));
+  border-top: 1px solid rgba(231,214,243,0.18);
+  text-align: right;
+}
+
+/* Prev/Next controls (anchor links) */
+.muse-nav {
+  position: absolute; top: 50%;
+  transform: translateY(-50%);
+  width: 38px; height: 38px;
+  display: grid; place-items: center;
+  text-decoration: none;
+  color: black;
+  background: rgb(200, 133, 206);
+  border-radius: 999px;
+  border: 1px solid rgba(231,214,243,0.5);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  transition: transform 120ms ease, opacity 120ms ease;
+  opacity: 0.92;
+}
+.muse-nav:hover { transform: translateY(-50%) scale(1.04); opacity: 1; }
+.muse-nav.prev { left: 10px; }
+.muse-nav.next { right: 10px; }
+
+/* Mobile tweak: slightly taller aspect feel */
+@media (max-width: 480px) {
+  .muse-stage { height: 92vh; }
+  .muse-caption { font-size: .95rem; }
+  .muse-nav { width: 34px; height: 34px; }
+}
