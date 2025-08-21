@@ -354,28 +354,30 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 
 /* Push content just below your fixed title (5em) + nav (~3.25rem) */
 .page {
-  padding-top: calc(5em + 3.25rem + 3rem);
+  padding-top: calc(5em + 3.25rem + 2rem);
   padding-left: clamp(1rem, 4vw, 3rem);
-  padding-right: 1rem; /* matches .site-nav right padding for clean alignment */
+  padding-right: 1rem;
   box-sizing: border-box;
 }
+
 
 /* Grid: 70% / 30% with a comfy gap */
 .rd-layout {
   display: grid;
-  grid-template-columns: 7fr 3fr;
+  grid-template-columns: 70% 30%;
   gap: clamp(1rem, 3vw, 2rem);
-  align-items: start;
-  max-width: 1600px;
+  width: 100%;
+  max-width: none;             /* remove the old 1600px cap */
   margin: 0 auto;
 }
 
 /* Keep the media high on the screen and steady while you read */
 .rd-media {
   position: sticky;
-  top: calc(5em + 3.25rem + 0.75rem); /* same as .page padding-top */
+  top: calc(5em + 3.25rem + 2rem);
   align-self: start;
 }
+
 
 /* Right column text aligns with the nav's right edge */
 .rd-copy {
@@ -384,38 +386,41 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 
 /* ===== Simple CSS scroll-snap carousel (swap with your own if you like) ===== */
 .snap-carousel {
+  position: relative;
   width: 100%;
-  aspect-ratio: 16 / 10;       /* adjust to taste */
+  height: clamp(420px, 68vh, 1000px); /* larger and responsive */
   overflow: hidden;
   border-radius: 16px;
-  backdrop-filter: blur(0.5px);
+  background: rgba(0,0,0,0.25);
 }
 
 .snap-track {
   display: flex;
-  gap: 0;
   width: 100%;
   height: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
 }
-
 .snap-track::-webkit-scrollbar { display: none; }
 .snap-track { scrollbar-width: none; }
 
 .snap-slide {
-  position: relative;
   flex: 0 0 100%;
   height: 100%;
   scroll-snap-align: start;
   margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.2);
 }
 
+/* IMPORTANT: show full image without cropping */
 .snap-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;      /* was cover; contain prevents cut-off */
   display: block;
 }
 
@@ -447,7 +452,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(231, 214, 243, 0.8);
+  background: rgba(231, 214, 243, 0.9);
   color: black;
   border: none;
   font-size: 2rem;
@@ -455,13 +460,17 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   cursor: pointer;
   border-radius: 6px;
   z-index: 10;
-  transition: background 0.2s ease;
 }
-.carousel-btn:hover { background: rgba(231, 214, 243, 1); }
-
 .carousel-btn.prev { left: 0.5rem; }
 .carousel-btn.next { right: 0.5rem; }
 
 .snap-carousel {
   position: relative; /* to anchor the buttons */
+}
+
+/* Stack on small screens */
+@media (max-width: 900px) {
+  .rd-layout { grid-template-columns: 1fr; }
+  .rd-media { position: static; }
+  .snap-carousel { height: clamp(320px, 55vh, 700px); }
 }
