@@ -687,3 +687,138 @@ body::-webkit-scrollbar {
 .muse-nav:hover { transform: translateY(-50%) scale(1.05); opacity: 1; }
 .muse-nav.prev { left: 10px; }
 .muse-nav.next { right: 10px; }
+
+/* ===================== */
+/* MuSE two-column layout */
+/* ===================== */
+.muse-grid {
+  /* stays within .container so right edge aligns with nav’s right padding (1rem) */
+  display: grid;
+  grid-template-columns: minmax(320px, 55vw) 1fr; /* left = carousel area, right = text */
+  gap: clamp(12px, 2.8vw, 32px);
+  align-items: start;
+  width: 100%;
+}
+
+/* Left column holds TOC + carousel */
+.muse-left { display: grid; align-content: start; gap: 0.75rem; }
+
+/* Right column text stays right-aligned and won’t overflow the viewport */
+.muse-right.text-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;         /* keep headings/paragraphs right aligned */
+  gap: 0.5rem;
+}
+
+/* Ensure paragraphs/headings in the right column don’t push off-screen */
+.muse-right.text-col .block-text,
+.muse-right.text-col p,
+.muse-right.text-col h3 {
+  max-width: min(70ch, 92vw);
+  overflow-wrap: anywhere;
+  margin-right: 0;               /* align to .container’s right padding */
+}
+
+/* Stack on small screens */
+@media (max-width: 960px) {
+  .muse-grid { grid-template-columns: 1fr; }
+  .muse-right.text-col { align-items: flex-end; }
+}
+
+/* ===================== */
+/* MuSE TOC (text-only)  */
+/* ===================== */
+.muse-toc-top {
+  margin: 0 0 0.5rem;
+  text-align: left;              /* TOC sits above the carousel on the left */
+}
+.muse-toc-top ol {
+  list-style: none; margin: 0; padding: 0;
+  display: flex; gap: 0.85rem; flex-wrap: wrap;
+}
+.muse-toc-top a {
+  text-decoration: none;
+  font-family: monospace, 'Lucida Sans';
+  color: #e7d6f3;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding-bottom: 1px;
+  border-bottom: 1px dotted rgba(231,214,243,0.5);
+}
+.muse-toc-top a:hover,
+.muse-toc-top a:focus-visible { border-bottom-style: solid; }
+
+/* ===================== */
+/* MuSE Carousel (left)  */
+/* smaller, higher on page */
+/* ===================== */
+.muse-stage {
+  width: 100%;                   /* fill left column */
+  height: clamp(320px, 62vh, 70vw);  /* responsive height: smaller & higher */
+  position: relative;
+  border: 1px solid rgba(231,214,243,0.25);
+  border-radius: 12px;
+  background: rgba(0,0,0,0.25);
+  overflow: clip;
+}
+
+.muse-viewport { position: absolute; inset: 0; background: transparent; }
+
+/* Slides */
+.muse-slide {
+  position: absolute; inset: 0;
+  display: none;
+  margin: 0;
+  background: transparent;
+}
+.muse-slide img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+  background: transparent;
+}
+
+/* Show first slide by default when no #hash present */
+.muse-viewport:not(:has(:target)) #muse-slide-1 { display: block; }
+
+/* Show targeted slide */
+#muse-slide-1:target,
+#muse-slide-2:target,
+#muse-slide-3:target,
+#muse-slide-4:target,
+#muse-slide-5:target,
+#muse-slide-6:target,
+#muse-slide-7:target,
+#muse-slide-8:target { display: block; }
+
+/* Caption */
+.muse-caption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 0.6rem 0.9rem;
+  font-family: monospace, 'Lucida Sans';
+  font-size: 1rem;
+  color: beige;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
+  border-top: 1px solid rgba(231,214,243,0.18);
+  text-align: right;
+}
+
+/* Prev/Next controls */
+.muse-nav {
+  position: absolute; top: 50%;
+  transform: translateY(-50%);
+  width: 34px; height: 34px;
+  display: grid; place-items: center;
+  text-decoration: none;
+  color: black;
+  background: rgb(200, 133, 206);
+  border-radius: 999px;
+  border: 1px solid rgba(231,214,243,0.5);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  transition: transform 120ms ease, opacity 120ms ease;
+  opacity: 0.92;
+}
+.muse-nav:hover { transform: translateY(-50%) scale(1.05); opacity: 1; }
+.muse-nav.prev { left: 10px; }
+.muse-nav.next { right: 10px; }
