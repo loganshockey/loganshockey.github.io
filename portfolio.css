@@ -361,15 +361,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 }
 
 
-/* Grid: 70% / 30% with a comfy gap */
 .rd-layout {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 60% 40%; /* or 70% 30% */
   gap: clamp(1rem, 3vw, 2rem);
-  width: 100%;
-  max-width: none;             /* remove the old 1600px cap */
-  margin: 0 auto;
 }
+
 
 /* Keep the media high on the screen and steady while you read */
 .rd-media {
@@ -384,16 +381,20 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   padding-right: 0;  /* keep flush with the 1rem page padding */
 }
 
-/* ===== Simple CSS scroll-snap carousel (swap with your own if you like) ===== */
+/* Carousel sized exactly like an 8.5×11 portrait page */
+/* Carousel box sized like an 11" × 8.5" page */
 .snap-carousel {
   position: relative;
   width: 100%;
-  height: clamp(420px, 68vh, 1000px); /* larger and responsive */
+  aspect-ratio: 11 / 8.5;   /* landscape ratio */
+  height: auto;             /* height comes from aspect-ratio */
+  max-height: 85vh;         /* cap so it won’t overlap nav/footer */
   overflow: hidden;
   border-radius: 16px;
   background: rgba(0,0,0,0.25);
 }
 
+/* Track and slides fill the box */
 .snap-track {
   display: flex;
   width: 100%;
@@ -403,24 +404,22 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   scroll-behavior: smooth;
 }
 .snap-track::-webkit-scrollbar { display: none; }
-.snap-track { scrollbar-width: none; }
 
 .snap-slide {
   flex: 0 0 100%;
   height: 100%;
-  scroll-snap-align: start;
   margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0,0,0,0.2);
+  scroll-snap-align: start;
 }
 
 /* IMPORTANT: show full image without cropping */
 .snap-slide img {
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;      /* was cover; contain prevents cut-off */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* no cropping, keeps full page visible */
   display: block;
 }
 
@@ -433,6 +432,10 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   color: black;
   background: rgba(231, 214, 243, 0.8);
 }
+
+/* Keep the whole block comfortably below your fixed title/nav */
+.page { padding-top: calc(5em + 3.25rem + 2rem); }
+.rd-media { position: sticky; top: calc(5em + 3.25rem + 2rem); }
 
 /* ===== Responsive: stack on small screens ===== */
 @media (max-width: 900px) {
