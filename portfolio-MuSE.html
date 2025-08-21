@@ -2,18 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Research + Design — Logan Shockey</title>
+  <title>Portfolio - MuSE — Logan Shockey</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet" />
+
+  <!-- Your existing site CSS -->
   <link rel="stylesheet" href="portfolio.css" />
+
   <style>
     html, body { height: 100%; }
     #vanta-bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; }
   </style>
 </head>
+
 <body>
   <div id="vanta-bg"></div>
 
@@ -29,45 +34,125 @@
     </ul>
   </nav>
 
-  <main class="container"></main>
+  <!-- MAIN (kept within the container now) -->
+  <main class="container">
     <h3 class="punkglowtitle">MuSE: Multispecies Sensory Engagement</h3>
     <p class="punkglow">for Enhanced Emotional Bonds with Microorganisms</p>
 
     <h3>Heading</h3>
     <p class="block-text">
-      Placeholder content for research & design. Add your sections here—case studies,
+      Placeholder content for research &amp; design. Add your sections here—case studies,
       methods, diagrams, and links to PDFs or external write-ups.
     </p>
 
+    <!-- MuSE: Carousel + TOC -->
+    <section class="muse-block" aria-label="MuSE project gallery">
+      <div class="muse-layout">
+        <!-- Carousel -->
+        <section class="muse-carousel" aria-roledescription="carousel" aria-label="MuSE images">
+          <div class="muse-viewport" id="muse-viewport">
+            <!-- Slides (replace src/alt/captions with your actual assets/words) -->
+            <figure class="muse-slide" id="muse-slide-1" role="group" aria-label="1 of 8">
+              <img src="assets/muse/muse-hero.jpg" alt="MuSE installation overview with illuminated vessel" />
+              <figcaption class="muse-caption">Overview — installation with illuminated vessel and sensor array</figcaption>
+              <a class="muse-nav prev" href="#muse-slide-8" aria-label="Previous image">‹</a>
+              <a class="muse-nav next" href="#muse-slide-2" aria-label="Next image">›</a>
+            </figure>
 
+            <figure class="muse-slide" id="muse-slide-2" role="group" aria-label="2 of 8">
+              <img src="assets/muse/muse-detail-sensor.jpg" alt="Close-up of sensor interface" />
+              <figcaption class="muse-caption">Detail — sensor interface and data capture</figcaption>
+              <a class="muse-nav prev" href="#muse-slide-1" aria-label="Previous image">‹</a>
+              <a class="muse-nav next" href="#muse-slide-3" aria-label="Next image">›</a>
+            </figure>
 
+            <figure class="muse-slide" id="muse-slide-3" role="group" aria-label="3 of 8">
+              <img src="assets/muse/muse-diagram.jpg" alt="System diagram showing input/output and feedback loops" />
+              <figcaption class="muse-caption">Diagram — inputs, outputs, and feedback loops</figcaption>
+              <a class="muse-nav prev" href="#muse-slide-2" aria-label="Previous image">‹</a>
+              <a class="muse-nav next" href="#muse-slide-4" aria-label="Next image">›</a>
+            </figure>
 
+            <figure class="muse-slide" id="muse-slide-4" role="group" aria-label="4 of 8">
+              <img src="assets/muse/muse-render.jpg" alt="Rendered view of exhibit in gallery context" />
+              <figcaption class="muse-caption">Render — gallery context and audience flow</figcaption>
+              <a class="muse-nav prev" href="#muse-slide-3" aria-label="Previous image">‹</a>
+              <a class="muse-nav next" href="#muse-slide-5" aria-label="Next image">›</a>
+            </figure>
+
+            <figure class="muse-slide" id="muse-slide-5" role="group" aria-label="5 of 8">
+              <img src="assets/muse/muse-prototype.jpg" alt="Prototype testing with SCOBY culture" />
+              <figcaption class="muse-caption">Prototype — SCOBY culture testing and controls</figcaption>
+              <a class="muse-nav prev" href="#muse-slide-4" aria-label="Previous image">‹</a>
+              <a class="muse-nav next" href="#muse-slide-6" aria-label="Next image">›</a>
+            </figure>
+
+            <figure class="muse-slide" id="muse-slide-6" role="group" aria-label="6 of 8">
+              <img src="assets/muse/muse-ui.jpg" alt="On-screen interface with live readings" />
+              <figcaption class="muse-caption">UI — live readings and interaction prompts</figcaption>
+              <a class="muse-nav prev" href="#muse-slide-5" aria-label="Previous image">‹</a>
+              <a class="muse-nav next" href="#muse-slide-7" aria-label="Next image">›</a>
+            </figure>
+
+            <figure class="muse-slide" id="muse-slide-7" role="group" aria-label="7 of 8">
+              <img src="assets/muse/muse-public.jpg" alt="Visitors interacting with installation" />
+              <figcaption class="muse-caption">Public — interaction and engagement</figcaption>
+              <a class="muse-nav prev" href="#muse-slide-6" aria-label="Previous image">‹</a>
+              <a class="muse-nav next" href="#muse-slide-8" aria-label="Next image">›</a>
+            </figure>
+
+            <figure class="muse-slide" id="muse-slide-8" role="group" aria-label="8 of 8">
+              <img src="assets/muse/muse-materials.jpg" alt="Material palette and components" />
+              <figcaption class="muse-caption">Materials — palette and components</figcaption>
+              <a class="muse-nav prev" href="#muse-slide-7" aria-label="Previous image">‹</a>
+              <a class="muse-nav next" href="#muse-slide-1" aria-label="Next image">›</a>
+            </figure>
+          </div>
+        </section>
+
+        <!-- TOC -->
+        <nav class="muse-toc" aria-label="Jump to image">
+          <h4 class="muse-toc-title">Table of contents</h4>
+          <ol>
+            <li><a href="#muse-slide-1"><img class="muse-thumb" src="assets/muse/muse-hero.jpg" alt="" />Overview</a></li>
+            <li><a href="#muse-slide-2"><img class="muse-thumb" src="assets/muse/muse-detail-sensor.jpg" alt="" />Sensor detail</a></li>
+            <li><a href="#muse-slide-3"><img class="muse-thumb" src="assets/muse/muse-diagram.jpg" alt="" />System diagram</a></li>
+            <li><a href="#muse-slide-4"><img class="muse-thumb" src="assets/muse/muse-render.jpg" alt="" />Render</a></li>
+            <li><a href="#muse-slide-5"><img class="muse-thumb" src="assets/muse/muse-prototype.jpg" alt="" />Prototype</a></li>
+            <li><a href="#muse-slide-6"><img class="muse-thumb" src="assets/muse/muse-ui.jpg" alt="" />UI</a></li>
+            <li><a href="#muse-slide-7"><img class="muse-thumb" src="assets/muse/muse-public.jpg" alt="" />Public</a></li>
+            <li><a href="#muse-slide-8"><img class="muse-thumb" src="assets/muse/muse-materials.jpg" alt="" />Materials</a></li>
+          </ol>
+        </nav>
+      </div>
+    </section>
+    <!-- /MuSE -->
+
+  </main>
 
   <!-- Three.js + Vanta -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.cells.min.js"></script>
   <script>
-        VANTA.CELLS({
-            el: "#vanta-bg",
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 3.00,
-            size: 2.0,
-            speed: 1.0,
-            backgroundAlpha: 1,
-
-            backgroundColor: 0xd7ff8f, 
-            color1: 0xacbcc0,
-            color2: 0xdeddcd,
-            amplitudeFactor: 1.0,
-            ringFactor: 1.0,
-            rotationFactor: 1.0
-        });
-        
+    VANTA.CELLS({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 3.00,
+      size: 2.0,
+      speed: 1.0,
+      backgroundAlpha: 1,
+      backgroundColor: 0xd7ff8f,
+      color1: 0xacbcc0,
+      color2: 0xdeddcd,
+      amplitudeFactor: 1.0,
+      ringFactor: 1.0,
+      rotationFactor: 1.0
+    });
 
     // Auto-highlight current nav link
     (function setActiveNav(){

@@ -410,3 +410,175 @@ body::-webkit-scrollbar {
 
   body, .container { padding-right: 0.5em; }
 }
+
+/* ===================== */
+/* MuSE Carousel + TOC   */
+/* (pure CSS; deep-linked via #muse-slide-*) */
+/* ===================== */
+
+.muse-block {
+  /* allow the grid to use the full content width despite .container being right-aligned */
+  width: 100%;
+  align-self: stretch;
+  margin-top: 2rem;
+}
+
+.muse-layout {
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 300px);
+  gap: clamp(12px, 2.4vw, 28px);
+  align-items: start;
+}
+
+@media (max-width: 860px) {
+  .muse-layout { grid-template-columns: 1fr; }
+}
+
+/* Carousel frame */
+.muse-carousel {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(231,214,243,0.25);
+  border-radius: 16px;
+  overflow: clip;
+  position: relative;
+}
+
+/* Viewport maintains aspect; adjust as desired */
+.muse-viewport {
+  position: relative;
+  aspect-ratio: 16/9;
+  background: rgba(0,0,0,0.35);
+}
+
+/* Slides (hash-targeted) */
+.muse-slide {
+  position: absolute; inset: 0;
+  display: none;
+  margin: 0;
+  background: rgba(0,0,0,0.35);
+}
+
+.muse-slide img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  display: block;
+  background: transparent;
+}
+
+/* Show first slide by default when no #hash is present */
+.muse-viewport:not(:has(:target)) #muse-slide-1 { display: block; }
+
+/* Show targeted slide */
+#muse-slide-1:target,
+#muse-slide-2:target,
+#muse-slide-3:target,
+#muse-slide-4:target,
+#muse-slide-5:target,
+#muse-slide-6:target,
+#muse-slide-7:target,
+#muse-slide-8:target { display: block; }
+
+/* Caption styling (leans into your neon aesthetic) */
+.muse-caption {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 0.7rem 1rem;
+  font-family: monospace, 'Lucida Sans';
+  font-size: 1rem;
+  color: beige;
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.0));
+  border-top: 1px solid rgba(231,214,243,0.18);
+  text-align: right;
+}
+
+/* Prev/Next controls (anchor links) */
+.muse-nav {
+  position: absolute; top: 50%;
+  transform: translateY(-50%);
+  width: 38px; height: 38px;
+  display: grid; place-items: center;
+  text-decoration: none;
+  color: black;
+  background: rgb(200, 133, 206);
+  border-radius: 999px;
+  border: 1px solid rgba(231,214,243,0.5);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  transition: transform 120ms ease, opacity 120ms ease;
+  opacity: 0.92;
+}
+.muse-nav:hover { transform: translateY(-50%) scale(1.04); opacity: 1; }
+.muse-nav.prev { left: 10px; }
+.muse-nav.next { right: 10px; }
+
+/* TOC Panel */
+.muse-toc {
+  position: sticky; top: 16px;
+  border: 1px solid rgba(231,214,243,0.25);
+  border-radius: 12px;
+  padding: 12px;
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(2px);
+}
+
+.muse-toc-title {
+  margin: 0 0 8px;
+  font-family: monospace;
+  font-size: 1rem;
+  color: #e7d6f3;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow:
+    0 0 2px #39ff14,
+    0 0 5px #39ff14,
+    0 0 10px #7dff57,
+    0 0 15px #66ff33;
+  animation: glowShift 6s ease-in-out infinite alternate, flicker 2.5s infinite;
+  opacity: 0.9;
+  text-align: right;
+}
+
+.muse-toc ol {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; gap: 8px;
+}
+
+.muse-toc a {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 10px; align-items: center;
+  text-decoration: none;
+  color: beige;
+  padding: 6px;
+  border-radius: 10px;
+  border: 1px solid rgba(231,214,243,0.18);
+  background: rgba(0,0,0,0.25);
+  transition: background 120ms ease, transform 120ms ease, border-color 120ms ease;
+}
+.muse-toc a:hover { background: rgba(0,0,0,0.35); transform: translateX(-1px); }
+
+.muse-thumb {
+  width: 56px; height: 42px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid rgba(231,214,243,0.35);
+  background: rgba(255,255,255,0.06);
+}
+
+/* Highlight current TOC link using :has(:target) */
+:root:has(#muse-slide-1:target) .muse-toc a[href="#muse-slide-1"],
+:root:has(#muse-slide-2:target) .muse-toc a[href="#muse-slide-2"],
+:root:has(#muse-slide-3:target) .muse-toc a[href="#muse-slide-3"],
+:root:has(#muse-slide-4:target) .muse-toc a[href="#muse-slide-4"],
+:root:has(#muse-slide-5:target) .muse-toc a[href="#muse-slide-5"],
+:root:has(#muse-slide-6:target) .muse-toc a[href="#muse-slide-6"],
+:root:has(#muse-slide-7:target) .muse-toc a[href="#muse-slide-7"],
+:root:has(#muse-slide-8:target) .muse-toc a[href="#muse-slide-8"],
+:root:not(:has(:target)) .muse-toc a[href="#muse-slide-1"] {
+  border-color: rgba(231,214,243,0.45);
+  background: rgba(0,0,0,0.45);
+}
+
+/* Mobile adjustments */
+@media (max-width: 400px) {
+  .muse-viewport { aspect-ratio: 4/3; }
+  .muse-toc { position: static; }
+}
