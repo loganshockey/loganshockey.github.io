@@ -52,43 +52,39 @@ body {
 /* ===================== */
 .site-nav {
   position: fixed;          /* sits under the fixed title */
-  top: 5em;              /* adjust to sit nicely below #title */
+  top: 5em;                 /* adjust to sit nicely below #title */
   left: 0;
   right: 0;
   z-index: 999;             /* below #title (1000), above content */
-  padding: 0.35em 1rem;     /* <-- RIGHT PADDING = 1rem (alignment anchor) */
+  padding: 0.35em 1rem;     /* RIGHT PADDING = 1rem (alignment anchor) */
 }
 
 .nav-list {
   display: flex;
   list-style: none;
   margin: 0;
-  padding: 0;           /* keep 0 so right edge matches .site-nav padding */
-  gap: 3rem;              /* space ONLY between items */
+  padding: 0;           
+  gap: 3rem;              
   justify-content: flex-end;
   align-items: center;
 }
 
-.nav-list li {
-  margin: 0;
-}
+.nav-list li { margin: 0; }
 
 .nav-list a {
   text-decoration: none;
-  font-family: monospace;   /* match your punkglow vibe */
+  font-family: monospace;   
   text-transform: uppercase;
-  /* no letter-spacing so intra-word spacing stays normal */
-  font-size: clamp(1.62rem, 3.6vw, 1.89rem); /* 20% larger than 1.35/3vw/1.575 */
+  font-size: clamp(1.62rem, 3.6vw, 1.89rem);
   color: #e7d6f3;
   padding: 0.25em 0em;
   position: relative;
   transition: transform 120ms ease;
-  /* Neon glow & flicker */
   text-shadow:
-  0 0 2px #39ff14,  /* vivid neon green */
-  0 0 5px #39ff14,
-  0 0 10px #7dff57, /* lime green */
-  0 0 15px #66ff33; /* softer electric green */
+    0 0 2px #39ff14,
+    0 0 5px #39ff14,
+    0 0 10px #7dff57,
+    0 0 15px #66ff33;
   animation: glowShift 2s ease-in-out infinite alternate,
              flicker 3.5s infinite;
   opacity: 0.9;
@@ -100,7 +96,6 @@ body {
   outline: none;
 }
 
-/* Neon underline accent */
 .nav-list a::after {
   content: "";
   position: absolute;
@@ -126,11 +121,11 @@ body {
 .container {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-end;     /* right-aligned content */
   width: 100%;
-  padding-left: clamp(1rem, 4vw, 3rem); /* flexible left padding */
-  padding-right: 1rem;                  /* <-- MUST MATCH .site-nav right padding */
-  margin-top: 20em;                     /* space for fixed title + nav */
+  padding-left: clamp(1rem, 4vw, 3rem);
+  padding-right: 1rem;      /* <-- MUST MATCH .site-nav right padding */
+  margin-top: 20em;         /* space for fixed title + nav */
 }
 
 /* Headings */
@@ -159,8 +154,8 @@ h3 {
   font-family: monospace, 'Lucida Sans';
   color: beige;
   font-size: 2em;
-  padding-right: 0;     /* rely on container padding */
-  margin-right: 0;      /* align to right padding */
+  padding-right: 0;
+  margin-right: 0;
 }
 
 /* Paragraphs — safe width & right alignment */
@@ -168,82 +163,62 @@ p,
 .container p,
 .block-text {
   width: auto;                     
-  max-width: min(70ch, 92vw);      /* readable line length, never overflows viewport */
-  margin-left: auto;               /* keep right-aligned layout */
+  max-width: min(70ch, 92vw);
+  margin-left: auto;               
   margin-right: 0;                 
   box-sizing: border-box;
-  padding-right: 0;                /* rely on .container padding-right */
+  padding-right: 0;                
   text-align: right;
   font-family: monospace, 'Lucida Sans';
   color: beige;
   font-size: 1.25em;
-  overflow-wrap: anywhere;         /* break long words/URLs instead of spilling */
+  overflow-wrap: anywhere;
   word-break: normal;
   hyphens: auto;
 }
 
 .block-text { text-align: justify; }
 
+/* Marquee (keeping your earlier styles) */
 .repeat-text1 {
   display: flex;
   white-space: nowrap;
   overflow: hidden;
-  width: 100vw;              /* span full screen width */
+  width: 100vw;
   position: relative;
 }
-
 .repeat-text1 span {
   display: inline-block;
-  padding-right: 2rem;       /* space between repeats */
+  padding-right: 2rem;
   animation: scrollText 20s linear infinite;
 }
-
-/* Marquee container */
-.repeat-text1 {
-  position: relative;
-  width: 100%;
-  overflow: hidden;      /* hides the scrolling overflow */
-  white-space: nowrap;
-}
-
-/* The moving row */
+.repeat-text1 { position: relative; width: 100%; overflow: hidden; white-space: nowrap; }
 .repeat-text1 .track {
   display: inline-flex;
   align-items: center;
-  gap: 2rem;             /* space between repeats */
+  gap: 2rem;
   will-change: transform;
   animation: marquee 23s linear infinite;
 }
-
-/* Pause on hover (optional) */
-.repeat-text1 .track:hover {
-  animation-play-state: paused;
-}
-
-/* Make each phrase behave like a chunk */
-.repeat-text1 .track > span {
-  display: inline-block;
-  white-space: nowrap;
-  word-spacing: 1.5rem;
-}
+.repeat-text1 .track:hover { animation-play-state: paused; }
+.repeat-text1 .track > span { display: inline-block; white-space: nowrap; word-spacing: 1.5rem; }
 
 @keyframes marquee {
   from { transform: translateX(0); }
-  to   { transform: translateX(-50%); } /* we’ll duplicate content so this loops seamlessly */
+  to   { transform: translateX(-50%); }
 }
 
-/* Keyframes for leftward scroll */
 @keyframes scrollText {
   0%   { transform: translateX(0); }
   100% { transform: translateX(-100%); }
 }
 
-/* Back-to-top button (always visible) */
+/* Back-to-top button */
 .back-to-top {
   position: fixed;              
   left: 3rem;                  
   bottom: 2rem;
-  z-index: 1200;                /* above #title (1000) and nav (999) */
+  z-index: 1200;
   background-color: rgb(200, 133, 206);
   color: black;
   padding: 0.6em 1em;
@@ -253,31 +228,11 @@ p,
   transition: opacity 0.25s ease, transform 0.25s ease;
   opacity: 0.9;
 }
+.back-to-top:hover { opacity: 1; transform: translateY(-2px); }
 
-.back-to-top:hover {
-  opacity: 1;
-  transform: translateY(-2px);
-}
-
-/* (optional) mobile tweak */
-@media (max-width: 400px) {
-  .back-to-top {
-    right: 0.75rem;
-    bottom: 0.75rem;
-    padding: 0.5em 0.8em;
-    font-size: 1em;
-  }
-}
 /* Hide scrollbars but keep scrolling */
-html, body {
-  -ms-overflow-style: none; 
-  scrollbar-width: none;     
-}
-html::-webkit-scrollbar,
-body::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
+html, body { -ms-overflow-style: none; scrollbar-width: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 
 /* ===================== */
 /* Neon text styles      */
@@ -290,22 +245,19 @@ body::-webkit-scrollbar {
   letter-spacing: 1px;
   text-align: right;
   text-shadow:
-  0 0 2px #39ff14,  /* vivid neon green */
-  0 0 5px #39ff14,
-  0 0 10px #7dff57, /* lime green */
-  0 0 15px #66ff33; /* softer electric green */
+    0 0 2px #39ff14,
+    0 0 5px #39ff14,
+    0 0 10px #7dff57,
+    0 0 15px #66ff33;
   animation: glowShift 6s ease-in-out infinite alternate,
              flicker 2.5s infinite;
   opacity: 0.9;
   margin-top: 1em;
 }
-
 .punkglowtitle { font-size: 2em; }
 .punkglow      { font-size: 1.25em; }
 
-/* ===================== */
-/* Animations            */
-/* ===================== */
+/* Animations */
 @keyframes glowShift {
   0% {
     text-shadow:
@@ -316,10 +268,10 @@ body::-webkit-scrollbar {
   }
   50% {
     text-shadow:
-      0 0 3px #52ff52,   /* mid neon green pulse */
+      0 0 3px #52ff52,
       0 0 7px #52ff52,
-      0 0 12px #8cff66,  /* bright lime */
-      0 0 20px #39ff14;  /* anchor back to neon green */
+      0 0 12px #8cff66,
+      0 0 20px #39ff14;
   }
   100% {
     text-shadow:
@@ -329,7 +281,6 @@ body::-webkit-scrollbar {
       0 0 15px #66ff33;
   }
 }
-
 @keyframes flicker {
   0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
   20%, 24%, 55% { opacity: 0.4; }
@@ -344,19 +295,15 @@ body::-webkit-scrollbar {
     padding: 0.4em 0.5em;
     text-align: left;
   }
-
   .site-nav {
     top: 2.75em;
     padding: 0.25em 0.75rem; /* RIGHT PADDING = 0.75rem on mobile */
   }
-
   .nav-list {
-    gap: 1rem;                 /* tighter spacing so items fit */
+    gap: 1rem;
     justify-content: flex-start;
   }
-
   body { padding-bottom: 0; }
-
   h2 {
     font-size: 1.25em;
     margin-top: 11em;
@@ -365,13 +312,11 @@ body::-webkit-scrollbar {
     white-space: nowrap;
     overflow: hidden;
   }
-
   .container {
     align-items: flex-start;
     padding-left: clamp(0.75rem, 4vw, 1rem);
     padding-right: 0.75rem;    /* match .site-nav mobile right padding */
   }
-
   h3 {
     font-size: 1.25em;
     text-align: right;
@@ -380,10 +325,7 @@ body::-webkit-scrollbar {
     width: 100%;
     overflow-wrap: break-word;
   }
-
-  p,
-  .container p,
-  .block-text {
+  p, .container p, .block-text {
     max-width: 100%;
     text-align: right;
     padding: 0.5em 0.25em;
@@ -391,374 +333,35 @@ body::-webkit-scrollbar {
     font-size: 1em;
     overflow-wrap: break-word;
   }
-
   .block-text { text-align: justify; }
-
   .back-to-top {
     padding: 0.4em 0.8em;
     font-size: 1em;
     left: 1em;
     bottom: 0.75em;
   }
-
   .repeat-text1,
   .repeat-text2 {
     white-space: nowrap;
     margin-top: 1em;
     word-wrap: break-word;
   }
-
   body, .container { padding-right: 0.5em; }
 }
 
-/* ===================== */
-/* MuSE Carousel + TOC   */
-/* (pure CSS; deep-linked via #muse-slide-*) */
-/* ===================== */
+/* ===================================================== */
+/*                 M U S E   C A R O U S E L             */
+/*  (left side, doesn't shift text; stacks on mobile)    */
+/* ===================================================== */
 
-.muse-block {
-  /* allow the grid to use the full content width despite .container being right-aligned */
-  width: 100%;
-  align-self: stretch;
-  margin-top: 2rem;
-}
-
-.muse-layout {
-  display: grid;
-  grid-template-columns: 1fr minmax(220px, 300px);
-  gap: clamp(12px, 2.4vw, 28px);
-  align-items: start;
-}
-
-@media (max-width: 860px) {
-  .muse-layout { grid-template-columns: 1fr; }
-}
-
-/* Carousel frame */
-.muse-carousel {
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(231,214,243,0.25);
-  border-radius: 16px;
-  overflow: clip;
-  position: relative;
-}
-
-/* Viewport maintains aspect; adjust as desired */
-.muse-viewport {
-  position: relative;
-  aspect-ratio: 16/9;
-  background: rgba(0,0,0,0.35);
-}
-
-/* Slides (hash-targeted) */
-.muse-slide {
-  position: absolute; inset: 0;
-  display: none;
-  margin: 0;
-  background: rgba(0,0,0,0.35);
-}
-
-.muse-slide img {
-  width: 100%; height: 100%;
-  object-fit: contain;
-  display: block;
-  background: transparent;
-}
-
-/* Show first slide by default when no #hash is present */
-.muse-viewport:not(:has(:target)) #muse-slide-1 { display: block; }
-
-/* Show targeted slide */
-#muse-slide-1:target,
-#muse-slide-2:target,
-#muse-slide-3:target,
-#muse-slide-4:target,
-#muse-slide-5:target,
-#muse-slide-6:target,
-#muse-slide-7:target,
-#muse-slide-8:target { display: block; }
-
-/* Caption styling (leans into your neon aesthetic) */
-.muse-caption {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 0.7rem 1rem;
-  font-family: monospace, 'Lucida Sans';
-  font-size: 1rem;
-  color: beige;
-  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.0));
-  border-top: 1px solid rgba(231,214,243,0.18);
-  text-align: right;
-}
-
-/* Prev/Next controls (anchor links) */
-.muse-nav {
-  position: absolute; top: 50%;
-  transform: translateY(-50%);
-  width: 38px; height: 38px;
-  display: grid; place-items: center;
-  text-decoration: none;
-  color: black;
-  background: rgb(200, 133, 206);
-  border-radius: 999px;
-  border: 1px solid rgba(231,214,243,0.5);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-  transition: transform 120ms ease, opacity 120ms ease;
-  opacity: 0.92;
-}
-.muse-nav:hover { transform: translateY(-50%) scale(1.04); opacity: 1; }
-.muse-nav.prev { left: 10px; }
-.muse-nav.next { right: 10px; }
-
-/* TOC Panel */
-.muse-toc {
-  position: sticky; top: 16px;
-  border: 1px solid rgba(231,214,243,0.25);
-  border-radius: 12px;
-  padding: 12px;
-  background: rgba(0,0,0,0.25);
-  backdrop-filter: blur(2px);
-}
-
-.muse-toc-title {
-  margin: 0 0 8px;
-  font-family: monospace;
-  font-size: 1rem;
-  color: #e7d6f3;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-shadow:
-    0 0 2px #39ff14,
-    0 0 5px #39ff14,
-    0 0 10px #7dff57,
-    0 0 15px #66ff33;
-  animation: glowShift 6s ease-in-out infinite alternate, flicker 2.5s infinite;
-  opacity: 0.9;
-  text-align: right;
-}
-
-.muse-toc ol {
-  list-style: none; margin: 0; padding: 0;
-  display: grid; gap: 8px;
-}
-
-.muse-toc a {
-  display: grid;
-  grid-template-columns: 56px 1fr;
-  gap: 10px; align-items: center;
-  text-decoration: none;
-  color: beige;
-  padding: 6px;
-  border-radius: 10px;
-  border: 1px solid rgba(231,214,243,0.18);
-  background: rgba(0,0,0,0.25);
-  transition: background 120ms ease, transform 120ms ease, border-color 120ms ease;
-}
-.muse-toc a:hover { background: rgba(0,0,0,0.35); transform: translateX(-1px); }
-
-.muse-thumb {
-  width: 56px; height: 42px;
-  object-fit: cover;
-  border-radius: 6px;
-  border: 1px solid rgba(231,214,243,0.35);
-  background: rgba(255,255,255,0.06);
-}
-
-/* Highlight current TOC link using :has(:target) */
-:root:has(#muse-slide-1:target) .muse-toc a[href="#muse-slide-1"],
-:root:has(#muse-slide-2:target) .muse-toc a[href="#muse-slide-2"],
-:root:has(#muse-slide-3:target) .muse-toc a[href="#muse-slide-3"],
-:root:has(#muse-slide-4:target) .muse-toc a[href="#muse-slide-4"],
-:root:has(#muse-slide-5:target) .muse-toc a[href="#muse-slide-5"],
-:root:has(#muse-slide-6:target) .muse-toc a[href="#muse-slide-6"],
-:root:has(#muse-slide-7:target) .muse-toc a[href="#muse-slide-7"],
-:root:has(#muse-slide-8:target) .muse-toc a[href="#muse-slide-8"],
-:root:not(:has(:target)) .muse-toc a[href="#muse-slide-1"] {
-  border-color: rgba(231,214,243,0.45);
-  background: rgba(0,0,0,0.45);
-}
-
-/* Mobile adjustments */
-@media (max-width: 400px) {
-  .muse-viewport { aspect-ratio: 4/3; }
-  .muse-toc { position: static; }
-}
-
-/* ===================== */
-/* MuSE TOC (text-only)  */
-/* ===================== */
+/* Text-only TOC (top, right-aligned with content) */
 .muse-toc-top {
-  margin: 1rem 0 1.5rem;
-  text-align: right;               /* matches your layout */
+  margin: 0.5rem 0 1rem;
+  text-align: right;
 }
 .muse-toc-top ol {
   list-style: none; margin: 0; padding: 0;
-  display: inline-flex; gap: 1rem;
-  flex-wrap: wrap;
-}
-.muse-toc-top a {
-  text-decoration: none;
-  font-family: monospace, 'Lucida Sans';
-  color: #e7d6f3;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding-bottom: 2px;
-  border-bottom: 1px dotted rgba(231,214,243,0.5);
-}
-.muse-toc-top a:hover,
-.muse-toc-top a:focus-visible {
-  border-bottom-style: solid;
-}
-
-
-
-/* ===================== */
-/* MuSE Carousel (smaller, centered) */
-/* ===================== */
-.muse-stage {
-  width: 75vw;                 /* shrink width to 75% of screen */
-  height: 75vh;                /* shrink height to 75% of screen */
-  margin: 2rem auto;           /* center horizontally + add space above/below */
-  position: relative;
-  border: 1px solid rgba(231,214,243,0.25);
-  border-radius: 12px;
-  background: rgba(0,0,0,0.25);
-  overflow: clip;
-}
-
-.muse-viewport {
-  position: absolute; inset: 0;
-  background: transparent;
-}
-
-/* Slides */
-.muse-slide {
-  position: absolute; inset: 0;
-  display: none;
-  margin: 0;
-  background: transparent;
-}
-.muse-slide img {
-  width: 100%; height: 100%;
-  object-fit: contain;
-  display: block;
-  background: transparent;
-}
-
-/* Show first slide by default */
-.muse-viewport:not(:has(:target)) #muse-slide-1 { display: block; }
-
-/* Show targeted slide */
-#muse-slide-1:target,
-#muse-slide-2:target,
-#muse-slide-3:target,
-#muse-slide-4:target,
-#muse-slide-5:target,
-#muse-slide-6:target,
-#muse-slide-7:target,
-#muse-slide-8:target { display: block; }
-
-/* Caption */
-.muse-caption {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 0.7rem 1rem;
-  font-family: monospace, 'Lucida Sans';
-  font-size: 1rem;
-  color: beige;
-  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
-  border-top: 1px solid rgba(231,214,243,0.18);
-  text-align: right;
-}
-
-/* Prev/Next controls */
-.muse-nav {
-  position: absolute; top: 50%;
-  transform: translateY(-50%);
-  width: 34px; height: 34px;
-  display: grid; place-items: center;
-  text-decoration: none;
-  color: black;
-  background: rgb(200, 133, 206);
-  border-radius: 999px;
-  border: 1px solid rgba(231,214,243,0.5);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-  transition: transform 120ms ease, opacity 120ms ease;
-  opacity: 0.92;
-}
-.muse-nav:hover { transform: translateY(-50%) scale(1.05); opacity: 1; }
-.muse-nav.prev { left: 10px; }
-.muse-nav.next { right: 10px; }
-
-/* ===================== */
-/* MuSE two-column layout (fixed alignment) */
-/* ===================== */
-.muse-grid {
-  /* stays inside .container (which already aligns to the nav’s right edge) */
-  display: grid;
-  gap: clamp(12px, 2.5vw, 28px);
-  align-items: start;
-
-  /* Keep the whole grid inside the available width */
-  max-width: 100%;
-  margin-right: 0;
-  margin-left: auto;
-
-  /* Left column (carousel) + right column (text)
-     - Left: up to ~48% of viewport
-     - Right: clamped to readable text width, never overflows */
-  grid-template-columns:
-    minmax(280px, 48vw)
-    minmax(0, clamp(36ch, 40vw, 70ch));
-}
-
-/* Let columns actually shrink when space is tight */
-.muse-grid,
-.muse-left,
-.muse-right { min-width: 0; }
-
-/* Left column holds TOC + carousel */
-.muse-left {
-  display: grid;
-  align-content: start;
-  gap: 0.75rem;
-}
-
-/* Right column text stays right-aligned and within width cap */
-.muse-right.text-col {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;   /* right-align headings/paragraphs */
-  gap: 0.5rem;
-}
-
-/* Ensure headings/paragraphs never exceed the right column’s clamp */
-.muse-right.text-col h3,
-.muse-right.text-col p,
-.muse-right.text-col .block-text {
-  width: 100%;
-  max-width: clamp(36ch, 40vw, 70ch);
-  margin-right: 0;        /* align with .container’s right padding */
-  overflow-wrap: anywhere;
-  text-align: right;
-}
-
-/* Stack on small screens */
-@media (max-width: 960px) {
-  .muse-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-
-/* ===================== */
-/* MuSE TOC (text-only)  */
-/* ===================== */
-.muse-toc-top {
-  margin: 0 0 0.5rem;
-  text-align: left;              /* TOC sits above the carousel on the left */
-}
-.muse-toc-top ol {
-  list-style: none; margin: 0; padding: 0;
-  display: flex; gap: 0.85rem; flex-wrap: wrap;
+  display: inline-flex; gap: 0.85rem; flex-wrap: wrap;
 }
 .muse-toc-top a {
   text-decoration: none;
@@ -772,23 +375,23 @@ body::-webkit-scrollbar {
 .muse-toc-top a:hover,
 .muse-toc-top a:focus-visible { border-bottom-style: solid; }
 
-/* ===================== */
-/* MuSE Carousel (left)  */
-/* smaller, higher on page */
-/* ===================== */
+/* Carousel floats on the left and does NOT affect .container flow */
 .muse-stage {
-  width: 100%;                   /* fill left column */
-  height: clamp(320px, 62vh, 70vw);  /* responsive height: smaller & higher */
-  position: relative;
+  position: absolute;                         /* remove from doc flow */
+  top: 11.5em;                                /* sit under fixed title+nav */
+  left: clamp(1rem, 4vw, 3rem);               /* breathing room from left edge */
+  width: 40vw;                                /* left column width */
+  height: 55vh;                               /* not too tall */
   border: 1px solid rgba(231,214,243,0.25);
   border-radius: 12px;
   background: rgba(0,0,0,0.25);
   overflow: clip;
+  z-index: 10;                                /* above bg, below title/nav */
 }
 
 .muse-viewport { position: absolute; inset: 0; background: transparent; }
 
-/* Slides */
+/* Slides (hash-targeted; pure CSS) */
 .muse-slide {
   position: absolute; inset: 0;
   display: none;
@@ -802,10 +405,8 @@ body::-webkit-scrollbar {
   background: transparent;
 }
 
-/* Show first slide by default when no #hash present */
+/* default + targeted slide visibility */
 .muse-viewport:not(:has(:target)) #muse-slide-1 { display: block; }
-
-/* Show targeted slide */
 #muse-slide-1:target,
 #muse-slide-2:target,
 #muse-slide-3:target,
@@ -815,15 +416,15 @@ body::-webkit-scrollbar {
 #muse-slide-7:target,
 #muse-slide-8:target { display: block; }
 
-/* Caption */
+/* Caption (right-aligned to match your typography) */
 .muse-caption {
   position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 0.6rem 0.9rem;
+  padding: 0.5rem 0.8rem;
   font-family: monospace, 'Lucida Sans';
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: beige;
-  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
-  border-top: 1px solid rgba(231,214,243,0.18);
+  background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
+  border-top: 1px solid rgba(231,214,243,0.2);
   text-align: right;
 }
 
@@ -831,7 +432,7 @@ body::-webkit-scrollbar {
 .muse-nav {
   position: absolute; top: 50%;
   transform: translateY(-50%);
-  width: 34px; height: 34px;
+  width: 30px; height: 30px;
   display: grid; place-items: center;
   text-decoration: none;
   color: black;
@@ -843,8 +444,25 @@ body::-webkit-scrollbar {
   opacity: 0.92;
 }
 .muse-nav:hover { transform: translateY(-50%) scale(1.05); opacity: 1; }
-.muse-nav.prev { left: 10px; }
-.muse-nav.next { right: 10px; }
+.muse-nav.prev { left: 6px; }
+.muse-nav.next { right: 6px; }
+
+/* Responsive behavior: stack on smaller screens */
+@media (max-width: 960px) {
+  .muse-stage {
+    position: static;               /* re-enter flow and stack above text */
+    width: min(96vw, 720px);
+    height: auto;
+    margin: 0 auto 1rem;            /* center it, add space below */
+    aspect-ratio: 16 / 9;           /* maintain a nice shape */
+  }
+  .muse-viewport { position: relative; inset: auto; width: 100%; height: 100%; }
+  .muse-slide,
+  .muse-slide img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+  }
+}
 
 
 
