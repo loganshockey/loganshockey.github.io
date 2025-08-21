@@ -609,18 +609,18 @@ body::-webkit-scrollbar {
   border-bottom-style: solid;
 }
 
+
+
 /* ===================== */
-/* Full-viewport carousel */
-/* (does not change text widths/alignment) */
+/* MuSE Carousel (smaller, centered) */
 /* ===================== */
 .muse-stage {
-  /* Full-bleed section that ignores the container’s right alignment */
-  width: 100vw;
-  margin-left: calc(50% - 50vw);  /* let it span the viewport edge-to-edge */
-  height: 100vh;                  /* fill the screen */
+  width: 75vw;                 /* shrink width to 75% of screen */
+  height: 75vh;                /* shrink height to 75% of screen */
+  margin: 2rem auto;           /* center horizontally + add space above/below */
   position: relative;
-  border-top: 1px solid rgba(231,214,243,0.18);
-  border-bottom: 1px solid rgba(231,214,243,0.18);
+  border: 1px solid rgba(231,214,243,0.25);
+  border-radius: 12px;
   background: rgba(0,0,0,0.25);
   overflow: clip;
 }
@@ -630,7 +630,7 @@ body::-webkit-scrollbar {
   background: transparent;
 }
 
-/* Slides (hash-targeted) */
+/* Slides */
 .muse-slide {
   position: absolute; inset: 0;
   display: none;
@@ -644,7 +644,7 @@ body::-webkit-scrollbar {
   background: transparent;
 }
 
-/* Show first slide by default when no #hash present */
+/* Show first slide by default */
 .muse-viewport:not(:has(:target)) #muse-slide-1 { display: block; }
 
 /* Show targeted slide */
@@ -657,23 +657,23 @@ body::-webkit-scrollbar {
 #muse-slide-7:target,
 #muse-slide-8:target { display: block; }
 
-/* Caption (consistent with your neon vibe, right-aligned) */
+/* Caption */
 .muse-caption {
   position: absolute; left: 0; right: 0; bottom: 0;
   padding: 0.7rem 1rem;
   font-family: monospace, 'Lucida Sans';
   font-size: 1rem;
   color: beige;
-  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0.0));
+  background: linear-gradient(to top, rgba(0,0,0,0.55), rgba(0,0,0,0));
   border-top: 1px solid rgba(231,214,243,0.18);
   text-align: right;
 }
 
-/* Prev/Next controls (anchor links) */
+/* Prev/Next controls */
 .muse-nav {
   position: absolute; top: 50%;
   transform: translateY(-50%);
-  width: 38px; height: 38px;
+  width: 34px; height: 34px;
   display: grid; place-items: center;
   text-decoration: none;
   color: black;
@@ -684,13 +684,6 @@ body::-webkit-scrollbar {
   transition: transform 120ms ease, opacity 120ms ease;
   opacity: 0.92;
 }
-.muse-nav:hover { transform: translateY(-50%) scale(1.04); opacity: 1; }
+.muse-nav:hover { transform: translateY(-50%) scale(1.05); opacity: 1; }
 .muse-nav.prev { left: 10px; }
 .muse-nav.next { right: 10px; }
-
-/* Mobile tweak: slightly taller aspect feel */
-@media (max-width: 480px) {
-  .muse-stage { height: 92vh; }
-  .muse-caption { font-size: .95rem; }
-  .muse-nav { width: 34px; height: 34px; }
-}
