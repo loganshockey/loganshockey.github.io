@@ -386,7 +386,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 .snap-carousel {
   position: relative;
   width: 100%;
-  aspect-ratio: 11 / 8.5;   /* landscape ratio */
+  aspect-ratio: 17 / 11;   /* landscape ratio */
   height: auto;             /* height comes from aspect-ratio */
   max-height: 85vh;         /* cap so it won’t overlap nav/footer */
   overflow: hidden;
