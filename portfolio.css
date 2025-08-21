@@ -348,175 +348,96 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   }
   body, .container { padding-right: 0.5em; }
 }
-/* ===================================================== */
-/*                 M U S E   C A R O U S E L             */
-/*  (fixed on the left, text aligns with nav on the right)*/
-/* ===================================================== */
 
-/* Tunable sizing/spacing */
-:root {
-  --muse-left: clamp(1rem, 4vw, 3rem);        /* gap from the left edge */
-  --muse-width: clamp(320px, 40vw, 720px);    /* carousel width */
-  --muse-gap: clamp(12px, 2vw, 24px);         /* gap between carousel and text */
-  --muse-top: 8.75em;                          /* sits under your fixed title+nav */
+
+/* ===== Research + Design two-column layout ===== */
+
+/* Push content just below your fixed title (5em) + nav (~3.25rem) */
+.page {
+  padding-top: calc(5em + 3.25rem + 0.75rem);
+  padding-left: clamp(1rem, 4vw, 3rem);
+  padding-right: 1rem; /* matches .site-nav right padding for clean alignment */
+  box-sizing: border-box;
 }
 
-/* Make the right column respect the fixed carousel on desktop */
-@media (min-width: 961px) {
-  .container {
-    /* Add left padding equal to carousel width + its left offset + a small gap */
-    padding-left: calc(var(--muse-left) + var(--muse-width) + var(--muse-gap));
-  }
+/* Grid: 70% / 30% with a comfy gap */
+.rd-layout {
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: start;
+  max-width: 1600px;
+  margin: 0 auto;
 }
 
-/* Text-only TOC (unchanged) */
-.muse-toc-top {
-  margin: 0.5rem 0 1rem;
-  text-align: right;
-}
-.muse-toc-top ol {
-  list-style: none; margin: 0; padding: 0;
-  display: inline-flex; gap: 0.85rem; flex-wrap: wrap;
-}
-.muse-toc-top a {
-  text-decoration: none;
-  font-family: monospace, 'Lucida Sans';
-  color: #e7d6f3;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding-bottom: 1px;
-  border-bottom: 1px dotted rgba(231,214,243,0.5);
-}
-.muse-toc-top a:hover,
-.muse-toc-top a:focus-visible { border-bottom-style: solid; }
-
-/* -------- Fixed carousel (desktop) -------- */
-@media (min-width: 961px) {
-  .muse-stage {
-    position: fixed;                          /* pin to viewport */
-    top: var(--muse-top);
-    left: var(--muse-left);
-    width: var(--muse-width);
-    height: clamp(320px, 55vh, 60vw);
-    border: 1px solid rgba(231,214,243,0.25);
-    border-radius: 12px;
-    background: rgba(0,0,0,0.25);
-    overflow: clip;
-    z-index: 998;                             /* below title (1000) & nav (999) */
-  }
+/* Keep the media high on the screen and steady while you read */
+.rd-media {
+  position: sticky;
+  top: calc(5em + 3.25rem + 0.75rem); /* same as .page padding-top */
+  align-self: start;
 }
 
-/* -------- Stacked carousel (mobile/tablet) -------- */
-@media (max-width: 960px) {
-  .muse-stage {
-    position: static;               /* re-enter normal flow */
-    width: min(96vw, 720px);
-    height: auto;
-    margin: 0 auto 1rem;            /* center it, space below */
-    aspect-ratio: 16 / 9;
-    border: 1px solid rgba(231,214,243,0.25);
-    border-radius: 12px;
-    background: rgba(0,0,0,0.25);
-    overflow: clip;
-  }
+/* Right column text aligns with the nav's right edge */
+.rd-copy {
+  padding-right: 0;  /* keep flush with the 1rem page padding */
 }
 
-/* Shared internals */
-.muse-viewport { position: relative; width: 100%; height: 100%; }
+/* ===== Simple CSS scroll-snap carousel (swap with your own if you like) ===== */
+.snap-carousel {
+  width: 100%;
+  aspect-ratio: 16 / 10;       /* adjust to taste */
+  overflow: hidden;
+  border-radius: 16px;
+  backdrop-filter: blur(0.5px);
+}
 
-.muse-slide {
-  position: absolute; inset: 0;
-  display: none;
+.snap-track {
+  display: flex;
+  gap: 0;
+  width: 100%;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.snap-track::-webkit-scrollbar { display: none; }
+.snap-track { scrollbar-width: none; }
+
+.snap-slide {
+  position: relative;
+  flex: 0 0 100%;
+  height: 100%;
+  scroll-snap-align: start;
   margin: 0;
-  background: transparent;
 }
-.muse-slide img {
-  width: 100%; height: 100%;
-  object-fit: contain;
+
+.snap-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   display: block;
-  background: transparent;
 }
 
-/* default + targeted slide visibility */
-.muse-viewport:not(:has(:target)) #muse-slide-1 { display: block; }
-#muse-slide-1:target,
-#muse-slide-2:target,
-#muse-slide-3:target,
-#muse-slide-4:target,
-#muse-slide-5:target,
-#muse-slide-6:target,
-#muse-slide-7:target,
-#muse-slide-8:target { display: block; }
-
-.muse-caption {
-  position: absolute; left: 0; right: 0; bottom: 0;
-  padding: 0.5rem 0.8rem;
-  font-family: monospace, 'Lucida Sans';
+.snap-slide figcaption {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 0.5rem 0.75rem;
+  font-family: monospace;
   font-size: 0.95rem;
-  color: beige;
-  background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0));
-  border-top: 1px solid rgba(231,214,243,0.2);
-  text-align: right;
-}
-
-/* Prev/Next controls */
-.muse-nav {
-  position: absolute; top: 50%;
-  transform: translateY(-50%);
-  width: 30px; height: 30px;
-  display: grid; place-items: center;
-  text-decoration: none;
   color: black;
-  background: rgb(200, 133, 206);
-  border-radius: 999px;
-  border: 1px solid rgba(231,214,243,0.5);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
-  transition: transform 120ms ease, opacity 120ms ease;
-  opacity: 0.92;
-}
-.muse-nav:hover { transform: translateY(-50%) scale(1.05); opacity: 1; }
-.muse-nav.prev { left: 6px; }
-.muse-nav.next { right: 6px; }
-
-
-
-
-
-/* =========================
-   STEP 1: Reserve left area
-   (text alignment unchanged)
-   ========================= */
-
-:root {
-  --muse-left: clamp(1rem, 4vw, 3rem);      /* space from the left edge */
-  --muse-width: clamp(320px, 40vw, 720px);  /* reserved width for the carousel */
-  --muse-top: 11.5em;                        /* below fixed title + nav */
-  --muse-gap: clamp(12px, 2vw, 24px);       /* gap between carousel and text */
+  background: rgba(231, 214, 243, 0.8);
 }
 
-/* Desktop/tablet: show reserved area and shift text over just enough */
-@media (min-width: 961px) {
-  .muse-slot {
-    position: fixed;
-    top: var(--muse-top);
-    left: var(--muse-left);
-    width: var(--muse-width);
-    height: clamp(300px, 55vh, 60vw);
-    border-radius: 12px;
-    border: 2px dashed rgba(231,214,243,0.5);   /* visible placeholder */
-    background: rgba(0,0,0,0.18);
-    pointer-events: none;                       /* don’t block clicks */
-    z-index: 5;                                 /* under title/nav */
+/* ===== Responsive: stack on small screens ===== */
+@media (max-width: 900px) {
+  .rd-layout {
+    grid-template-columns: 1fr;
   }
-
-  /* Give the text just enough left padding to clear the placeholder,
-     while keeping the right edge aligned with the nav’s right padding (1rem) */
-  .container {
-    padding-left: calc(var(--muse-left) + var(--muse-width) + var(--muse-gap));
+  .rd-media {
+    position: static;  /* no sticky on narrow screens */
   }
-}
-
-/* Mobile: no reserved area; stack naturally */
-@media (max-width: 960px) {
-  .muse-slot { display: none; }
+  .rd-copy {
+    margin-top: 1rem;
+  }
 }
