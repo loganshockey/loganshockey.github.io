@@ -354,7 +354,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 
 /* Push content just below your fixed title (5em) + nav (~3.25rem) */
 .page {
-  padding-top: calc(5em + 3.25rem + 0.75rem);
+  padding-top: calc(5em + 3.25rem + 3rem);
   padding-left: clamp(1rem, 4vw, 3rem);
   padding-right: 1rem; /* matches .site-nav right padding for clean alignment */
   box-sizing: border-box;
