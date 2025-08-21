@@ -689,42 +689,65 @@ body::-webkit-scrollbar {
 .muse-nav.next { right: 10px; }
 
 /* ===================== */
-/* MuSE two-column layout */
+/* MuSE two-column layout (fixed alignment) */
 /* ===================== */
 .muse-grid {
-  /* stays within .container so right edge aligns with nav’s right padding (1rem) */
+  /* stays inside .container (which already aligns to the nav’s right edge) */
   display: grid;
-  grid-template-columns: minmax(320px, 55vw) 1fr; /* left = carousel area, right = text */
-  gap: clamp(12px, 2.8vw, 32px);
+  gap: clamp(12px, 2.5vw, 28px);
   align-items: start;
-  width: 100%;
+
+  /* Keep the whole grid inside the available width */
+  max-width: 100%;
+  margin-right: 0;
+  margin-left: auto;
+
+  /* Left column (carousel) + right column (text)
+     - Left: up to ~48% of viewport
+     - Right: clamped to readable text width, never overflows */
+  grid-template-columns:
+    minmax(280px, 48vw)
+    minmax(0, clamp(36ch, 40vw, 70ch));
 }
 
-/* Left column holds TOC + carousel */
-.muse-left { display: grid; align-content: start; gap: 0.75rem; }
+/* Let columns actually shrink when space is tight */
+.muse-grid,
+.muse-left,
+.muse-right { min-width: 0; }
 
-/* Right column text stays right-aligned and won’t overflow the viewport */
+/* Left column holds TOC + carousel */
+.muse-left {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+}
+
+/* Right column text stays right-aligned and within width cap */
 .muse-right.text-col {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;         /* keep headings/paragraphs right aligned */
+  align-items: flex-end;   /* right-align headings/paragraphs */
   gap: 0.5rem;
 }
 
-/* Ensure paragraphs/headings in the right column don’t push off-screen */
-.muse-right.text-col .block-text,
+/* Ensure headings/paragraphs never exceed the right column’s clamp */
+.muse-right.text-col h3,
 .muse-right.text-col p,
-.muse-right.text-col h3 {
-  max-width: min(70ch, 92vw);
+.muse-right.text-col .block-text {
+  width: 100%;
+  max-width: clamp(36ch, 40vw, 70ch);
+  margin-right: 0;        /* align with .container’s right padding */
   overflow-wrap: anywhere;
-  margin-right: 0;               /* align to .container’s right padding */
+  text-align: right;
 }
 
 /* Stack on small screens */
 @media (max-width: 960px) {
-  .muse-grid { grid-template-columns: 1fr; }
-  .muse-right.text-col { align-items: flex-end; }
+  .muse-grid {
+    grid-template-columns: 1fr;
+  }
 }
+
 
 /* ===================== */
 /* MuSE TOC (text-only)  */
@@ -822,3 +845,7 @@ body::-webkit-scrollbar {
 .muse-nav:hover { transform: translateY(-50%) scale(1.05); opacity: 1; }
 .muse-nav.prev { left: 10px; }
 .muse-nav.next { right: 10px; }
+
+
+
+
