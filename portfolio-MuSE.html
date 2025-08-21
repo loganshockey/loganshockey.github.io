@@ -35,6 +35,24 @@
       <!-- LEFT: carousel (70%) -->
       <div class="rd-media">
         <div class="snap-carousel" aria-label="Project images">
+          <div class="snap-carousel" aria-label="Project images">
+            <button class="carousel-btn prev" aria-label="Previous slide">‹</button>
+            <div class="snap-track">
+              <figure class="snap-slide">
+                <img src="images/muse-1.jpg" alt="MuSE—overview image" />
+                <figcaption>MuSE — overview</figcaption>
+              </figure>
+              <figure class="snap-slide">
+                <img src="images/muse-2.jpg" alt="Close-up of interface" />
+                <figcaption>Interface close-up</figcaption>
+              </figure>
+              <figure class="snap-slide">
+                <img src="images/muse-3.jpg" alt="Participant interaction" />
+                <figcaption>Participant interaction</figcaption>
+              </figure>
+            </div>
+            <button class="carousel-btn next" aria-label="Next slide">›</button>
+          </div>
           <div class="snap-track">
             <figure class="snap-slide">
               <img src="testpage.png" alt="MuSE—overview image" />
@@ -102,5 +120,21 @@
       });
     })();
   </script>
+
+  <script>
+  // Carousel button logic
+  const track = document.querySelector('.snap-track');
+  const slides = document.querySelectorAll('.snap-slide');
+  const slideWidth = slides[0].offsetWidth;
+
+  document.querySelector('.carousel-btn.prev').addEventListener('click', () => {
+    track.scrollBy({ left: -slideWidth, behavior: 'smooth' });
+  });
+
+  document.querySelector('.carousel-btn.next').addEventListener('click', () => {
+    track.scrollBy({ left: slideWidth, behavior: 'smooth' });
+  });
+</script>
+
 </body>
 </html>

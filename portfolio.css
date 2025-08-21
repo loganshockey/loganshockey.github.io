@@ -441,3 +441,27 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
     margin-top: 1rem;
   }
 }
+
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(231, 214, 243, 0.8);
+  color: black;
+  border: none;
+  font-size: 2rem;
+  padding: 0.25em 0.5em;
+  cursor: pointer;
+  border-radius: 6px;
+  z-index: 10;
+  transition: background 0.2s ease;
+}
+.carousel-btn:hover { background: rgba(231, 214, 243, 1); }
+
+.carousel-btn.prev { left: 0.5rem; }
+.carousel-btn.next { right: 0.5rem; }
+
+.snap-carousel {
+  position: relative; /* to anchor the buttons */
+}
