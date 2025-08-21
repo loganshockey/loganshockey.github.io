@@ -482,3 +482,41 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 
 
 
+/* =========================
+   STEP 1: Reserve left area
+   (text alignment unchanged)
+   ========================= */
+
+:root {
+  --muse-left: clamp(1rem, 4vw, 3rem);      /* space from the left edge */
+  --muse-width: clamp(320px, 40vw, 720px);  /* reserved width for the carousel */
+  --muse-top: 11.5em;                        /* below fixed title + nav */
+  --muse-gap: clamp(12px, 2vw, 24px);       /* gap between carousel and text */
+}
+
+/* Desktop/tablet: show reserved area and shift text over just enough */
+@media (min-width: 961px) {
+  .muse-slot {
+    position: fixed;
+    top: var(--muse-top);
+    left: var(--muse-left);
+    width: var(--muse-width);
+    height: clamp(300px, 55vh, 60vw);
+    border-radius: 12px;
+    border: 2px dashed rgba(231,214,243,0.5);   /* visible placeholder */
+    background: rgba(0,0,0,0.18);
+    pointer-events: none;                       /* don’t block clicks */
+    z-index: 5;                                 /* under title/nav */
+  }
+
+  /* Give the text just enough left padding to clear the placeholder,
+     while keeping the right edge aligned with the nav’s right padding (1rem) */
+  .container {
+    padding-left: calc(var(--muse-left) + var(--muse-width) + var(--muse-gap));
+  }
+}
+
+/* Mobile: no reserved area; stack naturally */
+@media (max-width: 960px) {
+  .muse-slot { display: none; }
+}
