@@ -373,66 +373,78 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   position: sticky;
   top: calc(5em + 3.25rem + 2rem);
   align-self: start;
+  justify-self: start;         /* ← don't stretch across the column */
 }
 
 
 /* Right column text aligns with the nav's right edge */
 .rd-copy {
-  padding-right: 0;  /* keep flush with the 1rem page padding */
+  text-align: left;
 }
+
+.rd-copy p,
+.rd-copy .block-text {
+  text-align: left;
+  margin-left: 0;
+  margin-right: auto;   /* keep it hugging the right column’s left edge */
+}
+
+.rd-copy h3 { text-align: right; }
+.rd-copy .block-text { text-align: justify; }
 
 /* Carousel sized exactly like an 8.5×11 portrait page */
 /* Carousel box sized like an 11" × 8.5" page */
 .snap-carousel {
   position: relative;
-  width: auto;
-  aspect-ratio: auto;   /* landscape ratio */
-  height: auto;             /* height comes from aspect-ratio */
-  max-height: 85vh;         /* cap so it won’t overlap nav/footer */
+  display: inline-block;       /* shrink-to-fit */
+  inline-size: max-content;    /* same idea; works well in grid */
+  max-height: 85vh;
   overflow: hidden;
   border-radius: 16px;
-  background: transparent
+  background: transparent;
 }
 
-/* Track and slides fill the box */
 .snap-track {
   display: flex;
   align-items: center;
-  width: 100%;
-  height: 100%;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
+  inline-size: max-content;    /* ← don't force 100% width */
 }
 .snap-track::-webkit-scrollbar { display: none; }
 
 .snap-slide {
-  flex: 0 0 auto;
-  height: 100%;
+  flex: 0 0 auto;              /* width = content (the image) */
   margin: 0;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
-  scroll-snap-align: start;
   background: transparent;
 }
 
 /* IMPORTANT: show full image without cropping */
 .snap-slide img {
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
   display: block;
+  height: auto;
+  max-height: 85vh;            /* same cap as carousel */
+  width: auto;
+  object-fit: contain;
 }
 
 .snap-slide figcaption {
   position: absolute;
-  left: 3rem; right: 0; bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 0;
   padding: 0.5rem 0.75rem;
   font-family: monospace;
   font-size: 0.95rem;
   color: black;
   background: rgba(231, 214, 243, 0.8);
+  border-radius: 6px;
+  white-space: nowrap;
 }
 
 /* Keep the whole block comfortably below your fixed title/nav */
@@ -466,8 +478,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   border-radius: 6px;
   z-index: 10;
 }
-.carousel-btn.prev { left: 0.5rem; }
-.carousel-btn.next { right: 0.5rem; }
+.carousel-btn.prev { left: 0.25rem; }
+.carousel-btn.next { right: 0.25rem; }
 
 .snap-carousel {
   position: relative; /* to anchor the buttons */
