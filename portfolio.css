@@ -385,8 +385,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 /* Carousel box sized like an 11" × 8.5" page */
 .snap-carousel {
   position: relative;
-  width: 100%;
-  aspect-ratio: 17 / 11;   /* landscape ratio */
+  width: auto;
+  aspect-ratio: auto;   /* landscape ratio */
   height: auto;             /* height comes from aspect-ratio */
   max-height: 85vh;         /* cap so it won’t overlap nav/footer */
   overflow: hidden;
@@ -397,6 +397,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 /* Track and slides fill the box */
 .snap-track {
   display: flex;
+  align-items: center;
   width: 100%;
   height: 100%;
   overflow-x: auto;
@@ -406,7 +407,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 .snap-track::-webkit-scrollbar { display: none; }
 
 .snap-slide {
-  flex: 0 0 100%;
+  flex: 0 0 auto;
   height: 100%;
   margin: 0;
   display: flex;
@@ -418,8 +419,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 
 /* IMPORTANT: show full image without cropping */
 .snap-slide img {
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
+  height: auto;
   object-fit: contain;
   display: block;
 }
