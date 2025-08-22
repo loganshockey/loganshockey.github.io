@@ -1,3 +1,4 @@
+/* ===== Base / Global ===== */
 html {
   font-size: 16px;
   scroll-behavior: smooth;
@@ -47,9 +48,7 @@ body {
   box-sizing: border-box;
 }
 
-/* ===================== */
-/* Fixed Neon Nav        */
-/* ===================== */
+/* ===== Fixed Neon Nav ===== */
 .site-nav {
   position: fixed;          /* sits under the fixed title */
   top: 5em;                 /* adjust to sit nicely below #title */
@@ -63,8 +62,8 @@ body {
   display: flex;
   list-style: none;
   margin: 0;
-  padding: 0;           
-  gap: 3rem;              
+  padding: 0;
+  gap: 3rem;
   justify-content: flex-end;
   align-items: center;
 }
@@ -73,7 +72,7 @@ body {
 
 .nav-list a {
   text-decoration: none;
-  font-family: monospace;   
+  font-family: monospace;
   text-transform: uppercase;
   font-size: clamp(1.62rem, 3.6vw, 1.89rem);
   color: #e7d6f3;
@@ -85,16 +84,12 @@ body {
     0 0 5px #39ff14,
     0 0 10px #7dff57,
     0 0 15px #66ff33;
-  animation: glowShift 2s ease-in-out infinite alternate,
-             flicker 3.5s infinite;
+  animation: glowShift 2s ease-in-out infinite alternate, flicker 3.5s infinite;
   opacity: 0.9;
 }
 
 .nav-list a:hover,
-.nav-list a:focus-visible {
-  transform: translateY(-1px);
-  outline: none;
-}
+.nav-list a:focus-visible { transform: translateY(-1px); outline: none; }
 
 .nav-list a::after {
   content: "";
@@ -109,23 +104,17 @@ body {
 
 .nav-list a:hover::after,
 .nav-list a:focus-visible::after,
-.nav-list a.active::after {
-  transform: scaleX(1);
-}
+.nav-list a.active::after { transform: scaleX(1); }
 
-/* ===================== */
-/* Content spacing       */
-/* ===================== */
-
-/* Match body text right edge to nav’s right edge (1rem) */
+/* ===== Content spacing ===== */
 .container {
   display: flex;
   flex-direction: column;
   align-items: flex-end;     /* right-aligned content */
   width: 100%;
   padding-left: clamp(1rem, 4vw, 3rem);
-  padding-right: 1rem;      /* <-- MUST MATCH .site-nav right padding */
-  margin-top: 20em;         /* space for fixed title + nav */
+  padding-right: 1rem;       /* <-- MUST MATCH .site-nav right padding */
+  margin-top: 20em;          /* space for fixed title + nav */
 }
 
 /* Headings */
@@ -145,8 +134,6 @@ h2 {
   margin-top: 12em;
   color: rgb(200, 133, 206);
   font-size: .5em;
-  background-color: none;
-  font-weight: none;
 }
 
 h3 {
@@ -158,16 +145,16 @@ h3 {
   margin-right: 0;
 }
 
-/* Paragraphs — safe width & right alignment */
+/* Paragraphs — default right-aligned */
 p,
 .container p,
 .block-text {
-  width: auto;                     
+  width: auto;
   max-width: min(70ch, 92vw);
-  margin-left: auto;               
-  margin-right: 0;                 
+  margin-left: auto;
+  margin-right: 0;
   box-sizing: border-box;
-  padding-right: 0;                
+  padding-right: 0;
   text-align: right;
   font-family: monospace, 'Lucida Sans';
   color: beige;
@@ -176,10 +163,9 @@ p,
   word-break: normal;
   hyphens: auto;
 }
-
 .block-text { text-align: justify; }
 
-/* Marquee (keeping your earlier styles) */
+/* ===== Marquee ===== */
 .repeat-text1 {
   display: flex;
   white-space: nowrap;
@@ -192,7 +178,6 @@ p,
   padding-right: 2rem;
   animation: scrollText 20s linear infinite;
 }
-.repeat-text1 { position: relative; width: 100%; overflow: hidden; white-space: nowrap; }
 .repeat-text1 .track {
   display: inline-flex;
   align-items: center;
@@ -203,20 +188,13 @@ p,
 .repeat-text1 .track:hover { animation-play-state: paused; }
 .repeat-text1 .track > span { display: inline-block; white-space: nowrap; word-spacing: 1.5rem; }
 
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-@keyframes scrollText {
-  0%   { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
-}
-
-/* Back-to-top button */
+/* ===== Back-to-top ===== */
 .back-to-top {
-  position: fixed;              
-  left: 3rem;                  
+  position: fixed;
+  left: 3rem;
   bottom: 2rem;
   z-index: 1200;
   background-color: rgb(200, 133, 206);
@@ -234,9 +212,7 @@ p,
 html, body { -ms-overflow-style: none; scrollbar-width: none; }
 html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 
-/* ===================== */
-/* Neon text styles      */
-/* ===================== */
+/* ===== Neon text styles ===== */
 .punkglowtitle,
 .punkglow {
   font-family: monospace;
@@ -249,108 +225,42 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
     0 0 5px #39ff14,
     0 0 10px #7dff57,
     0 0 15px #66ff33;
-  animation: glowShift 6s ease-in-out infinite alternate,
-             flicker 2.5s infinite;
+  animation: glowShift 6s ease-in-out infinite alternate, flicker 2.5s infinite;
   opacity: 0.9;
   margin-top: 1em;
 }
 .punkglowtitle { font-size: 2em; }
 .punkglow      { font-size: 1.25em; }
 
-/* Animations */
 @keyframes glowShift {
-  0% {
-    text-shadow:
-      0 0 2px #39ff14,
-      0 0 5px #39ff14,
-      0 0 10px #7dff57,
-      0 0 15px #66ff33;
-  }
-  50% {
-    text-shadow:
-      0 0 3px #52ff52,
-      0 0 7px #52ff52,
-      0 0 12px #8cff66,
-      0 0 20px #39ff14;
-  }
-  100% {
-    text-shadow:
-      0 0 2px #39ff14,
-      0 0 5px #39ff14,
-      0 0 10px #7dff57,
-      0 0 15px #66ff33;
-  }
+  0% { text-shadow: 0 0 2px #39ff14, 0 0 5px #39ff14, 0 0 10px #7dff57, 0 0 15px #66ff33; }
+  50% { text-shadow: 0 0 3px #52ff52, 0 0 7px #52ff52, 0 0 12px #8cff66, 0 0 20px #39ff14; }
+  100% { text-shadow: 0 0 2px #39ff14, 0 0 5px #39ff14, 0 0 10px #7dff57, 0 0 15px #66ff33; }
 }
 @keyframes flicker {
   0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
   20%, 24%, 55% { opacity: 0.4; }
 }
 
-/* ===================== */
-/* Mobile tweaks         */
-/* ===================== */
+/* ===== Mobile tweaks ===== */
 @media screen and (max-width: 400px) {
-  #title {
-    font-size: 1.5em;
-    padding: 0.4em 0.5em;
-    text-align: left;
-  }
-  .site-nav {
-    top: 2.75em;
-    padding: 0.25em 0.75rem; /* RIGHT PADDING = 0.75rem on mobile */
-  }
-  .nav-list {
-    gap: 1rem;
-    justify-content: flex-start;
-  }
+  #title { font-size: 1.5em; padding: 0.4em 0.5em; text-align: left; }
+  .site-nav { top: 2.75em; padding: 0.25em 0.75rem; }
+  .nav-list { gap: 1rem; justify-content: flex-start; }
   body { padding-bottom: 0; }
-  h2 {
-    font-size: 1.25em;
-    margin-top: 11em;
-    padding: 0.4em 0.5em;
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-  }
-  .container {
-    align-items: flex-start;
-    padding-left: clamp(0.75rem, 4vw, 1rem);
-    padding-right: 0.75rem;    /* match .site-nav mobile right padding */
-  }
-  h3 {
-    font-size: 1.25em;
-    text-align: right;
-    padding: 0.5em 0.25em;
-    margin: 0.25em 0;
-    width: 100%;
-    overflow-wrap: break-word;
-  }
-  p, .container p, .block-text {
-    max-width: 100%;
-    text-align: right;
-    padding: 0.5em 0.25em;
-    margin: 0.25em 0;
-    font-size: 1em;
-    overflow-wrap: break-word;
-  }
+  h2 { font-size: 1.25em; margin-top: 11em; padding: 0.4em 0.5em; text-align: left; white-space: nowrap; overflow: hidden; }
+  .container { align-items: flex-start; padding-left: clamp(0.75rem, 4vw, 1rem); padding-right: 0.75rem; }
+  h3 { font-size: 1.25em; text-align: right; padding: 0.5em 0.25em; margin: 0.25em 0; width: 100%; overflow-wrap: break-word; }
+  p, .container p, .block-text { max-width: 100%; text-align: right; padding: 0.5em 0.25em; margin: 0.25em 0; font-size: 1em; overflow-wrap: break-word; }
   .block-text { text-align: justify; }
-  .back-to-top {
-    padding: 0.4em 0.8em;
-    font-size: 1em;
-    left: 1em;
-    bottom: 0.75em;
-  }
-  .repeat-text1,
-  .repeat-text2 {
-    white-space: nowrap;
-    margin-top: 1em;
-    word-wrap: break-word;
-  }
+  .back-to-top { padding: 0.4em 0.8em; font-size: 1em; left: 1em; bottom: 0.75em; }
+  .repeat-text1, .repeat-text2 { white-space: nowrap; margin-top: 1em; word-wrap: break-word; }
   body, .container { padding-right: 0.5em; }
 }
 
-
-/* ===== Research + Design two-column layout ===== */
+/* ========================================================= */
+/* ============ Research + Design two-column =============== */
+/* ========================================================= */
 
 /* Push content just below your fixed title (5em) + nav (~3.25rem) */
 .page {
@@ -360,79 +270,79 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   box-sizing: border-box;
 }
 
-
 .rd-layout {
   display: grid;
-  grid-template-columns: 60% 40%; /* or 70% 30% */
+  grid-template-columns: 60% 40%; /* change to 70% 30% if you prefer */
   gap: clamp(1rem, 3vw, 2rem);
 }
 
-
-/* Keep the media high on the screen and steady while you read */
+/* Keep media high and stop it from stretching across the column */
 .rd-media {
   position: sticky;
   top: calc(5em + 3.25rem + 2rem);
   align-self: start;
-  justify-self: start;         /* ← don't stretch across the column */
+  justify-self: start; /* <-- critical to eliminate side “gutters” */
 }
 
-
-/* Right column text aligns with the nav's right edge */
-.rd-copy {
-  text-align: left;
-}
-
+/* Right column: left-aligned text only here */
+.rd-copy { text-align: left; }
 .rd-copy p,
-.rd-copy .block-text {
-  text-align: left;
-  margin-left: 0;
-  margin-right: auto;   /* keep it hugging the right column’s left edge */
-}
-
-.rd-copy h3 { text-align: right; }
+.rd-copy .block-text { text-align: left; margin-left: 0; margin-right: auto; }
 .rd-copy .block-text { text-align: justify; }
+/* Keep your aesthetic if you want headings right in the copy column: */
+.rd-copy h3 { text-align: right; }
 
-/* Carousel sized exactly like an 8.5×11 portrait page */
-/* Carousel box sized like an 11" × 8.5" page */
+/* ========================================================= */
+/* ==================== Carousel styles ==================== */
+/* ========================================================= */
+
+/* Carousel hugs image (no sidebars), clamped to column width */
 .snap-carousel {
   position: relative;
-  display: inline-block;       /* shrink-to-fit */
-  inline-size: max-content;    /* same idea; works well in grid */
-  max-height: 85vh;
+  display: inline-block;      /* shrink-to-fit content */
+  inline-size: max-content;   /* width equals content width */
+  max-inline-size: 100%;      /* but never overflow the grid column */
+  max-height: 85vh;           /* comfortable cap */
   overflow: hidden;
   border-radius: 16px;
-  background: transparent;
+  background: transparent;    /* no tinted sidebars */
 }
 
+/* Horizontal snapping track sized by content, clamped to column */
 .snap-track {
   display: flex;
   align-items: center;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  inline-size: max-content;    /* ← don't force 100% width */
+  inline-size: max-content;   /* content-sized width */
+  max-inline-size: 100%;      /* clamp to column width */
 }
 .snap-track::-webkit-scrollbar { display: none; }
 
+/* Slides size to image; no forced 100% width */
 .snap-slide {
-  flex: 0 0 auto;              /* width = content (the image) */
+  flex: 0 0 auto;
   margin: 0;
   height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
+  scroll-snap-align: start;
 }
 
-/* IMPORTANT: show full image without cropping */
+/* Image defines the box; always show full image (no crop) */
 .snap-slide img {
   display: block;
-  height: auto;
-  max-height: 85vh;            /* same cap as carousel */
   width: auto;
-  object-fit: contain;
+  height: auto;
+  max-width: 100%;       /* safety against overflow */
+  max-height: 85vh;      /* match carousel cap */
+  object-fit: contain;   /* no cropping */
 }
 
+/* Optional centered caption “pill” */
 .snap-slide figcaption {
   position: absolute;
   left: 50%;
@@ -445,26 +355,10 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   background: rgba(231, 214, 243, 0.8);
   border-radius: 6px;
   white-space: nowrap;
+  text-align: center;
 }
 
-/* Keep the whole block comfortably below your fixed title/nav */
-.page { padding-top: calc(5em + 3.25rem + 2rem); }
-.rd-media { position: sticky; top: calc(5em + 3.25rem + 2rem); }
-
-/* ===== Responsive: stack on small screens ===== */
-@media (max-width: 900px) {
-  .rd-layout {
-    grid-template-columns: 1fr;
-  }
-  .rd-media {
-    position: static;  /* no sticky on narrow screens */
-  }
-  .rd-copy {
-    margin-top: 1rem;
-  }
-}
-
-
+/* Arrows sit tight to the image because the carousel hugs content */
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -481,14 +375,13 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 .carousel-btn.prev { left: 0.25rem; }
 .carousel-btn.next { right: 0.25rem; }
 
-.snap-carousel {
-  position: relative; /* to anchor the buttons */
-  
-}
-
-/* Stack on small screens */
+/* ========================================================= */
+/* ====================== Responsive ======================= */
+/* ========================================================= */
 @media (max-width: 900px) {
   .rd-layout { grid-template-columns: 1fr; }
-  .rd-media { position: static; }
-  .snap-carousel { height: clamp(320px, 55vh, 700px); }
+  .rd-media { position: static; }   /* no sticky on narrow screens */
+  .rd-copy  { margin-top: 1rem; }
+  /* When stacked, let the image be a bit shorter */
+  .snap-slide img { max-height: 55vh; }
 }
