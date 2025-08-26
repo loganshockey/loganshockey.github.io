@@ -1,4 +1,9 @@
 /* ===== Base / Global ===== */
+:root {
+  /* Keep layout padding in sync across navbar, page, and copy column */
+  --pad-x: 1rem;
+}
+
 html {
   font-size: 16px;
   scroll-behavior: smooth;
@@ -50,7 +55,7 @@ body {
   left: 0;
   right: 0;
   z-index: 999;             /* below #title (1000), above content */
-  padding: 0.35em 1rem;     /* RIGHT PADDING = 1rem (alignment anchor) */
+  padding: 0.35em var(--pad-x); /* keep page/copy aligned with nav left/right */
 }
 
 .nav-list {
@@ -258,75 +263,56 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 /* Push content just below your fixed title (5em) + nav (~3.25rem) */
 .page {
   padding-top: calc(5em + 3.25rem + 2rem);
-  padding-left: clamp(1rem, 4vw, 3rem);
-  padding-right: 1rem;
+  padding-left: var(--pad-x);    /* align with nav left */
+  padding-right: var(--pad-x);   /* align with nav right */
   box-sizing: border-box;
 }
 
 .rd-layout {
   display: grid;
-  grid-template-columns: 60% 40%; /* change to 70% 30% if you prefer */
+  grid-template-columns: 80% 20%; /* give the carousel more room */
   gap: clamp(1rem, 3vw, 2rem);
-}
-
-.rd-layout {
-  grid-template-columns: 75% 25% /* Temporarily test with equal columns */
   max-width: 100%;
   overflow-x: hidden;
 }
-
 
 /* Keep media high and stop it from stretching across the column */
 .rd-media {
   position: sticky;
   top: calc(5em + 3.25rem + 2rem);
   align-self: start;
-  justify-self: start; /* critical to eliminate side “gutters” */
+  justify-self: start; /* no side gutters */
+  width: 100%;
 }
 
 /* Right column: force ALL content to be left-aligned */
 .rd-copy,
-.rd-copy * {
-  text-align: left !important;
-}
+.rd-copy * { text-align: left !important; }
 .rd-copy p,
-.rd-copy .block-text {
-  margin-left: 0;
-  margin-right: auto;
-}
+.rd-copy .block-text { margin-left: 0; margin-right: auto; }
 .rd-copy .block-text { text-align: justify !important; }
 
 .rd-media,
-.rd-copy {
-  max-width: 100%;
-  overflow-wrap: break-word;
-}
+.rd-copy { max-width: 100%; overflow-wrap: break-word; }
 
 .rd-copy {
   width: 100%;
   box-sizing: border-box;
-  padding-right: 0; /* ensure no excess right padding */
+  padding-right: 0;
+  padding-left: var(--pad-x); /* align with nav left */
 }
-
-.rd-copy {
-  padding-left: 1rem;
-  box-sizing: border-box;
-}
-
-/* If you prefer headings right-aligned in the copy column, override: */
-/* .rd-copy h1, .rd-copy h2, .rd-copy h3 { text-align: right !important; } */
 
 /* ========================================================= */
 /* ==================== Carousel styles ==================== */
 /* ========================================================= */
 
-/* Carousel hugs image (no inner sidebars), clamped to column width */
+/* Big, proportion-correct carousel */
 .snap-carousel {
   aspect-ratio: 11 / 17;
   width: 100%;
   max-width: 100%;
-  max-height: 90vh;
-  height: auto;                  /* Let height grow with aspect ratio */
+  max-height: 95vh;    /* large “hero” height without overflow */
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -336,33 +322,25 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   background: transparent;
 }
 
-.snap-carousel {
-  aspect-ratio: 11 / 17;
-  width: 100%;
-  max-width: 100%;
-  max-height: 95vh;   /* 🚀 grow taller */
-  height: auto;
-}
-
-/* Horizontal snapping track sized by content, clamped to column */
+/* Track fills the column so slides can grow */
 .snap-track {
-  display: inline-flex;     /* as wide as slides only */
+  display: flex;
   align-items: center;
   gap: 0;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  width: fit-content;
-  max-width: 100%;          /* clamp to column width */
+  width: 100%;         /* fill column; no shrink-wrap */
+  max-width: 100%;
 }
 .snap-track::-webkit-scrollbar { display: none; }
 
-/* Slides size to image; no forced width */
+/* One slide per viewport width */
 .snap-slide {
-  flex: 0 0 auto;
+  flex: 0 0 100%;
   margin: 0;
-  padding: 0;               /* critical: no inner space */
-  height: auto;
+  padding: 0;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -370,26 +348,20 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   scroll-snap-align: start;
 }
 
-/* Image defines the box; always show full image (no crop) */
+/* Image defines the box; preserve full 11x17 without crop */
 .snap-slide img {
-  max-width: 100%;
-  max-height: 90vh;              /* Match carousel cap */
+  display: block;
   width: auto;
   height: auto;
+  max-width: 100%;
+  max-height: 95vh;    /* match carousel cap */
   object-fit: contain;
 }
 
-.snap-slide img {
-  max-height: 95vh;   /* match cap */
-}
-
-
-/* Full-width caption footer to match image width */
+/* Full-width caption footer */
 .snap-slide figcaption {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  left: 0; right: 0; bottom: 0;
   padding: 0.5rem 0.75rem;
   font-family: monospace;
   font-size: 0.95rem;
@@ -400,7 +372,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   white-space: normal;
 }
 
-/* Arrows sit tight to the image because the carousel hugs content */
+/* Arrows */
 .carousel-btn {
   position: absolute;
   top: 50%;
@@ -423,7 +395,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 @media (max-width: 900px) {
   .rd-layout { grid-template-columns: 1fr; }
   .rd-media  { position: static; }   /* no sticky on narrow screens */
-  .rd-copy   { margin-top: 1rem; }
+  .rd-copy   { margin-top: 1rem; padding-left: var(--pad-x); }
   /* When stacked, let the image be a bit shorter */
   .snap-slide img { max-height: 55vh; }
 }
