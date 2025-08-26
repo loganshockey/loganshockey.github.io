@@ -270,10 +270,11 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 }
 
 .rd-layout {
-  grid-template-columns: 1fr 1fr; /* Temporarily test with equal columns */
+  grid-template-columns: 75% 25% /* Temporarily test with equal columns */
   max-width: 100%;
   overflow-x: hidden;
 }
+
 
 /* Keep media high and stop it from stretching across the column */
 .rd-media {
