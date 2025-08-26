@@ -307,6 +307,11 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   padding-right: 0; /* ensure no excess right padding */
 }
 
+.rd-copy {
+  padding-left: 1rem;
+  box-sizing: border-box;
+}
+
 /* If you prefer headings right-aligned in the copy column, override: */
 /* .rd-copy h1, .rd-copy h2, .rd-copy h3 { text-align: right !important; } */
 
