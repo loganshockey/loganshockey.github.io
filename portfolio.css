@@ -336,6 +336,14 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   background: transparent;
 }
 
+.snap-carousel {
+  aspect-ratio: 11 / 17;
+  width: 100%;
+  max-width: 100%;
+  max-height: 95vh;   /* 🚀 grow taller */
+  height: auto;
+}
+
 /* Horizontal snapping track sized by content, clamped to column */
 .snap-track {
   display: inline-flex;     /* as wide as slides only */
@@ -370,6 +378,11 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   height: auto;
   object-fit: contain;
 }
+
+.snap-slide img {
+  max-height: 95vh;   /* match cap */
+}
+
 
 /* Full-width caption footer to match image width */
 .snap-slide figcaption {
