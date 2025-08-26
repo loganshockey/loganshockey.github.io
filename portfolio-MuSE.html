@@ -6,107 +6,152 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="portfolio.css" />
 
-  <!-- Keep Vanta behind everything -->
+  <!-- Your site CSS (keep it) -->
+  <link rel="stylesheet" href="portfolio.css?v=9" />
+
+  <!-- Minimal base so page is visible even if external CSS is cached -->
   <style>
     html, body { height: 100%; }
+    body { margin: 0; background: #000; color: beige; }
     #vanta-bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; }
-
-    /* --- Safety net so the carousel is visible even if CSS not updated yet --- */
-    .page { padding-top: calc(5em + 3.25rem + 2rem); padding-left: clamp(1rem, 4vw, 3rem); padding-right: 1rem; box-sizing: border-box; }
-    .rd-layout { display: grid; grid-template-columns: 70% 30%; gap: clamp(1rem, 3vw, 2rem); }
+    #title { margin: 0; position: fixed; top: 0; z-index: 1000; font-family: "Archivo Black", sans-serif; color: rgb(200,133,206); padding: .5em; font-size: 5em; }
+    .site-nav { position: fixed; top: 5em; left: 0; right: 0; z-index: 999; padding: 0.35em 1rem; }
+    .nav-list { display: flex; gap: 3rem; list-style: none; margin: 0; padding: 0; justify-content: flex-end; }
+    .nav-list a { color: #e7d6f3; text-decoration: none; font-family: monospace; text-transform: uppercase; }
+    .page { padding-top: calc(5em + 3.25rem + 2rem); padding-left: 1rem; padding-right: 1rem; box-sizing: border-box; }
+    .rd-layout { display: grid; grid-template-columns: 80% 20%; gap: clamp(1rem, 3vw, 2rem); }
     .rd-media { position: sticky; top: calc(5em + 3.25rem + 2rem); align-self: start; }
-    .snap-carousel { position: relative; width: 100%; height: clamp(420px, 68vh, 1000px); overflow: hidden; border-radius: 16px; }
-    .snap-track { display: flex; width: 100%; height: 100%; overflow-x: auto; scroll-snap-type: x mandatory; scroll-behavior: smooth; }
-    .snap-track::-webkit-scrollbar { display: none; }
-    .snap-slide { flex: 0 0 100%; height: 100%; margin: 0; display: flex; align-items: center; justify-content: center; scroll-snap-align: start; }
-    .snap-slide img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
-    .snap-slide figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 0.5rem 0.75rem; font-family: monospace; font-size: 0.95rem; color: black; background: rgba(231, 214, 243, 0.8); }
-    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(231,214,243,0.9); color: black; border: none; font-size: 2rem; padding: 0.25em 0.5em; cursor: pointer; border-radius: 6px; z-index: 10; }
-    .carousel-btn.prev { left: 0.5rem; }
-    .carousel-btn.next { right: 0.5rem; }
+    .rd-copy, .rd-copy * { text-align: left; }
+    .rd-copy p { margin-top: 0; }
+  </style>
+
+  <!-- ===== FINAL OVERRIDES (wins the cascade) ===== -->
+  <style id="final-overrides">
+    :root{
+      /* height reserved for fixed title + nav + breathing room */
+      --chrome-h: calc(5em + 3.25rem + 2rem);
+      /* caption block height when placed below the image */
+      --caption-h: 2.25rem;
+      /* horizontal padding sync (left of nav, page, and copy column) */
+      --pad-x: 1rem;
+    }
+
+    /* Align page padding with nav */
+    .site-nav { padding-left: var(--pad-x); padding-right: var(--pad-x); }
+    .page     { padding-left: var(--pad-x); padding-right: var(--pad-x); }
+    .rd-copy  { padding-left: var(--pad-x); }
+
+    /* Give the media column lots of room on desktop */
+    .rd-layout { grid-template-columns: 80% 20%; }
+
+    /* ===== Carousel: BIG, no side bars, no cropping ===== */
+
+    /* Container width is the lesser of:
+       - the column width (100%)
+       - the width implied by available height with 11:17 aspect (height * 11/17).
+       This keeps it big, avoids side gutters, and preserves the full image. */
+    #muse-carousel.snap-carousel {
+      display: block;             /* stable in grid */
+      overflow: visible;
+      background: transparent;
+      border: 0;
+      padding: 0;
+
+      width: min(100%, calc((100vh - var(--chrome-h) - var(--caption-h)) * (11 / 17)));
+      /* height will follow the image (no fixed aspect-ratio needed here) */
+      max-width: 100%;
+    }
+
+    /* Track fills container width so slides can be wide */
+    #muse-carousel .snap-track {
+      display: flex;
+      width: 100%;
+      max-width: 100%;
+      gap: 0;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+    }
+    #muse-carousel .snap-track::-webkit-scrollbar { display: none; }
+
+    /* One slide per view width */
+    #muse-carousel .snap-slide {
+      flex: 0 0 100%;
+      margin: 0;
+      padding: 0;
+      height: auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      scroll-snap-align: start;
+      position: relative; /* for overlay caption variant if you switch later */
+    }
+
+    /* Image grows up to the usable viewport height (no crop).
+       Setting width:100% makes it match the container’s computed width,
+       so there are no side bars. */
+    #muse-carousel .snap-slide img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: calc(100vh - var(--chrome-h) - var(--caption-h));
+      object-fit: contain;
+    }
+
+    /* Caption BELOW the image so it never covers it */
+    #muse-carousel .snap-slide figcaption {
+      position: static;
+      margin-top: .35rem;
+      padding: 0.5rem 0.75rem;
+      font-family: monospace;
+      font-size: 0.95rem;
+      color: #000;
+      background: rgba(231,214,243,0.8);
+      text-align: center;
+      border-radius: 0;
+      white-space: normal;
+      height: var(--caption-h);
+      box-sizing: border-box;
+    }
+
+    /* Arrows centered on the image area (not the caption) */
+    #muse-carousel .carousel-btn {
+      position: absolute;
+      top: calc(50% - var(--caption-h) / 2);
+      transform: translateY(-50%);
+      background: rgba(231,214,243,0.9);
+      color: #000;
+      border: 0;
+      font-size: 2rem;
+      padding: 0.25em 0.5em;
+      cursor: pointer;
+      border-radius: 6px;
+      z-index: 10;
+    }
+    #muse-carousel .carousel-btn.prev { left: 0.25rem; }
+    #muse-carousel .carousel-btn.next { right: 0.25rem; }
+
+    /* ===== Responsive: stack columns, reduce image a bit ===== */
     @media (max-width: 900px) {
       .rd-layout { grid-template-columns: 1fr; }
-      .rd-media { position: static; }
-      .snap-carousel { height: clamp(320px, 55vh, 700px); }
+      .rd-media  { position: static; }
+      .rd-copy   { margin-top: 1rem; }
+
+      #muse-carousel { width: min(100%, calc((100vh - var(--chrome-h) - var(--caption-h)) * (11 / 17))); }
+      #muse-carousel .snap-slide img {
+        max-height: calc(100vh - var(--chrome-h) - var(--caption-h) - 6vh);
+      }
     }
-
-    p, .rd-copy,
-    .container p,
-    .block-text {               
-      text-align: left;
-    }
-
-        html, body { 
-        height: 100%; 
-        }
-        #vanta-bg {
-        position: fixed;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        }
-        /* ==== FINAL OVERRIDES (place at END of the <style> in the HTML) ==== */
-
-        /* Carousel hugs image (no side bars), still big */
-        .snap-carousel {
-        display: inline-flex !important;     /* shrink-wrap the content */
-        align-items: center !important;
-        justify-content: center !important;
-        width: auto !important;              /* not forced to 100% column width */
-        height: auto !important;
-        max-width: 100% !important;
-        max-height: 95vh !important;         /* big but below the viewport */
-        overflow: hidden !important;
-        padding: 0 !important;
-        border: 0 !important;
-        background: transparent !important;
-        }
-
-        /* Track also shrink-wraps to the slides */
-        .snap-track {
-        display: inline-flex !important;
-        width: auto !important;
-        max-width: 100% !important;
-        gap: 0 !important;
-        overflow-x: auto !important;
-        scroll-snap-type: x mandatory !important;
-        scroll-behavior: smooth !important;
-        }
-        .snap-track::-webkit-scrollbar { display: none; }
-
-        /* Slides sized by their content (the image) */
-        .snap-slide {
-        flex: 0 0 auto !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        height: auto !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        background: transparent !important;
-        scroll-snap-align: start !important;
-        }
-
-        /* Image drives size; no cropping; no bars */
-        .snap-slide img {
-        display: block !important;
-        width: auto !important;         /* width comes from height to keep 11x17 */
-        height: auto !important;
-        max-height: 95vh !important;
-        max-width: 100% !important;     /* on narrow columns it scales down */
-        object-fit: contain !important;
-        }
-    
-
   </style>
 </head>
 <body>
+  <!-- Vanta background -->
   <div id="vanta-bg"></div>
 
   <div id="top"></div>
@@ -124,23 +169,23 @@
   <main class="page" role="main">
     <section class="rd-layout">
 
-      <!-- LEFT: carousel (70%) -->
+      <!-- LEFT: carousel (80%) -->
       <div class="rd-media">
-        <div class="snap-carousel" aria-label="Project images">
+        <div class="snap-carousel" id="muse-carousel" aria-label="Project images">
           <button class="carousel-btn prev" aria-label="Previous slide">‹</button>
 
           <div class="snap-track">
-            <!-- Put your 8.5x11 PNG here; path must be correct relative to this HTML -->
+            <!-- Slide 1 -->
             <figure class="snap-slide">
               <img src="testpage.png" alt="MuSE—overview image" />
               <figcaption>MuSE — overview</figcaption>
             </figure>
-
+            <!-- Slide 2 -->
             <figure class="snap-slide">
               <img src="images/muse-2.jpg" alt="Close-up of interface" />
               <figcaption>Interface close-up</figcaption>
             </figure>
-
+            <!-- Slide 3 -->
             <figure class="snap-slide">
               <img src="images/muse-3.jpg" alt="Participant interaction" />
               <figcaption>Participant interaction</figcaption>
@@ -151,14 +196,14 @@
         </div>
       </div>
 
-      <!-- RIGHT: text (30%) -->
+      <!-- RIGHT: text (20%) -->
       <aside class="rd-copy">
         <h3 class="punkglowtitle">MuSE</h3>
         <p class="punkglow">For Enhanced blah blah blah...</p>
 
         <h3>Heading</h3>
         <p class="block-text">
-          Placeholder content for research & design. Add your sections here—case studies,
+          Placeholder content for research &amp; design. Add your sections here—case studies,
           methods, diagrams, and links to PDFs or external write-ups.
         </p>
       </aside>
@@ -202,10 +247,12 @@
     })();
 
     // Arrow controls scoped to this carousel
-    document.querySelectorAll('.snap-carousel').forEach(carousel => {
+    (function initCarousel(){
+      const carousel = document.getElementById('muse-carousel');
+      if (!carousel) return;
       const track = carousel.querySelector('.snap-track');
-      const prev = carousel.querySelector('.carousel-btn.prev');
-      const next = carousel.querySelector('.carousel-btn.next');
+      const prev  = carousel.querySelector('.carousel-btn.prev');
+      const next  = carousel.querySelector('.carousel-btn.next');
 
       function slideWidth() {
         const firstSlide = track.querySelector('.snap-slide');
@@ -218,7 +265,8 @@
       next?.addEventListener('click', () => {
         track.scrollBy({ left:  slideWidth(), behavior: 'smooth' });
       });
-    });
+    })();
   </script>
 </body>
 </html>
+
