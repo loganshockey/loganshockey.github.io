@@ -269,6 +269,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   gap: clamp(1rem, 3vw, 2rem);
 }
 
+.rd-layout {
+  grid-template-columns: 1fr 1fr; /* Temporarily test with equal columns */
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 /* Keep media high and stop it from stretching across the column */
 .rd-media {
   position: sticky;
@@ -288,6 +294,18 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   margin-right: auto;
 }
 .rd-copy .block-text { text-align: justify !important; }
+
+.rd-media,
+.rd-copy {
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+.rd-copy {
+  width: 100%;
+  box-sizing: border-box;
+  padding-right: 0; /* ensure no excess right padding */
+}
 
 /* If you prefer headings right-aligned in the copy column, override: */
 /* .rd-copy h1, .rd-copy h2, .rd-copy h3 { text-align: right !important; } */
