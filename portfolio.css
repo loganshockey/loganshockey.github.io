@@ -308,14 +308,14 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 
 /* Big, proportion-correct carousel */
 .snap-carousel {
-  aspect-ratio: 11 / 17;
-  width: 100%;
-  max-width: 100%;
-  max-height: 95vh;    /* large “hero” height without overflow */
-  height: auto;
-  display: flex;
+  aspect-ratio: 11 / 17;     /* for initial sizing math, but not forcing width */
+  display: inline-flex;       /* shrink-wrap to content */
   align-items: center;
   justify-content: center;
+  width: auto;                /* <— no 100% fill */
+  height: auto;
+  max-width: 100%;            /* don’t overflow the grid column */
+  max-height: 95vh;           /* big but safe in viewport */
   overflow: hidden;
   border: 0;
   padding: 0;
@@ -324,23 +324,22 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 
 /* Track fills the column so slides can grow */
 .snap-track {
-  display: flex;
+  display: inline-flex;       /* shrink-wrap to slides */
   align-items: center;
   gap: 0;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  width: 100%;         /* fill column; no shrink-wrap */
+  width: auto;                /* <— no 100% */
   max-width: 100%;
 }
 .snap-track::-webkit-scrollbar { display: none; }
-
 /* One slide per viewport width */
 .snap-slide {
-  flex: 0 0 100%;
+  flex: 0 0 auto;             /* <— no 100% basis */
   margin: 0;
   padding: 0;
-  height: 100%;
+  height: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -351,11 +350,11 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 /* Image defines the box; preserve full 11x17 without crop */
 .snap-slide img {
   display: block;
-  width: auto;
+  width: auto;                /* width is derived from height (keeps ratio) */
   height: auto;
-  max-width: 100%;
-  max-height: 95vh;    /* match carousel cap */
-  object-fit: contain;
+  max-height: 95vh;           /* main size driver for “big” feel */
+  max-width: 100%;            /* if column is narrow, it will scale down */
+  object-fit: contain;        /* never crop */
 }
 
 /* Full-width caption footer */
