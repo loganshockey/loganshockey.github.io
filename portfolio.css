@@ -191,7 +191,7 @@ p,
 
 /* ===== Back-to-top ===== */
 .back-to-top {
-  position: fixed;
+  position: bottom;
   left: 3rem;
   bottom: 2rem;
   z-index: 1200;
