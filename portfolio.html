@@ -1,109 +1,375 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Logan Shockey</title>
-  <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-</head>
-<body>
-  <div id="vanta-bg"></div>
+HTML: <!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <meta charset="UTF-8">
+        <title >logan shockey's portfolio</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="portfolio.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
+        <style>
+        html, body { 
+        height: 100%; 
+        }
+        #vanta-bg {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        }
+        /* ==== FINAL OVERRIDES (place at END of the <style> in the HTML) ==== */
 
-  <nav class="nav-container">
-    <ul class="nav-list">
-      <li><a href="index.html" class="active">home</a></li>
-      <li><a href="portfolio.html">portfolio</a></li>
-      <li><a href="about.html">about</a></li>
-      <li><a href="contact.html">contact</a></li>
-    </ul>
-  </nav>
+        /* Carousel hugs image (no side bars), still big */
+        .snap-carousel {
+        display: inline-flex !important;     /* shrink-wrap the content */
+        align-items: center !important;
+        justify-content: center !important;
+        width: auto !important;              /* not forced to 100% column width */
+        height: auto !important;
+        max-width: 100% !important;
+        max-height: 95vh !important;         /* big but below the viewport */
+        overflow: hidden !important;
+        padding: 0 !important;
+        border: 0 !important;
+        background: transparent !important;
+        }
 
-  <header>
-    <h1 id="title">Logan Shockey</h1>
-  </header>
+        /* Track also shrink-wraps to the slides */
+        .snap-track {
+        display: inline-flex !important;
+        width: auto !important;
+        max-width: 100% !important;
+        gap: 0 !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        scroll-behavior: smooth !important;
+        }
+        .snap-track::-webkit-scrollbar { display: none; }
 
-  <div class="repeat-text1" role="marquee" aria-label="keywords">
-    <div class="track" id="marqueeTrack">
-      <span>interactive biophilic more-than-human hci community-engaged</span>
-      <span>interactive biophilic more-than-human hci community-engaged</span>
-    </div>
-  </div>
+        /* Slides sized by their content (the image) */
+        .snap-slide {
+        flex: 0 0 auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        height: auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: transparent !important;
+        scroll-snap-align: start !important;
+        }
 
-  <main class="container">
-    <section>
-      <h3 class="punkglowtitle">project 1: Kombucha Interface</h3>
-      <p class="block-text">
-        A biotic interaction system that measures SCOBY comfort through temperature, pH, and sugar balance—merging fermentation with interface design.
-      </p>
-    </section>
+        /* Image drives size; no cropping; no bars */
+        .snap-slide img {
+        display: block !important;
+        width: auto !important;         /* width comes from height to keep 11x17 */
+        height: auto !important;
+        max-height: 95vh !important;
+        max-width: 100% !important;     /* on narrow columns it scales down */
+        object-fit: contain !important;
+        }
 
-    <section>
-      <h3 class="punkglowtitle">project 2: LED Ecology</h3>
-      <p class="block-text">
-        Exploring the emotional landscape of light through solenoids, arcade buttons, and color gradients shifting between growth and decay.
-      </p>
-    </section>
+        
 
-    <section>
-      <h3 class="punkglowtitle">project 3: Queer Urban Renewal</h3>
-      <p class="block-text">
-        Research into how queer communities reimagine urban neglect, transforming overlooked spaces into vibrant cultural habitats.
-      </p>
-    </section>
-  </main>
+        </style>
+    </head>
+    <body>
+        <div id="vanta-bg"></div>
+        <div id="top"></div>
+        <h1 id="title">logan shockey</h1>
 
-  <a href="#" class="back-to-top">Back to top</a>
+        <nav class="site-nav" aria-label="Primary">
+        <ul class="nav-list">
+            <li><a href="portfolio.html" class="active">/home</a></li>
+            <li><a href="research-design.html">/research + design</a></li>
+            <li><a href="art.html">/art</a></li>
+            <li><a href="ethos-contact.html">/ethos + contact</a></li>
+        </ul>
+        </nav>
+        
+        <h2>
+        <div class="repeat-text1">
+            <div class="track" id="marqueeTrack">
+                <span>interactive   biophilic   more-than-human     hci     community-engaged</span>
+                <span>interactive   biophilic   more-than-human     hci     community-engaged</span>
+                <span>interactive   biophilic   more-than-human     hci     community-engaged</span>
+            </div>
+        </div>
+        </h2>
 
-  <footer>
-    <p>© 2025 Logan Shockey</p>
-  </footer>
+        <main class="container"></main>
+        <h3 class="punkglowtitle">PORTFOLIO PIECE #1</h3>
 
-  <script>
-    // VANTA Background
-    VANTA.NET({
-      el: "#vanta-bg",
-      mouseControls: true,
-      touchControls: true,
-      gyroControls: false,
-      minHeight: 200.0,
-      minWidth: 200.0,
-      scale: 1.0,
-      scaleMobile: 1.0,
-      color: 0x39ff14,
-      backgroundColor: 0x000000,
-      points: 10.0,
-      maxDistance: 20.0,
-      spacing: 18.0,
-    });
+        <p class="punkglow"><strong>Stardate:</strong> 2025.108-109 | <strong>Harmonic Alignment:</strong> 22:00<br>
+        <strong>Conductor:</strong> Multi-Dimensional Maestro ZEROX-9<br>
+        <strong>Repertoire:</strong> "CELESTIAL BODIES IN MOTION," "GRAVITATIONAL HARMONICS," "GALACTIC 
+        SYNTHESIS," "INTERSTELLAR JOURNEY," "COSMIC ENLIGHTENMENT"</p>
+        
+        <p class="punkglow" style="margin-bottom: 3vw"><em>The Crystal Nebula, Interdimensional Sound Pavilion</em></p>
+        
+        <p class="block-text" style="margin-bottom: 30vw;">
+        The enigmatic <strong>ZEROX-9</strong>, whose conducting technique has been described as
+        "transcendentally mesmerizing" across seven galaxies, guides the vibrant collective
+        known as the ZΩRBLAXian VOID PULSE COLLECTIVE through an evening of cosmic wonder.
+        Experience the breathtaking premiere of "CELESTIAL BODIES IN MOTION," a suite that
+        builds from delicate whispers to magnificent crescendos, performed on instruments
+        crafted from rare metals found only on distant moons and responsive to audience
+        brainwave patterns. The repertoire explores the hidden dimensions of the universe
+        with compositions including "GRAVITATIONAL HARMONICS" (featuring synchronized
+        breathing techniques), "GALACTIC SYNTHESIS" (where sound waves create visual
+        phenomena throughout the venue), and "INTERSTELLAR JOURNEY" (causing spontaneous
+        neural connections across multiple dimensions). The night culminates in "COSMIC
+        ENLIGHTENMENT"—an immersive experience where sound transcends auditory perception
+        and transforms consciousness itself. Private resonance chambers available for those
+        seeking enhanced acoustic experiences. Dress code: Reflective, light-responsive
+        attire recommended for optimal visual integration. Molecular refreshments from
+        distant star systems served at intermission.
+        </p>
 
-    // Fade-in on scroll
-    const fadeEls = document.querySelectorAll(".punkglowtitle, .block-text");
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("visible");
-        });
-      },
-      { threshold: 0.1 }
-    );
-    fadeEls.forEach((el) => obs.observe(el));
 
-    // Back to top fade
-    const backToTop = document.querySelector(".back-to-top");
-    window.addEventListener("scroll", () => {
-      backToTop.style.opacity = window.scrollY > 400 ? "1" : "0";
-    });
+        <h3 class="punkglowtitle">PORTFOLIO PIECE #2</h3>
 
-    // Active nav highlight
-    function setActiveNav() {
-      const currentPage = window.location.pathname.split("/").pop();
-      document.querySelectorAll(".nav-list a").forEach((link) => {
-        link.classList.toggle("active", link.getAttribute("href") === currentPage);
+        <p class="punkglow"><strong>Stardate:</strong> 2025.142-143 | <strong>Quantum Flux:</strong> 21:00<br>
+        <strong>Conductor:</strong> Void Navigator K'THX-7<br>
+        <strong>Repertoire:</strong> "PRIMORDIAL OSCILLATIONS," "QUASAR WHISPERS," "NEBULA DREAMS," 
+        "ANTIMATTER SYMPHONY," "EVENT HORIZON REQUIEM"</p>
+
+        <p class="punkglow" style="margin-bottom: 3vw;"><em>The Antimatter Amphitheater, Floating Quantum Observatory</em></p>
+
+        <p class="block-text" style="margin-bottom: 30vw;">
+        The legendary <strong>K'THX-7</strong>, who once conducted a supernova into harmonic stability,
+        commands the Freeky Deeky Intergalactic Orchestra through the unexplored realms of
+        quantum acoustics. Witness the universe-altering premiere of "PRIMORDIAL
+        OSCILLATIONS," performed on instruments that exist simultaneously in twelve
+        dimensions and resonate with the background radiation of creation itself. The
+        program defies conventional physics with pieces including "QUASAR WHISPERS"
+        (employing tonal frequencies that briefly suspend gravity around listeners),
+        "NEBULA DREAMS" (where celestial gas patterns are translated into cascading
+        arpeggios), and "ANTIMATTER SYMPHONY" (requiring specialized ear protection to
+        prevent molecular destabilization). The performance concludes with the
+        revolutionary "EVENT HORIZON REQUIEM"—a composition that bends spacetime through
+        sound alone, allowing audiences to perceive music from multiple timelines
+        simultaneously. Quantum stabilization suits provided. Note: The concert may appear
+        to last between 20 minutes and 75 years depending on your position in the
+        amphitheater. Chrono-synchronization therapy available post-concert.
+        </p>
+
+
+        <h3 class="punkglowtitle">PORTFOLIO PIECE #3</h3>
+
+        <p class="punkglow"><strong>Stardate:</strong> 2025.173-174 | <strong>Biorhythmic Synchronization:</strong> 19:30<br>
+        <strong>Conductor:</strong> The Hive-Mind Orchestrator BZZT-Ω<br>
+        <strong>Repertoire:</strong> "UNIVERSAL TRANSLATION SUITE," "EXOBIOLOGICAL CANTATA," "TELEPATHIC 
+        FUGUE," "MULTI-ORGANISM SYMPHONY," "CONVERGENT EVOLUTION CONCERTO"</p>
+        
+        <p class="punkglow" style="margin-bottom: 3vw;"><em>The Xenobiological Soundsphere, Galactic Diplomacy Hub</em></p>
+        
+        <p class="block-text" style="margin-bottom: 30vw;">
+        The controversial genius <strong>BZZT-Ω</strong>, composed of 17,000 synaptically linked micro-
+        organisms forming a singular consciousness, leads the Freeky Deeky Intergalactic
+        Orchestra in a groundbreaking cross-species musical exchange. Experience the
+        biologically transformative premiere of "UNIVERSAL TRANSLATION SUITE," utilizing
+        instruments grown from living tissue that adapt their tonal qualities to match the
+        neurological patterns of each audience member's species. The program dissolves
+        biological barriers through compositions including "EXOBIOLOGICAL CANTATA"
+        (featuring vocalists with surgically modified vocal tracts), "TELEPATHIC FUGUE"
+        (inducing mild psychic links between audience members), and "MULTI-ORGANISM
+        SYMPHONY" (where musical motifs evolve in real-time based on collective emotional
+        response). The evening culminates with "CONVERGENT EVOLUTION CONCERTO"—a
+        revolutionary piece where sound becomes a common language transcending biological
+        differences. Translation microbes provided at entrance. Warning: Attendees may
+        experience temporary genetic resonance with other species. DNA realignment stations
+        available post-concert.
+        </p>
+
+
+        <h3 class="punkglowtitle">PORTFOLIO PIECE #4</h3>
+        
+        <p class="punkglow"><strong>Stardate:</strong> 2025.211-212 | <strong>Temporal Coordinates:</strong> Fluctuating<br>
+        <strong>Conductor:</strong> Chrono-Maestro AEON-∞ (Past, Present, and Future Iterations)<br>
+        <strong>Repertoire:</strong> "ANCESTOR ALGORITHM," "PRESENT TENSE VARIATIONS," "FUTURE PROBABILITY 
+        NOCTURNE," "PARADOX PRELUDE," "TIMELINE CONVERGENCE SONATA"</p>
+        
+        <p class="punkglow" style="margin-bottom: 3vw;"><em>The Möbius Concert Hall, Temporal Anomaly Zone</em></p>
+        
+        <p class="block-text" style="margin-bottom: 30vw;">
+        The impossible <strong>AEON-∞</strong>, who simultaneously exists across multiple timelines,
+        conducts three temporal versions of the Freeky Deeky Intergalactic Orchestra in the
+        first-ever (and already legendary) time-bending concert. Witness the has-will-is-
+        happening premiere of "ANCESTOR ALGORITHM," performed on archaic instruments by the
+        past orchestra, contemporary instruments by the present orchestra, and instruments
+        not-yet-invented by the future orchestra, creating a harmonic convergence across
+        time itself. The reality-warping program includes "PRESENT TENSE VARIATIONS" (where
+        notes are played before they're conducted), "FUTURE PROBABILITY NOCTURNE" (which
+        statistically predicts and plays each audience member's favorite future
+        composition), and "PARADOX PRELUDE" (causing listeners to remember the music before
+        hearing it). The performance concludes/began/will begin with "TIMELINE CONVERGENCE
+        SONATA"—a piece that exists in quantum superposition until observed. Temporal
+        displacement sickness bags provided. Note: You may encounter alternate versions of
+        yourself during intermission. Chronology protection enforcers will prevent audience
+        members from altering their own timelines.
+        </p>
+
+
+
+        <h3 class="punkglowtitle">PORTFOLIO PIECE #5</h3>
+        
+        <p class="punkglow"><strong>Stardate:</strong> 2025.247-248 | <strong>Planck-Scale Precision:</strong> 20:30<br>
+        <strong>Conductor:</strong> Particle Whisperer HIGGS-β<br>
+        <strong>Repertoire:</strong> "QUARK QUARTET," "STRING THEORY SONATA," "PARTICLE WAVE DUALITY 
+        DANCE," "QUANTUM ENTANGLEMENT ETUDE," "UNIFIED FIELD SYMPHONY"</p>
+        
+        <p class="punkglow" style="margin-bottom: 3vw;"><em>The Subatomic Sound Chamber, Particle Accelerator Complex</em></p>
+        
+        <p class="block-text" style="margin-bottom: 30vw;">
+        The microscopic genius <strong>HIGGS-β</strong>, whose consciousness exists at the quantum
+        level, directs the Freeky Deeky Intergalactic Orchestra in exploring the smallest
+        scales of reality through sound. Experience the uncertainty-principle-defying
+        premiere of "QUARK QUARTET," utilizing instruments smaller than atoms that generate
+        probabilities rather than definite notes, creating music that changes when observed
+        directly. The program manipulates fundamental forces with compositions including
+        "STRING THEORY SONATA" (employing 11-dimensional harmonics), "PARTICLE WAVE DUALITY
+        DANCE" (where each note simultaneously behaves as a discrete tone and a continuous
+        frequency), and "QUANTUM ENTANGLEMENT ETUDE" (creating paired sounds that
+        instantaneously affect each other regardless of distance). The evening concludes
+        with "UNIFIED FIELD SYMPHONY"—a composition theoretically linking all four
+        fundamental forces through acoustic principles. Size-altering technology
+        temporarily reduces audience members to quantum scale for optimal listening
+        experience. Warning: Concert may cause temporary superposition of consciousness.
+        All attendance is probabilistic until observed.
+        </p>
+
+
+
+        <h3 class="punkglowtitle">PORTFOLIO PIECE #6</h3>
+        
+        <p class="punkglow"><strong>Stardate:</strong> 2025.284-285 | <strong>Mind Meld:</strong> 23:00<br>
+        <strong>Conductor:</strong> Neural Navigator SYNAPSE-δ<br>
+        <strong>Repertoire:</strong> "EGO DISSOLUTION OVERTURE," "COLLECTIVE UNCONSCIOUS RHAPSODY," 
+        "ARCHETYPAL VARIATIONS," "PERCEPTION THRESHOLD CROSSING," "TRANSCENDENTAL MIND STATE FINALE"</p>
+        
+        <p class="punkglow" style="margin-bottom: 3vw;"><em>The Psychic Resonance Arena, Consciousness Research Institute</em></p>
+        
+        <p class="block-text" style="margin-bottom: 30vw;">
+        The boundary-dissolving <strong>SYNAPSE-δ</strong>, who achieved complete neural interconnection
+        with all sentient life forms in the Crab Nebula, guides the Freeky Deeky
+        Intergalactic Orchestra through the uncharted territories of consciousness itself.
+        Witness the mind-altering premiere of "EGO DISSOLUTION OVERTURE," performed on
+        instruments that respond directly to thought patterns and generate frequencies that
+        temporarily reorganize neural pathways. The program explores inner space with
+        compositions including "COLLECTIVE UNCONSCIOUS RHAPSODY" (accessing shared
+        archetypal imagery across species), "ARCHETYPAL VARIATIONS" (where musical themes
+        transform according to each listener's deepest psychological patterns), and
+        "PERCEPTION THRESHOLD CROSSING" (gradually introducing sounds normally beyond
+        sensory capability). The experience culminates with "TRANSCENDENTAL MIND STATE
+        FINALE"—a composition inducing temporary group consciousness among all present.
+        Memory recovery assistance available post-concert. Disclaimer: The Orchestra is not
+        responsible for spiritual awakenings, existential realizations, or sudden career
+        changes resulting from attendance.
+        </p>
+
+
+
+        <h3 class="punkglowtitle">PORTFOLIO PIECE #7</h3>
+        
+        <p class="punkglow"><strong>Stardate:</strong> 2025.319-320 | <strong>Sensory Convergence:</strong> 20:00<br>
+        <strong>Conductor:</strong> Pan-Sensory Architect CHROMA-Ψ<br>
+        <strong>Repertoire:</strong> "VISIBLE FREQUENCIES," "TACTILE RESONANCE SUITE," "OLFACTORY 
+        HARMONICS," "GUSTATORY RHYTHMS," "COMPLETE SENSORY INTEGRATION"</p>
+        
+        <p class="punkglow" style="margin-bottom: 3vw;"><em>The Synaesthetic Sphere, Cross-Modal Perception Center</em></p>
+        
+        <p class="block-text" style="margin-bottom: 30vw;">
+        The revolutionary <strong>CHROMA-Ψ</strong>, whose neural modifications allow simultaneous
+        processing of all sensory information as a unified experience, leads the Freeky
+        Deeky Intergalactic Orchestra in dissolving the boundaries between perception
+        channels. Experience the sense-defying premiere of "VISIBLE FREQUENCIES," utilizing
+        instruments that simultaneously produce sounds, colors, aromas, textures, and
+        flavors in perfect harmonic alignment. The program transcends traditional sensory
+        limitations with compositions including "TACTILE RESONANCE SUITE" (where bass
+        frequencies create intricate patterns on the skin), "OLFACTORY HARMONICS"
+        (synchronizing complex scent progressions with melodic development), and "GUSTATORY
+        RHYTHMS" (dispersing flavor molecules that dance across taste receptors in rhythmic
+        patterns). The evening culminates with "COMPLETE SENSORY INTEGRATION"—a
+        revolutionary composition experienced simultaneously through all perceptual
+        channels. Temporary neural pathway reconfiguration provided at entry. Warning: May
+        cause permanent enhancement of cross-modal associations. Sensory recalibration
+        stations available post-concert.
+        </p>
+
+
+
+        <h3 class="punkglowtitle">PORTFOLIO PIECE #8</h3>
+        
+        <p class="punkglow"><strong>Stardate:</strong> 2025.352-353 | <strong>Spacetime Curvature:</strong> 21:30<br>
+        <strong>Conductor:</strong> Gravity Sculptor LIGO-Z<br>
+        <strong>Repertoire:</strong> "BINARY STAR COLLISION PERCUSSION," "BLACK HOLE MERGER OSTINATO," 
+        "NEUTRON STAR RHYTHM CYCLE," "SPACE FABRIC VIBRATIONS," "MASS DISTORTION SYMPHONY"</p>
+        
+        <p class="punkglow" style="margin-bottom: 3vw;"><em>The Gravitational Amphitheater, Space Curvature Observatory</em></p>
+        
+        <p class="block-text" style="margin-bottom: 30vw;">
+        The heavyweight innovator <strong>LIGO-Z</strong>, who once detected a supermassive black hole
+        merger through pure acoustic sensitivity, commands the Freeky Deeky Intergalactic
+        Orchestra in manipulating the fabric of spacetime through rhythm. Witness the mass-
+        altering premiere of "BINARY STAR COLLISION PERCUSSION," using instruments so
+        massive they generate their own gravitational fields, creating music through actual
+        spacetime distortions. The program warps reality with compositions including "BLACK
+        HOLE MERGER OSTINATO" (producing rhythmic patterns that temporarily increase the
+        local gravitational constant), "NEUTRON STAR RHYTHM CYCLE" (compressing sound waves
+        to neutron-star density), and "SPACE FABRIC VIBRATIONS" (where percussion
+        instruments strike spacetime itself). The concert concludes with "MASS DISTORTION
+        SYMPHONY"—an unprecedented composition where audience members physically feel their
+        mass fluctuate in rhythm with the music. Inertial dampeners provided at entry.
+        Note: The concert's gravitational effects may cause temporal dilation; what feels
+        like 2 hours may be 4 minutes in the outside world.
+        </p>
+
+        <h2>
+        <a class="back-to-top" href="#top" aria-label="Back to top">Back to top</a>
+        </h2>   
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.cells.min.js"></script>
+        <script>
+            VANTA.CELLS({
+                el: "#vanta-bg",
+                mouseControls: true,
+                touchControls: true,
+                gyroControls: false,
+                minHeight: 200.00,
+                minWidth: 200.00,
+                scale: 1.00,
+                scaleMobile: 3.00,
+                size: 2.0,
+                speed: 1.0,
+                backgroundAlpha: 1,
+                backgroundColor: 0xd7ff8f, 
+                color1: 0xacbcc0,
+                color2: 0xdeddcd,
+                amplitudeFactor: 1.0,
+                ringFactor: 1.0,
+                rotationFactor: 1.0
+            });
+        
+
+    // Auto-highlight current nav link
+    (function setActiveNav(){
+      const here = location.pathname.split("/").pop() || "index.html";
+      document.querySelectorAll('.nav-list a').forEach(a => {
+        const target = a.getAttribute('href');
+        if (target === here || (here === "index.html" && target === "./")) {
+          a.classList.add('active');
+        }
       });
-    }
-    setActiveNav();
+    })();
   </script>
-</body>
-</html>
+
+
+
+
+    </body>
+</html>              
