@@ -1,500 +1,173 @@
-/* ===== Base / Global ===== */
-:root {
-  /* Keep layout padding in sync across navbar, page, and copy column */
-  --pad-x: 1rem;
-}
-
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-}
-
-/* Vanta provides the background */
-body {
-  color: beige;
-  margin: 0;
-  font-size: 1em;
-  padding: 0;
-  padding-right: 1em;
-  overflow-x: hidden;
-  background-color: black; /* fallback while Vanta loads */
-}
-
-/* Mirror the Vanta background horizontally */
-#vanta-bg canvas {
-  transform: scaleX(-1);
-  transform-origin: center;
-}
-
-.archivo-black-regular {
-  font-family: "Archivo Black", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-#title span { display: block; text-align: left; margin: 0; padding: 0; }
-
-#title {
-  margin: 0;
-  position: fixed;
-  top: 0;
-  z-index: 1000;
-  font-family: "Archivo Black", sans-serif;
-  color: rgb(200, 133, 206);
-  padding: .5em;
-  font-size: 5em;
-  max-width: 100%;
+/* RESET & BASE */
+* {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html, body {
+  height: 100%;
+  font-family: "Courier New", monospace;
+  color: #39ff14;
+  background: #000;
+  overflow-x: hidden;
 }
 
-/* ===== Fixed Neon Nav ===== */
-.site-nav {
-  position: fixed;          /* sits under the fixed title */
-  top: 5em;                 /* adjust to sit nicely below #title */
-  left: 0;
-  right: 0;
-  z-index: 999;             /* below #title (1000), above content */
-  padding: 0.35em var(--pad-x); /* keep page/copy aligned with nav left/right */
+/* BACKGROUND */
+#vanta-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: -1;
 }
 
+/* NAV */
+.nav-container {
+  position: fixed;
+  top: 0; width: 100%;
+  background: rgba(0,0,0,0.7);
+  padding: 0.5rem 0;
+  z-index: 10;
+  backdrop-filter: blur(4px);
+}
 .nav-list {
   display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: 3rem;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.nav-list li { margin: 0; }
-
-.nav-list a {
-  text-decoration: none;
-  font-family: monospace;
-  text-transform: uppercase;
-  font-size: clamp(1.62rem, 3.6vw, 1.89rem);
-  color: #e7d6f3;
-  padding: 0.25em 0em;
-  position: relative;
-  transition: transform 120ms ease;
-  text-shadow:
-    0 0 2px #39ff14,
-    0 0 5px #39ff14,
-    0 0 10px #7dff57,
-    0 0 15px #66ff33;
-  animation: glowShift 2s ease-in-out infinite alternate, flicker 3.5s infinite;
-  opacity: 0.9;
-}
-.nav-list a:hover,
-.nav-list a:focus-visible { transform: translateY(-1px); outline: none; }
-
-.nav-list a::after {
-  content: "";
-  position: absolute;
-  left: 0; right: 0; bottom: -3px;
-  height: 2px;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 140ms ease;
-  background: linear-gradient(90deg, #39ff14, #ffea00);
-}
-.nav-list a:hover::after,
-.nav-list a:focus-visible::after,
-.nav-list a.active::after { transform: scaleX(1); }
-
-/* ===== Content spacing ===== */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;     /* right-aligned content */
-  width: 100%;
-  padding-left: clamp(1rem, 4vw, 3rem);
-  padding-right: 1rem;       /* <-- MUST MATCH .site-nav right padding */
-  margin-top: 20em;          /* space for fixed title + nav */
-}
-
-/* Headings */
-h2 {
-  font-family: "Archivo Black", sans-serif;
-  color: rgb(200, 133, 206);
-  text-align: center;
-  font-size: 2em;
-  padding-top: 7em;
-  z-index: 999;
-  overflow: hidden;
-}
-
-.page-description {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 12em;
-  color: rgb(200, 133, 206);
-  font-size: .5em;
-}
-
-h3 {
-  text-align: right;
-  font-family: monospace, 'Lucida Sans';
-  color: beige;
-  font-size: 2em;
-  padding-right: 0;
-  margin-right: 0;
-}
-
-/* Paragraphs — default right-aligned sitewide */
-p,
-.container p,
-.block-text {
-  width: auto;
-  max-width: min(70ch, 92vw);
-  margin-left: auto;
-  margin-right: 0;
-  box-sizing: border-box;
-  padding-right: 0;
-  text-align: right;
-  font-family: monospace, 'Lucida Sans';
-  color: beige;
-  font-size: 1.25em;
-  overflow-wrap: anywhere;
-  word-break: normal;
-  hyphens: auto;
-}
-.block-text { text-align: justify; }
-
-/* ===== Marquee ===== */
-.repeat-text1 {
-  display: flex;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 100vw;
-  position: relative;
-}
-.repeat-text1 span {
-  display: inline-block;
-  padding-right: 2rem;
-  animation: scrollText 20s linear infinite;
-}
-.repeat-text1 .track {
-  display: inline-flex;
-  align-items: center;
+  justify-content: center;
   gap: 2rem;
-  will-change: transform;
-  animation: marquee 23s linear infinite;
+  list-style: none;
 }
-.repeat-text1 .track:hover { animation-play-state: paused; }
-.repeat-text1 .track > span { display: inline-block; white-space: nowrap; word-spacing: 1.5rem; }
-
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-
-/* ===== Back-to-top ===== */
-.back-to-top {
-  position: bottom;
-  left: 3rem;
-  bottom: 2rem;
-  z-index: 1200;
-  background-color: rgb(200, 133, 206);
-  color: black;
-  padding: 0.6em 1em;
+.nav-list a {
+  color: #39ff14;
   text-decoration: none;
+  font-size: 1.2rem;
+  text-transform: lowercase;
+  transition: color 0.3s;
+}
+.nav-list a:hover {
+  color: #fff;
+  text-shadow: 0 0 10px #39ff14;
+}
+.nav-list a.active {
+  color: #fff;
+  animation: glowShift 2s ease-in-out infinite alternate, flicker 3.5s infinite, pulse 4s infinite;
+}
+
+/* TITLE */
+#title {
+  text-align: center;
+  font-size: 6vw;
+  text-shadow: 0 0 20px #39ff14;
+  margin: 8rem 0 4rem;
+}
+
+/* MARQUEE */
+.repeat-text1 {
+  overflow: hidden;
+  white-space: nowrap;
+  margin-bottom: 8rem;
+}
+.track {
+  display: inline-block;
+  white-space: nowrap;
+  animation: marquee 25s linear infinite;
+}
+.track span {
+  padding-right: 4rem;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  text-shadow: 0 0 10px #39ff14;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem 8rem;
+}
+
+/* PORTFOLIO BLOCKS */
+.punkglowtitle, .block-text {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1s ease;
+}
+.punkglowtitle.visible, .block-text.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.punkglowtitle {
+  font-size: 2rem;
+  text-shadow: 0 0 10px #39ff14;
+  margin-bottom: 1rem;
+}
+.block-text {
+  text-align: justify;
+  line-height: 1.6;
+  text-shadow: 0 0 6px rgba(0,0,0,0.3);
+  margin-bottom: 15vh;
+}
+
+/* BACK TO TOP */
+.back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: rgba(0,0,0,0.6);
+  color: #39ff14;
+  border: 1px solid #39ff14;
+  padding: 0.5rem 1rem;
   border-radius: 6px;
-  font-weight: bold;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  opacity: 0.9;
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity 0.4s ease, background 0.3s ease;
 }
-.back-to-top:hover { opacity: 1; transform: translateY(-2px); }
-
-/* Hide scrollbars but keep scrolling */
-html, body { -ms-overflow-style: none; scrollbar-width: none; }
-html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
-
-/* ===== Neon text styles ===== */
-.punkglowtitle,
-.punkglow {
-  font-family: monospace;
-  color: #e7d6f3;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: right;
-  text-shadow:
-    0 0 2px #39ff14,
-    0 0 5px #39ff14,
-    0 0 10px #7dff57,
-    0 0 15px #66ff33;
-  animation: glowShift 6s ease-in-out infinite alternate, flicker 2.5s infinite;
-  opacity: 0.9;
-  margin-top: 1em;
+.back-to-top:hover {
+  background: #39ff14;
+  color: #000;
 }
-.punkglowtitle { font-size: 2em; }
-.punkglow      { font-size: 1.25em; }
 
-@keyframes glowShift {
-  0% { text-shadow: 0 0 2px #39ff14, 0 0 5px #39ff14, 0 0 10px #7dff57, 0 0 15px #66ff33; }
-  50% { text-shadow: 0 0 3px #52ff52, 0 0 7px #52ff52, 0 0 12px #8cff66, 0 0 20px #39ff14; }
-  100% { text-shadow: 0 0 2px #39ff14, 0 0 5px #39ff14, 0 0 10px #7dff57, 0 0 15px #66ff33; }
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 2rem 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* ANIMATIONS */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
 }
 @keyframes flicker {
   0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% { opacity: 1; }
-  20%, 24%, 55% { opacity: 0.4; }
+  20%, 24%, 55% { opacity: 0.6; }
+}
+@keyframes glowShift {
+  0% { text-shadow: 0 0 5px #39ff14, 0 0 10px #39ff14; }
+  100% { text-shadow: 0 0 15px #39ff14, 0 0 25px #39ff14; }
+}
+@keyframes pulse {
+  0%,100% { text-shadow: 0 0 4px #39ff14; }
+  50% { text-shadow: 0 0 15px #39ff14; }
 }
 
-/* ===== Mobile tweaks ===== */
-@media screen and (max-width: 400px) {
-  #title { font-size: 1.5em; padding: 0.4em 0.5em; text-align: left; }
-  .site-nav { top: 2.75em; padding: 0.25em 0.75rem; }
-  .nav-list { gap: 1rem; justify-content: flex-start; }
-  body { padding-bottom: 0; }
-  h2 { font-size: 1.25em; margin-top: 11em; padding: 0.4em 0.5em; text-align: left; white-space: nowrap; overflow: hidden; }
-  .container { align-items: flex-start; padding-left: clamp(0.75rem, 4vw, 1rem); padding-right: 0.75rem; }
-  h3 { font-size: 1.25em; text-align: right; padding: 0.5em 0.25em; margin: 0.25em 0; width: 100%; overflow-wrap: break-word; }
-  p, .container p, .block-text { max-width: 100%; text-align: right; padding: 0.5em 0.25em; margin: 0.25em 0; font-size: 1em; overflow-wrap: break-word; }
-  .block-text { text-align: justify; }
-  .back-to-top { padding: 0.4em 0.8em; font-size: 1em; left: 1em; bottom: 0.75em; }
-  .repeat-text1, .repeat-text2 { white-space: nowrap; margin-top: 1em; word-wrap: break-word; }
-  body, .container { padding-right: 0.5em; }
-}
-
-/* ========================================================= */
-/* ============ Research + Design two-column =============== */
-/* ========================================================= */
-
-/* Push content just below your fixed title (5em) + nav (~3.25rem) */
-.page {
-  padding-top: calc(5em + 3.25rem + 2rem);
-  padding-left: var(--pad-x);    /* align with nav left */
-  padding-right: var(--pad-x);   /* align with nav right */
-  box-sizing: border-box;
-}
-
-.rd-layout {
-  display: grid;
-  grid-template-columns: 70% 30%; /* give the carousel more room */
-  gap: clamp(1rem, 3vw, 2rem);
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-/* Keep media high and stop it from stretching across the column */
-.rd-media {
-  position: sticky;
-  top: calc(5em + 3.25rem + 2rem);
-  align-self: start;
-  justify-self: start; /* no side gutters */
-  width: 100%;
-}
-
-/* Right column: force ALL content to be left-aligned */
-.rd-copy,
-.rd-copy * { text-align: left !important; }
-.rd-copy p,
-.rd-copy .block-text { margin-left: 0; margin-right: auto; }
-.rd-copy .block-text { text-align: justify !important; }
-
-.rd-media,
-.rd-copy { max-width: 100%; overflow-wrap: break-word; }
-
-.rd-copy {
-  width: 100%;
-  box-sizing: border-box;
-  padding-right: 0;
-  padding-left: var(--pad-x); /* align with nav left */
-}
-
-/* ========================================================= */
-/* ==================== Carousel styles ==================== */
-/* ========================================================= */
-
-/* Big, proportion-correct carousel */
-.snap-carousel {
-  aspect-ratio: 11 / 17;     /* for initial sizing math, but not forcing width */
-  display: inline-flex;       /* shrink-wrap to content */
-  align-items: center;
-  justify-content: center;
-  width: auto;                /* <— no 100% fill */
-  height: auto;
-  max-width: 100%;            /* don’t overflow the grid column */
-  max-height: 95vh;           /* big but safe in viewport */
-  overflow: hidden;
-  border: 0;
-  padding: 0;
-  background: transparent;
-}
-
-/* Track fills the column so slides can grow */
-.snap-track {
-  display: inline-flex;       /* shrink-wrap to slides */
-  align-items: center;
-  gap: 0;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  width: auto;                /* <— no 100% */
-  max-width: 100%;
-}
-.snap-track::-webkit-scrollbar { display: none; }
-/* One slide per viewport width */
-.snap-slide {
-  flex: 0 0 auto;             /* <— no 100% basis */
-  margin: 0;
-  padding: 0;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  scroll-snap-align: start;
-}
-
-/* Image defines the box; preserve full 11x17 without crop */
-.snap-slide img {
-  display: block;
-  width: auto;                /* width is derived from height (keeps ratio) */
-  height: auto;
-  max-height: 95vh;           /* main size driver for “big” feel */
-  max-width: 100%;            /* if column is narrow, it will scale down */
-  object-fit: contain;        /* never crop */
-}
-
-/* Full-width caption footer */
-.snap-slide figcaption {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  padding: 0.5rem 0.75rem;
-  font-family: monospace;
-  font-size: 0.95rem;
-  color: black;
-  background: rgba(231,214,243,0.8);
-  text-align: center;
-  border-radius: 0;
-  white-space: normal;
-}
-
-/* Arrows */
-.carousel-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(231, 214, 243, 0.9);
-  color: black;
-  border: 0;
-  font-size: 2rem;
-  padding: 0.25em 0.5em;
-  cursor: pointer;
-  border-radius: 6px;
-  z-index: 10;
-}
-.carousel-btn.prev { left: 0.25rem; }
-.carousel-btn.next { right: 0.25rem; }
-
-/* ========================================================= */
-/* ====================== Responsive ======================= */
-/* ========================================================= */
-@media (max-width: 900px) {
-  .rd-layout { grid-template-columns: 1fr; }
-  .rd-media  { position: static; }   /* no sticky on narrow screens */
-  .rd-copy   { margin-top: 1rem; padding-left: var(--pad-x); }
-  /* When stacked, let the image be a bit shorter */
-  .snap-slide img { max-height: 55vh; }
-}
-
-/* === CAROUSEL SIZE & NO-CROP — FINAL OVERRIDES === */
-
-/* available vertical space = viewport - fixed title+nav - caption */
-:root {
-  /* adjust if your header stack changes */
-  --chrome-h: calc(5em + 3.25rem + 2rem); /* title + nav + breathing room */
-  --caption-h: 2.25rem;                   /* caption line height area */
-}
-
-/* The carousel grows to the lesser of: column width or height-limited width.
-   Width from height uses the 11:17 ratio -> width = height * (11/17). */
-.snap-carousel {
-  display: block;                 /* stable block container inside grid */
-  overflow: visible;              /* don't clip image/caption */
-  padding: 0;
-  border: 0;
-  background: transparent;
-
-  /* BIG: width limited by column (100%) and by height-based ratio */
-  width: min(100%, calc((100vh - var(--chrome-h) - var(--caption-h)) * (11 / 17)));
-  /* Let the height come from the image; no hard aspect-ratio needed */
-}
-
-/* Track fills the carousel width (so slides can be wide) */
-.snap-track {
-  display: flex;
-  width: 100%;
-  max-width: 100%;
-  gap: 0;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-}
-.snap-track::-webkit-scrollbar { display: none; }
-
-/* One slide per view; height comes from its content (the image) */
-.snap-slide {
-  flex: 0 0 100%;
-  margin: 0;
-  padding: 0;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  scroll-snap-align: start;
-}
-
-/* The image drives size. It can expand up to the usable viewport height.
-   No crop. No side bars because the container width equals the image width. */
-.snap-slide img {
-  display: block;
-  width: 100%;  /* match the carousel width computed above */
-  height: auto;
-  max-height: calc(100vh - var(--chrome-h) - var(--caption-h));
-  object-fit: contain;
-}
-
-/* Keep the caption OUT of the image area so it never looks “cut off”.
-   If you prefer an overlay, use the overlay variant below instead. */
-.snap-slide figcaption {
-  position: static;                 /* below the image */
-  margin-top: 0.35rem;
-  padding: 0.5rem 0.75rem;
-  font-family: monospace;
-  font-size: 0.95rem;
-  color: black;
-  background: rgba(231,214,243,0.8);
-  text-align: center;
-  border-radius: 0;
-  white-space: normal;
-}
-
-/* Arrow buttons remain positioned relative to the carousel box */
-.carousel-btn {
-  position: absolute;
-  top: calc(50% - var(--caption-h) / 2);
-  transform: translateY(-50%);
-  background: rgba(231, 214, 243, 0.9);
-  color: black;
-  border: 0;
-  font-size: 2rem;
-  padding: 0.25em 0.5em;
-  cursor: pointer;
-  border-radius: 6px;
-  z-index: 10;
-}
-.carousel-btn.prev { left: 0.25rem; }
-.carousel-btn.next { right: 0.25rem; }
-
-/* Responsive tweak: when stacked, reduce max height a bit */
-@media (max-width: 900px) {
-  .snap-carousel {
-    width: min(100%, calc((100vh - var(--chrome-h) - var(--caption-h)) * (11 / 17)));
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .nav-list {
+    flex-wrap: wrap;
+    gap: 1rem;
   }
-  .snap-slide img {
-    max-height: calc(100vh - var(--chrome-h) - var(--caption-h) - 6vh);
+  #title {
+    font-size: 3em;
+    margin: 6rem 0 2rem;
+  }
+  .track span {
+    font-size: 1rem;
+  }
+  .punkglowtitle {
+    font-size: 1.4rem;
+  }
+  .block-text {
+    margin-bottom: 10vh;
   }
 }
