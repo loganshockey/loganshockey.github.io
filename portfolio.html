@@ -332,28 +332,28 @@ HTML: <!DOCTYPE html>
         <a class="back-to-top" href="#top" aria-label="Back to top">Back to top</a>
         </h2>   
         
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.cells.min.js"></script>
+        <script src="three.r134.min.js"></script>
+        <script src="vanta.birds.min.js"></script>
         <script>
-            VANTA.CELLS({
-                el: "#vanta-bg",
-                mouseControls: true,
-                touchControls: true,
-                gyroControls: false,
-                minHeight: 200.00,
-                minWidth: 200.00,
-                scale: 1.00,
-                scaleMobile: 3.00,
-                size: 2.0,
-                speed: 1.0,
-                backgroundAlpha: 1,
-                backgroundColor: 0xd7ff8f, 
-                color1: 0xacbcc0,
-                color2: 0xdeddcd,
-                amplitudeFactor: 1.0,
-                ringFactor: 1.0,
-                rotationFactor: 1.0
-            });
+          VANTA.BIRDS({
+            el: "#your-element-selector",
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            backgroundColor: 0xf9e2b3,
+            color1: 0xca4013,
+            color2: 0xff8b00,
+            colorMode: "lerpGradient",
+            birdSize: 1.30,
+            wingSpan: 25.00,
+            alignment: 30.00,
+            cohesion: 57.00,
+            quantity: 3.00
+          })
         
 
     // Auto-highlight current nav link
