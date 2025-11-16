@@ -1,9 +1,8 @@
 /* ===== Base / Global ===== */
 :root {
-  /* Keep layout padding in sync across navbar, page, and copy column */
   --pad-x: 1rem;
-  --chrome-h: calc(5em + 3.25rem + 2rem); /* title + nav + breathing room */
-  --caption-h: 2.25rem;                   /* caption line height area */
+  --chrome-h: calc(5em + 3.25rem + 2rem);
+  --caption-h: 2.25rem;
 }
 
 html {
@@ -12,18 +11,16 @@ html {
   overflow-x: hidden;
 }
 
-/* Vanta provides the background */
 body {
   color: beige;
   margin: 0;
   font-size: 1em;
-  padding: 0;
-  padding-right: 1em;
+  padding: 0 1em;
   overflow-x: hidden;
-  background-color: black; /* fallback while Vanta loads */
+  background-color: black;
 }
 
-/* Mirror the Vanta background horizontally */
+/* Mirror Vanta background */
 #vanta-bg canvas {
   transform: scaleX(-1);
   transform-origin: center;
@@ -31,33 +28,30 @@ body {
 
 .archivo-black-regular {
   font-family: "Archivo Black", sans-serif;
-  font-weight: 400;
-  font-style: normal;
 }
 
-#title span { display: block; text-align: left; margin: 0; padding: 0; }
-
+/* ===== Header + nav ===== */
 #title {
   margin: 0;
   position: fixed;
   top: 0;
+  left: 0;
   z-index: 1000;
   font-family: "Archivo Black", sans-serif;
   color: rgb(200, 133, 206);
-  padding: .5em;
+  padding: 0.5em;
   font-size: 5em;
   max-width: 100%;
   box-sizing: border-box;
 }
 
-/* ===== Fixed Neon Nav ===== */
 .site-nav {
   position: fixed;
-  top: 5em; /* stays below the title */
-  left: 10%; /* aligns left edge with content */
-  right: 10%; /* aligns right edge with content */
+  top: 5em;
+  left: 10%;
+  right: 10%;
   z-index: 999;
-  padding: 0.35em 0; /* remove horizontal padding, since left/right now handle spacing */
+  padding: 0.35em 0;
 }
 
 .nav-list {
@@ -66,7 +60,7 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
-  justify-content: flex-end; /* keep items right-aligned inside the nav bar */
+  justify-content: flex-end;
 }
 
 .nav-list li { margin: 0; }
@@ -77,7 +71,7 @@ body {
   text-transform: uppercase;
   font-size: clamp(1.62rem, 3.6vw, 1.89rem);
   color: #e7d6f3;
-  padding: 0.25em 0em;
+  padding: 0.25em 0;
   position: relative;
   transition: transform 120ms ease;
   text-shadow:
@@ -88,6 +82,7 @@ body {
   animation: glowShift 2s ease-in-out infinite alternate, flicker 3.5s infinite;
   opacity: 0.9;
 }
+
 .nav-list a:hover,
 .nav-list a:focus-visible { transform: translateY(-1px); outline: none; }
 
@@ -101,22 +96,53 @@ body {
   transition: transform 140ms ease;
   background: linear-gradient(90deg, #39ff14, #ffea00);
 }
+
 .nav-list a:hover::after,
 .nav-list a:focus-visible::after,
 .nav-list a.active::after { transform: scaleX(1); }
 
-/* ===== Content spacing ===== */
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;     
-  width: 100%;
-  padding-left: clamp(1rem, 4vw, 3rem);
-  padding-right: 1rem;       
-  margin-top: 20em;          
+/* ===== Main page content ===== */
+.page {
+  padding-top: calc(5em + 3.25rem + 2rem);
 }
 
-/* Headings */
+/* ===== Projects stacked layout ===== */
+.project {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 3vw, 2rem);
+  margin: 4rem auto 3.5rem auto;
+  width: 80%;
+}
+
+.project .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: justify;
+  color: beige;
+  font-family: monospace;
+}
+
+.project .text h3.punkglowtitle {
+  font-size: 2.5em;
+  margin-bottom: 0.5em;
+}
+
+.project .text .punkglow {
+  font-size: 1.25em;
+  margin-bottom: 1em;
+}
+
+.project .image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  object-fit: contain;
+}
+
+/* ===== Headings and paragraphs ===== */
 h2 {
   font-family: "Archivo Black", sans-serif;
   color: rgb(200, 133, 206);
@@ -127,89 +153,27 @@ h2 {
   overflow: hidden;
 }
 
-.page-description {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 12em;
-  color: rgb(200, 133, 206);
-  font-size: .5em;
-}
-
 h3 {
-  text-align: right;
   font-family: monospace, 'Lucida Sans';
   color: beige;
   font-size: 2em;
-  padding-right: 0;
-  margin-right: 0;
+  margin: 0.5em 0;
 }
 
-/* Paragraphs — default right-aligned sitewide */
-p,
-.container p,
-.block-text {
+p {
   width: auto;
   max-width: min(70ch, 92vw);
   margin-left: auto;
   margin-right: 0;
   box-sizing: border-box;
-  padding-right: 0;
   text-align: right;
   font-family: monospace, 'Lucida Sans';
   color: beige;
   font-size: 1.25em;
-  overflow-wrap: anywhere;
-  word-break: normal;
-  hyphens: auto;
+  line-height: 1.45;
 }
+
 .block-text { text-align: justify; }
-
-/* ===== Marquee ===== */
-.repeat-text1 {
-  display: flex;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 100vw;
-  position: relative;
-}
-.repeat-text1 span {
-  display: inline-block;
-  padding-right: 2rem;
-  animation: scrollText 20s linear infinite;
-}
-.repeat-text1 .track {
-  display: inline-flex;
-  align-items: center;
-  gap: 2rem;
-  will-change: transform;
-  animation: marquee 23s linear infinite;
-}
-.repeat-text1 .track:hover { animation-play-state: paused; }
-.repeat-text1 .track > span { display: inline-block; white-space: nowrap; word-spacing: 1.5rem; }
-
-@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@keyframes scrollText { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
-
-/* ===== Back-to-top ===== */
-.back-to-top {
-  position: bottom;
-  left: 3rem;
-  bottom: 2rem;
-  z-index: 1200;
-  background-color: rgb(200, 133, 206);
-  color: black;
-  padding: 0.6em 1em;
-  text-decoration: none;
-  border-radius: 6px;
-  font-weight: bold;
-  transition: opacity 0.25s ease, transform 0.25s ease;
-  opacity: 0.9;
-}
-.back-to-top:hover { opacity: 1; transform: translateY(-2px); }
-
-/* Hide scrollbars but keep scrolling */
-html, body { -ms-overflow-style: none; scrollbar-width: none; }
-html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 
 /* ===== Neon text styles ===== */
 .punkglowtitle,
@@ -228,8 +192,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   opacity: 0.9;
   margin-top: 1em;
 }
-.punkglowtitle { font-size: 2em; }
-.punkglow      { font-size: 1.25em; }
+.punkglowtitle { font-size: 2.5em; }
+.punkglow { font-size: 1.25em; }
 
 @keyframes glowShift {
   0% { text-shadow: 0 0 2px #39ff14, 0 0 5px #39ff14, 0 0 10px #7dff57, 0 0 15px #66ff33; }
@@ -241,145 +205,42 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   20%, 24%, 55% { opacity: 0.4; }
 }
 
-/* ===== Mobile tweaks ===== */
+/* ===== Back-to-top button ===== */
+.back-to-top {
+  position: fixed;
+  left: 3rem;
+  bottom: 2rem;
+  z-index: 1200;
+  background-color: rgb(200, 133, 206);
+  color: black;
+  padding: 0.6em 1em;
+  text-decoration: none;
+  border-radius: 6px;
+  font-weight: bold;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  opacity: 0.9;
+}
+.back-to-top:hover { opacity: 1; transform: translateY(-2px); }
+
+/* ===== Hide scrollbars ===== */
+html, body { -ms-overflow-style: none; scrollbar-width: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
+
+/* ===== Responsive tweaks ===== */
+@media (max-width: 900px) {
+  .project { width: 95%; gap: 1rem; }
+  .project .text { justify-content: flex-start; }
+  .project .image img { max-height: calc(60vh - 2.25rem); }
+}
+
 @media screen and (max-width: 400px) {
   #title { font-size: 1.5em; padding: 0.4em 0.5em; text-align: left; }
   .site-nav { top: 2.75em; padding: 0.25em 0.75rem; }
   .nav-list { gap: 1rem; justify-content: flex-start; }
-  body { padding-bottom: 0; }
-  h2 { font-size: 1.25em; margin-top: 11em; padding: 0.4em 0.5em; text-align: left; white-space: nowrap; overflow: hidden; }
-  .container { align-items: flex-start; padding-left: clamp(0.75rem, 4vw, 1rem); padding-right: 0.75rem; }
-  h3 { font-size: 1.25em; text-align: right; padding: 0.5em 0.25em; margin: 0.25em 0; width: 100%; overflow-wrap: break-word; }
-  p, .container p, .block-text { max-width: 100%; text-align: right; padding: 0.5em 0.25em; margin: 0.25em 0; font-size: 1em; overflow-wrap: break-word; }
+  h2 { font-size: 1.25em; margin-top: 11em; padding: 0.4em 0.5em; text-align: left; }
+  .project { width: 100%; gap: 0.75rem; }
+  h3 { font-size: 1.25em; text-align: right; padding: 0.5em 0.25em; margin: 0.25em 0; width: 100%; }
+  p { max-width: 100%; text-align: right; padding: 0.5em 0.25em; margin: 0.25em 0; font-size: 1em; }
   .block-text { text-align: justify; }
   .back-to-top { padding: 0.4em 0.8em; font-size: 1em; left: 1em; bottom: 0.75em; }
-  .repeat-text1, .repeat-text2 { white-space: nowrap; margin-top: 1em; word-wrap: break-word; }
-  body, .container { padding-right: 0.5em; }
-}
-
-
-/* ===== Project stacked layout ===== */
-.project {
-  display: flex;
-  flex-direction: column; /* stack text then image vertically */
-  gap: clamp(1rem, 3vw, 2rem);
-  margin-bottom: 3.5rem;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-/* Text container: justified and styled */
-.project .text {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  text-align: justify; /* make all text justified */
-  color: beige;
-  font-family: monospace;
-}
-
-.project .text h3.punkglowtitle {
-  font-size: 2.5em; /* larger title */
-  margin-bottom: 0.5em;
-}
-
-.project .text .punkglow {
-  font-size: 1.25em;
-  margin-bottom: 1em;
-}
-
-/* Image container */
-.project .image img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 6px;
-  object-fit: contain;
-}
-
-/* Responsive: ensure stacking works nicely on mobile */
-@media (max-width: 900px) {
-  .project {
-    width: 95%;
-    gap: 1rem;
-  }
-}
-
-/* ========================================================= */
-/* ==================== Carousel styles ==================== */
-/* ========================================================= */
-
-/* Big, proportion-correct carousel */
-.snap-carousel {
-  display: block;                 
-  overflow: visible;              
-  padding: 0;
-  border: 0;
-  background: transparent;
-  width: min(100%, calc((100vh - var(--chrome-h) - var(--caption-h)) * (11 / 17)));
-}
-.snap-track {
-  display: flex;
-  width: 100%;
-  max-width: 100%;
-  gap: 0;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-}
-.snap-track::-webkit-scrollbar { display: none; }
-.snap-slide {
-  flex: 0 0 100%;
-  margin: 0;
-  padding: 0;
-  height: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  scroll-snap-align: start;
-}
-.snap-slide img {
-  display: block;
-  width: 100%;
-  height: auto;
-  max-height: calc(100vh - var(--chrome-h) - var(--caption-h));
-  object-fit: contain;
-}
-.snap-slide figcaption {
-  position: static;                 
-  margin-top: 0.35rem;
-  padding: 0.5rem 0.75rem;
-  font-family: monospace;
-  font-size: 0.95rem;
-  color: black;
-  background: rgba(231,214,243,0.8);
-  text-align: center;
-  border-radius: 0;
-  white-space: normal;
-}
-.carousel-btn {
-  position: absolute;
-  top: calc(50% - var(--caption-h) / 2);
-  transform: translateY(-50%);
-  background: rgba(231, 214, 243, 0.9);
-  color: black;
-  border: 0;
-  font-size: 2rem;
-  padding: 0.25em 0.5em;
-  cursor: pointer;
-  border-radius: 6px;
-  z-index: 10;
-}
-.carousel-btn.prev { left: 0.25rem; }
-.carousel-btn.next { right: 0.25rem; }
-
-@media (max-width: 900px) {
-  .snap-carousel {
-    width: min(100%, calc((100vh - var(--chrome-h) - var(--caption-h)) * (11 / 17)));
-  }
-  .snap-slide img {
-    max-height: calc(100vh - var(--chrome-h) - var(--caption-h) - 6vh);
-  }
 }
