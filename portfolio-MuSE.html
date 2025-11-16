@@ -11,35 +11,34 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet" />
 
-  <!-- Your site CSS (keeps existing rules) -->
+  <!-- Your site CSS -->
   <link rel="stylesheet" href="portfolio.css" />
 
-  <!-- Minimal base so the page is visible even if external CSS is cached -->
   <style>
     html, body { height: 100%; }
     body { margin: 0; background: #000; color: beige; }
     #vanta-bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; }
 
-    /* Fixed title + nav */
-    #title {
-      margin: 0;
+    /* ---------- Header + nav ---------- */
+    .page-header {
+      width: 80%;
+      margin: 0 auto;
       position: fixed;
       top: 0;
-      left: 0;
+      left: 0; right: 0;
       z-index: 1000;
+    }
+
+    #title {
+      margin: 0;
       font-family: "Archivo Black", sans-serif;
       color: rgb(200,133,206);
-      padding: .5em;
       font-size: 5em;
+      padding: 0.5em 0;
     }
 
     .site-nav {
-      position: fixed;
-      top: 5em;
-      left: 0;
-      right: 0;
-      z-index: 999;
-      padding: 0.35em 1rem;
+      padding: 0.35em 0;
     }
 
     .nav-list {
@@ -58,65 +57,34 @@
       text-transform: uppercase;
     }
 
-    /* Main page container; top padding will be set by --chrome-h in overrides */
+    /* Main page content */
     .page {
-      padding-left: 1rem;
-      padding-right: 1rem;
-      box-sizing: border-box;
-    }
-  </style>
-
-  <!-- Final overrides (layout + spacing) -->
-  <style id="final-overrides">
-    h1{
-      padding-top: 60%;
+      padding-top: calc(5em + 3.25rem + 2rem);
     }
 
-    /* Align page padding with nav */
-    .site-nav { padding-left: var(--pad-x); padding-right: var(--pad-x); }
-    .page     { padding-left: var(--pad-x); padding-right: var(--pad-x); padding-top: var(--chrome-h); }
-
-    /* Remove any old carousel classes if present */
-    #muse-carousel,
-    .snap-carousel,
-    .snap-track,
-    .snap-slide,
-    .carousel-btn {
-      display: none !important;
-    }
-
-    /* ---------- New project rows: image LEFT, text RIGHT ---------- */
+    /* ---------- Projects ---------- */
     .project {
       display: grid;
       grid-template-columns: 60% 40%;
       gap: clamp(1rem, 3vw, 2rem);
-      align-items: end; /* bottom-align text with image */
-      margin-bottom: 3.5rem;
-      align-content: start;
+      align-items: end; /* bottom-align text */
+      margin: 4rem auto;
       width: 80%;
-      margin-left: auto;
-      margin-right: auto;
     }
 
-    /* Image column */
-    .project .left {
-      width: 100%;
-    }
     .project .left img {
       display: block;
       width: 100%;
       height: auto;
       border-radius: 6px;
-      /* prevent images from blowing past the viewport minus chrome */
-      max-height: calc(100vh - var(--chrome-h) - var(--caption-h) - 4vh);
+      max-height: calc(100vh - 12rem - 2.25rem); /* chrome + caption */
       object-fit: contain;
     }
 
-    /* Text column: make the text block sit at the bottom of the grid row */
     .project .right {
       display: flex;
       flex-direction: column;
-      justify-content: flex-end; /* pushes text to the bottom of the column */
+      justify-content: flex-end;
       color: beige;
       font-family: monospace;
     }
@@ -124,40 +92,34 @@
     .project .right h3 { margin-top: 0; margin-bottom: 0.5rem; }
     .project .right p { margin: 0 0 0.5rem 0; line-height: 1.45; }
 
-    /* Responsive: stack vertically on small screens */
+    /* Responsive */
     @media (max-width: 900px) {
       .project {
         grid-template-columns: 1fr;
         gap: 1.25rem;
         align-items: stretch;
       }
-      .project .right {
-        justify-content: flex-start; /* normal flow on mobile */
-        padding-bottom: 1rem;
-      }
-      /* make images slightly shorter on small screens so title/nav don't overlap visually */
-      .project .left img {
-        max-height: calc(60vh - var(--caption-h));
-      }
+      .project .right { justify-content: flex-start; padding-bottom: 1rem; }
+      .project .left img { max-height: calc(60vh - 2.25rem); }
     }
   </style>
 </head>
-
 <body>
   <!-- Vanta background -->
   <div id="vanta-bg"></div>
 
-  <div id="top"></div>
-  <h1 id="title">logan shockey</h1>
-
-  <nav class="site-nav" aria-label="Primary">
-    <ul class="nav-list">
-      <li><a href="portfolio.html">home</a></li>
-      <li><a href="research-design.html">research + design</a></li>
-      <li><a href="art.html">art</a></li>
-      <li><a href="ethos-contact.html">ethos + contact</a></li>
-    </ul>
-  </nav>
+  <!-- Header + nav -->
+  <header class="page-header">
+    <h1 id="title">logan shockey</h1>
+    <nav class="site-nav" aria-label="Primary">
+      <ul class="nav-list">
+        <li><a href="portfolio.html">home</a></li>
+        <li><a href="research-design.html">research + design</a></li>
+        <li><a href="art.html">art</a></li>
+        <li><a href="ethos-contact.html">ethos + contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
   <main class="page" role="main">
     <!-- PROJECT 1 -->
@@ -168,41 +130,31 @@
       <aside class="right">
         <h3 class="punkglowtitle">MuSE</h3>
         <p class="punkglow">For Enhanced blah blah blah...</p>
-        <p>
-          Placeholder content for research &amp; design. Add your sections here—case studies,
-          methods, diagrams, and links to PDFs or external write-ups.
-        </p>
+        <p>Placeholder content for research &amp; design. Add case studies, methods, diagrams, links, etc.</p>
       </aside>
     </section>
 
     <!-- PROJECT 2 -->
     <section class="project">
       <div class="left">
-        <img src="testpage.png" alt="MuSE — overview image">
+        <img src="images/muse-2.jpg" alt="Interface close-up">
       </div>
       <aside class="right">
         <h3>Interface Close-Up</h3>
-        <p>
-          Additional explanation or visual detail about this stage of the project. Insert
-          diagrams, notes, or contextual information here.
-        </p>
+        <p>Additional explanation or visual detail about this stage of the project. Insert diagrams, notes, or contextual information here.</p>
       </aside>
     </section>
 
     <!-- PROJECT 3 -->
     <section class="project">
       <div class="left">
-        <img src="testpage.png" alt="MuSE — overview image">
+        <img src="images/muse-3.jpg" alt="Participant interaction">
       </div>
       <aside class="right">
         <h3>Participant Interaction</h3>
-        <p>
-          Describe participant behavior, feedback, or insights gained from testing. You can
-          expand this with more narrative or swap in another image.
-        </p>
+        <p>Describe participant behavior, feedback, or insights gained from testing. Expand with narrative or additional images.</p>
       </aside>
     </section>
-
   </main>
 
   <!-- Three.js + Vanta -->
