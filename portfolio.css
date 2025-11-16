@@ -291,18 +291,21 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 .project .right {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* keeps main text at the bottom */
+  justify-content: space-between; /* top-text stays at top, other content at bottom */
   color: beige;
   font-family: monospace;
   text-align: justify;
-  gap: 0.5em; /* spacing between elements */
+  gap: 0.5em; /* optional spacing between elements */
 }
 
 .project .right .punkglowtitle {
-  font-size: 2.5em;          /* bigger than regular h3 */
-  margin-top: 0;              /* remove top margin */
-  margin-bottom: auto;        /* pushes rest of content to bottom */
-  text-align: left;           /* optional: align title left in the right column */
+  font-size: 2.5em;
+  margin: 0;
+}
+
+.project .right .punkglow {
+  font-size: 1.5em;
+  margin: 0.25em 0 0 0; /* small spacing below title */
 }
 
 .project .right h3 {
