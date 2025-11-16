@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <title>Research + Design — Logan Shockey</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,19 +11,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet" />
 
-  <!-- Your CSS -->
-  <link rel="stylesheet" href="portfolio.css" />
+  <!-- Your site CSS (keeps existing rules) -->
+  <link rel="stylesheet" href="portfolio.css?v=9" />
 
-  <!-- Minimal base for visibility -->
+  <!-- Minimal base so the page is visible even if external CSS is cached -->
   <style>
     html, body { height: 100%; }
     body { margin: 0; background: #000; color: beige; }
     #vanta-bg { position: fixed; inset: 0; width: 100%; height: 100%; z-index: -1; }
 
+    /* Fixed title + nav */
     #title {
       margin: 0;
       position: fixed;
       top: 0;
+      left: 0;
       z-index: 1000;
       font-family: "Archivo Black", sans-serif;
       color: rgb(200,133,206);
@@ -34,7 +36,8 @@
     .site-nav {
       position: fixed;
       top: 5em;
-      left: 0; right: 0;
+      left: 0;
+      right: 0;
       z-index: 999;
       padding: 0.35em 1rem;
     }
@@ -55,75 +58,96 @@
       text-transform: uppercase;
     }
 
+    /* Main page container; top padding will be set by --chrome-h in overrides */
     .page {
-      padding-top: calc(5em + 3.25rem + 2rem);
       padding-left: 1rem;
       padding-right: 1rem;
       box-sizing: border-box;
     }
   </style>
 
-  <!-- Final overrides -->
+  <!-- Final overrides (layout + spacing) -->
   <style id="final-overrides">
-    :root{
-      --pad-x: 1rem;
+    h1{
+      padding-top: 60%;
     }
 
+    /* Align page padding with nav */
     .site-nav { padding-left: var(--pad-x); padding-right: var(--pad-x); }
-    .page     { padding-left: var(--pad-x); padding-right: var(--pad-x); }
+    .page     { padding-left: var(--pad-x); padding-right: var(--pad-x); padding-top: var(--chrome-h); }
 
-    /* New alternating layout */
-    .alt-block {
+    /* Remove any old carousel classes if present */
+    #muse-carousel,
+    .snap-carousel,
+    .snap-track,
+    .snap-slide,
+    .carousel-btn {
+      display: none !important;
+    }
+
+    /* ---------- New project rows: image LEFT, text RIGHT ---------- */
+    .project {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
-      align-items: center;
-      margin-bottom: 4rem;
-      padding: 0 1rem;
+      grid-template-columns: 60% 40%;
+      gap: clamp(1rem, 3vw, 2rem);
+      align-items: end; /* bottom-align text with image */
+      margin-bottom: 3.5rem;
+      align-content: start;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .alt-block.reverse {
-      direction: rtl; /* flips content visually without changing HTML semantics */
+    /* Image column */
+    .project .left {
+      width: 100%;
     }
-    .alt-block.reverse > * {
-      direction: ltr; /* restore text direction */
-    }
-
-    .alt-img img {
+    .project .left img {
+      display: block;
       width: 100%;
       height: auto;
-      border-radius: 8px;
-      display: block;
+      border-radius: 6px;
+      /* prevent images from blowing past the viewport minus chrome */
+      max-height: calc(100vh - var(--chrome-h) - var(--caption-h) - 4vh);
+      object-fit: contain;
     }
 
-    .alt-text {
+    /* Text column: make the text block sit at the bottom of the grid row */
+    .project .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end; /* pushes text to the bottom of the column */
       color: beige;
       font-family: monospace;
     }
 
-    h1 {
-      padding-top: 60px;
-    }
+    .project .right h3 { margin-top: 0; margin-bottom: 0.5rem; }
+    .project .right p { margin: 0 0 0.5rem 0; line-height: 1.45; }
 
-    /* Mobile: stack vertically */
+    /* Responsive: stack vertically on small screens */
     @media (max-width: 900px) {
-      .alt-block {
+      .project {
         grid-template-columns: 1fr;
+        gap: 1.25rem;
+        align-items: stretch;
       }
-      .alt-block.reverse {
-        grid-template-columns: 1fr;
-        direction: ltr;
+      .project .right {
+        justify-content: flex-start; /* normal flow on mobile */
+        padding-bottom: 1rem;
       }
-      
+      /* make images slightly shorter on small screens so title/nav don't overlap visually */
+      .project .left img {
+        max-height: calc(60vh - var(--caption-h));
+      }
     }
   </style>
 </head>
 
 <body>
-
-  <!-- Vanta Background -->
+  <!-- Vanta background -->
   <div id="vanta-bg"></div>
 
+  <div id="top"></div>
   <h1 id="title">logan shockey</h1>
 
   <nav class="site-nav" aria-label="Primary">
@@ -135,66 +159,55 @@
     </ul>
   </nav>
 
-  <!-- MAIN CONTENT -->
   <main class="page" role="main">
-
-    <!-- BLOCK 1: Image left, text right -->
-    <section class="alt-block">
-      <div class="alt-img">
-        <img src="testpage.png" alt="MuSE overview">
+    <!-- PROJECT 1 -->
+    <section class="project">
+      <div class="left">
+        <img src="testpage.png" alt="MuSE — overview image">
       </div>
-
-      <div class="alt-text">
+      <aside class="right">
         <h3 class="punkglowtitle">MuSE</h3>
-        <p class="punkglow">For Enhanced blah blah blah…</p>
+        <p class="punkglow">For Enhanced blah blah blah...</p>
         <p>
           Placeholder content for research &amp; design. Add your sections here—case studies,
           methods, diagrams, and links to PDFs or external write-ups.
         </p>
-      </div>
+      </aside>
     </section>
 
-    <!-- BLOCK 2: Text left, image right -->
-    <section class="alt-block reverse">
-      <div class="alt-img">
-        <img src="testpage.png" alt="MuSE overview">
-      <div class="alt-text">
+    <!-- PROJECT 2 -->
+    <section class="project">
+      <div class="left">
+        <img src="images/muse-2.jpg" alt="Interface close-up">
+      </div>
+      <aside class="right">
         <h3>Interface Close-Up</h3>
         <p>
           Additional explanation or visual detail about this stage of the project. Insert
           diagrams, notes, or contextual information here.
         </p>
-      </div>
-
-      <div class="alt-img">
-        <img src="images/muse-2.jpg" alt="Interface close-up">
-      </div>
+      </aside>
     </section>
 
-    <!-- BLOCK 3: Image left, text right -->
-    <section class="alt-block">
-      <div class="alt-img">
-        <img src="testpage.png" alt="MuSE overview">
-      <div class="alt-img">
+    <!-- PROJECT 3 -->
+    <section class="project">
+      <div class="left">
         <img src="images/muse-3.jpg" alt="Participant interaction">
       </div>
-
-      <div class="alt-text">
+      <aside class="right">
         <h3>Participant Interaction</h3>
         <p>
-          Describe participant behavior, feedback, or insights gained from testing.  
-          You can expand this with more narrative or swap in another image.
+          Describe participant behavior, feedback, or insights gained from testing. You can
+          expand this with more narrative or swap in another image.
         </p>
-      </div>
+      </aside>
     </section>
 
   </main>
 
-
-  <!-- Vanta.js -->
+  <!-- Three.js + Vanta -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.cells.min.js"></script>
-
   <script>
     VANTA.CELLS({
       el: "#vanta-bg",
@@ -227,6 +240,5 @@
       });
     })();
   </script>
-
 </body>
 </html>
