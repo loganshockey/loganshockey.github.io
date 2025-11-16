@@ -291,12 +291,18 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
 .project .right {
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;  
+  justify-content: flex-end; /* pushes text to the bottom of the column */
   color: beige;
   font-family: monospace;
+  text-align: justify; /* new: justify text */
 }
 
-.project .right h3 { margin-top: 0; margin-bottom: 0.5rem; }
+.project .right h3 {
+  text-align: right;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
 .project .right p { margin: 0 0 0.5rem 0; line-height: 1.45; }
 
 @media (max-width: 900px) {
