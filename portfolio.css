@@ -257,77 +257,52 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { width: 0; height: 0; }
   body, .container { padding-right: 0.5em; }
 }
 
-/* ========================================================= */
-/* ============ Research + Design two-column =============== */
-/* ========================================================= */
-.page {
-  padding-top: var(--chrome-h);
-  padding-left: var(--pad-x);  
-  padding-right: var(--pad-x);
-  box-sizing: border-box;
-}
 
+/* ===== Project stacked layout ===== */
 .project {
-  display: grid;
-  grid-template-columns: 60% 40%;
+  display: flex;
+  flex-direction: column; /* stack text then image vertically */
   gap: clamp(1rem, 3vw, 2rem);
-  align-items: end;           
   margin-bottom: 3.5rem;
-  width: 100%;                 
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.project .left {
-  width: 100%;
+/* Text container: justified and styled */
+.project .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: justify; /* make all text justified */
+  color: beige;
+  font-family: monospace;
 }
-.project .left img {
+
+.project .text h3.punkglowtitle {
+  font-size: 2.5em; /* larger title */
+  margin-bottom: 0.5em;
+}
+
+.project .text .punkglow {
+  font-size: 1.25em;
+  margin-bottom: 1em;
+}
+
+/* Image container */
+.project .image img {
   display: block;
   width: 100%;
   height: auto;
   border-radius: 6px;
-  max-height: calc(100vh - var(--chrome-h) - var(--caption-h) - 4vh);
   object-fit: contain;
 }
 
-.project .right {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* top-text stays at top, other content at bottom */
-  color: beige;
-  font-family: monospace;
-  text-align: justify;
-  gap: 0.5em; /* optional spacing between elements */
-}
-
-.project .right .punkglowtitle {
-  font-size: 2.5em;
-  margin: 0;
-}
-
-.project .right .punkglow {
-  font-size: 1.5em;
-  margin: 0.25em 0 0 0; /* small spacing below title */
-}
-
-.project .right h3 {
-  text-align: right;
-  margin-top: 0;
-  margin-bottom: 0.5rem;
-}
-
-.project .right p { margin: 0 0 0.5rem 0; line-height: 1.45; }
-
+/* Responsive: ensure stacking works nicely on mobile */
 @media (max-width: 900px) {
   .project {
-    grid-template-columns: 1fr;
-    gap: 1.25rem;
-    align-items: stretch;
-  }
-  .project .right {
-    justify-content: flex-start; 
-    padding-bottom: 1rem;
-  }
-  .project .left img {
-    max-height: calc(60vh - var(--caption-h));
+    width: 95%;
+    gap: 1rem;
   }
 }
 
