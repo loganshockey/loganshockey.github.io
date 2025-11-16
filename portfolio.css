@@ -52,22 +52,21 @@ body {
 
 /* ===== Fixed Neon Nav ===== */
 .site-nav {
-  position: fixed;          
-  top: 5em;                 
-  left: 0;
-  right: 0;
-  z-index: 999;             
-  padding: 0.35em var(--pad-x); 
+  position: fixed;
+  top: 5em; /* stays below the title */
+  left: 10%; /* aligns left edge with content */
+  right: 10%; /* aligns right edge with content */
+  z-index: 999;
+  padding: 0.35em 0; /* remove horizontal padding, since left/right now handle spacing */
 }
 
 .nav-list {
   display: flex;
+  gap: 3rem;
   list-style: none;
   margin: 0;
   padding: 0;
-  gap: 3rem;
-  justify-content: flex-end;
-  align-items: center;
+  justify-content: flex-end; /* keep items right-aligned inside the nav bar */
 }
 
 .nav-list li { margin: 0; }
